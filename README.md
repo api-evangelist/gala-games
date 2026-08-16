@@ -42,5 +42,45 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Gala Games is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Gala (formerly Gala Games) is a Web3 gaming and entertainment company that operates
+GalaChain, a Hyperledger Fabric based Layer 1 built for games, music and film.
+
+Gala's public API surface is REST-first rather than RPC. The GalaChain Gateway publishes an
+OpenAPI document per deployed chaincode contract across eighteen mainnet channel/contract
+pairs, GalaConnect exposes token swaps and wallet creation, a Block Explorer API serves
+blocks and transactions with no credential at all, and the Gala DeFi backend serves the
+GalaSwap trading surface.
+
+- Website: https://gala.com/
+- Developer portal: https://galachain.com/
+- Documentation: https://docs.galachain.com/latest/
+- API reference: https://gateway-mainnet.galachain.com/docs
+- GitHub: https://github.com/GalaChain
+- Support: https://support.gala.com/hc/en-us
+
+## APIs profiled here
+
+| API | Base URL | Operations |
+|---|---|---|
+| GalaChain Token Contract | `https://gateway-mainnet.galachain.com/api/asset/token-contract` | 38 |
+| GalaChain DEX v3 Contract | `https://gateway-mainnet.galachain.com/api/asset/dexv3-contract` | 21 |
+| GalaChain Launchpad Contract | `https://gateway-mainnet.galachain.com/api/asset/launchpad-contract` | 8 |
+| GalaChain Fee Contract | `https://gateway-mainnet.galachain.com/api/asset/fee-contract` | 2 |
+| GalaChain Public Key Contract | `https://gateway-mainnet.galachain.com/api/asset/public-key-contract` | 2 |
+| GalaConnect | `https://api-galaswap.gala.com` | 28 |
+| Gala Block Explorer | `https://explorer-api.galachain.com` | 17 |
+| Gala DeFi Backend | `https://dex-backend-prod1.defi.gala.com` | 316 |
+
+## Notes from the profile
+
+- **Idempotency is mandatory, not optional.** Every write carries a caller-supplied
+  `uniqueKey` that GalaChain enforces at the ledger; a replay is rejected with
+  `UniqueTransactionConflictError`. See `conventions/`.
+- **No bearer tokens anywhere.** Writes are authenticated by a secp256k1 signature over the
+  deterministically-stringified request body. See `authentication/`.
+- **An MCP server exists but is stdio only** — `@gala-chain/launchpad-mcp-server`, 310 tools.
+  There is no hosted endpoint, and it covers the one Gala product that has no OpenAPI. See
+  `mcp/` and the tool crosswalk.
+- **No status page, no deprecation policy, no `/.well-known/` document of any kind.** The
+  former Gala Games Server API and Creators portal were retired without notice. See
+  `lifecycle/` and `well-known/`.

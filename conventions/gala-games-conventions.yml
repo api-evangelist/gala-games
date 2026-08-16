@@ -1,0 +1,187 @@
+generated: '2026-08-16'
+method: searched
+source: https://connect.gala.com/info/swagger.json (info.description) + https://raw.githubusercontent.com/GalaChain/sdk/main/docs/chaincode-development.md
+  + https://raw.githubusercontent.com/GalaChain/sdk/main/docs/integration-guide.md
+docs: https://docs.galachain.com/latest/integration-guide/
+summary: >-
+  GalaChain is REST-over-chaincode, not RPC and not a conventional CRUD API. Every
+  write is a POST of a signed DTO to a contract-method path, there are no PUT/PATCH/DELETE
+  verbs on the gateway, and the response envelope is a GalaChainResponse rather than
+  the resource. The single most important convention for an integrator is uniqueKey:
+  it is a mandatory, caller-supplied idempotency key on every write, enforced at the
+  ledger.
+authentication:
+  style: request-signature
+  summary: >-
+    No bearer tokens and no OAuth anywhere on the public surface. Writes are
+    authenticated by a secp256k1 signature over the request body, computed by the
+    caller's wallet private key and verified against the public key registered on
+    chain.
+  gateway:
+    signature_field: signature
+    public_key_field: signerPublicKey
+    signer_address_field: signerAddress
+    multisig_field: multisig
+    prefix_field: prefix
+    note: 'prefix carries the MetaMask personal_sign prefix so web3 signatures recover
+      correctly. multisig requires >= 2 signatures and signerAddress, and forbids signature
+      / signerPublicKey; signing scheme must be ETH.'
+  galaconnect:
+    wallet_header: X-Wallet-Address
+    signature_field: signature
+    public_key_field: signerPublicKey
+    algorithm: secp256k1 over the keccak256 hash of the deterministically-stringified
+      body (properties recursively sorted alphabetically), DER encoded, base64, with
+      s normalized to the lower half of the curve order n
+    read_operations: unauthenticated — swap discovery, balances, public key lookup and
+      /fee routes need no signature
+  defi_backend:
+    scheme: apiKey
+    header: X-Api-Key
+    scope: admin endpoints only, guarded by ApiKeyGuard. The public trade/explore/market
+      endpoints require no credential.
+  detail: authentication/gala-games-authentication.yml
+idempotency:
+  supported: true
+  mechanism: request-body field, not a header
+  field: uniqueKey
+  required_on: every write (submit) operation on the gateway and on GalaConnect
+  scope: global — enforced per ledger, across all callers, not per key or per account
+  enforcement: >-
+    "If the same uniqueKey is provided in two different transactions, the second
+    transaction is rejected with UniqueTransactionConflictError." GalaChain will not
+    permit two transactions with the same uniqueKey to commit to the chain.
+  retention: permanent — the uniqueKey is written to chain state, so the guarantee does
+    not expire the way a time-boxed idempotency cache does
+  error_on_replay: UniqueTransactionConflictError
+  recommended_format: 'GalaConnect requires the prefix galaconnect-operation- followed
+    by a globally unique value; the docs recommend a UUID, e.g. galaconnect-operation-dcdb4974-328b-440b-837d-ed53d80e60dd'
+  companion_field:
+    name: dtoExpiresAt
+    description: Unix epoch milliseconds after which the DTO is invalid. Bounds replay
+      exposure independently of uniqueKey. The docs example uses Date.now() + 300000
+      (5 minutes).
+  note: >-
+    This is a stronger idempotency contract than the usual Idempotency-Key header: it
+    is mandatory rather than opt-in, and the deduplication window is the lifetime of
+    the chain rather than a 24-hour cache. It is also weaker in one respect — because
+    the key lives in the signed body, a retry must reuse the identical signed payload.
+concurrency:
+  guidance: >-
+    Write operations against the same wallet must not be issued concurrently.
+    Concurrent transactions affecting one wallet can produce serialization failures,
+    returned as HTTP 409 Conflict. Callers should serialize writes per wallet.
+  read_conflicts: MVCC read conflicts are a documented GalaChain failure mode — see
+    https://docs.galachain.com/latest/concepts/mvcc-read-conflicts/
+pagination:
+  style: bookmark
+  summary: >-
+    Paginated gateway operations are published as separate WithPagination operations
+    rather than as parameters on the base operation — FetchBalancesWithPagination,
+    FetchTokenClassesWithPagination, FetchAllowancesWithPagination,
+    FetchNftCollectionAuthorizationsWithPagination. They take a bookmark and a limit
+    and return the next bookmark alongside results, the Hyperledger Fabric pagination
+    idiom.
+  request_fields: [bookmark, limit]
+  response_fields: [results, nextPageBookmark]
+  note: The DeFi backend uses conventional page/limit query parameters instead. The two
+    surfaces do not share a pagination convention.
+versioning:
+  scheme: mixed
+  gateway: unversioned path — the version lives in the deployed chaincode, surfaced as
+    info.version 3.0.2 on the gateway OpenAPI
+  galaconnect: uri-path — /v1/ prefix on GalaConnect-native operations, no prefix on
+    the /galachain/ passthrough operations
+  defi_backend: uri-path — /v1/ on trade and marketplace, unversioned on explore, market,
+    leaderboard and user
+  sdk: semver, currently 3.1.11
+  detail: lifecycle/gala-games-lifecycle.yml
+error_envelope:
+  galachain:
+    shape: GalaChainResponse
+    fields: [Status, Message, ErrorCode, ErrorKey, ErrorPayload]
+    note: 'A contract method that throws never partially commits: no state changes are
+      saved, the error is logged, and the transaction is still recorded in transaction
+      history. ErrorCode maps to the HTTP status.'
+  galaconnect_application:
+    fields: [error, errorId]
+    note: error carries a code such as INVALID_BODY; errorId is a unique id to quote to
+      support.
+  galaconnect_bubbled_chain_error:
+    fields: [message, error, errorId]
+    note: error is an object containing ErrorKey.
+  rfc9457: false
+  detail: errors/gala-games-problem-types.yml
+rate_limiting:
+  documented: true
+  scope: global per API (GalaConnect)
+  limit: 20 requests per 10 seconds
+  exhaustion_status: 429
+  headers_returned: [Retry-After]
+  note: Retry-After carries the whole number of seconds to wait. No X-RateLimit-* or
+    RateLimit-* headers are published on any Gala surface.
+  detail: rate-limits/gala-games-rate-limits.yml
+fees:
+  summary: >-
+    Gala publishes a machine-readable fee-quote convention that is unusual and worth
+    calling out: append /fee to ANY GalaConnect route path and POST the same body with
+    signature and uniqueKey omitted, and the API returns the fee schedule for that
+    operation. The /fee routes are deliberately not listed in the OpenAPI — the rule
+    applies to every route.
+  example: POST https://api-galaswap.gala.com/v1/RequestTokenSwap/fee
+  response_fields:
+  - fees[].type
+  - fees[].operationName
+  - fees[].galaChainMethod
+  - fees[].channel
+  - fees[].fee
+  - fees[].feeInGala
+  - fees[].feeToken
+  types:
+  - id: galachain_automatic
+    behaviour: deducted automatically from wallet balance on commit; caller does nothing
+  - id: galachain_cross_channel_authorization
+    behaviour: must be paid manually in advance via POST /v1/channels/{channel}/AuthorizeFee,
+      which burns GALA on the asset channel and credits a fee allowance on the target
+      channel. Encountered when operating on NFTs that live on non-asset channels.
+      Can be batched.
+  currency: GALA
+dry_run:
+  supported: true
+  operations: [asset_token-contract_DryRun, asset_dexv3-contract_DryRun, asset_fee-contract_DryRun,
+    asset_public-key-contract_DryRun]
+  description: Every gateway contract exposes a DryRun method that evaluates a DTO without
+    committing, returning the writes it would make. This is the safest pre-flight an
+    agent can run before a signed write.
+batching:
+  supported: true
+  operations: [asset_token-contract_BatchMintToken, asset_token-contract_BatchFillTokenSwap,
+    asset_token-contract_BatchRequestTokenBridgeOut, asset_dexv3-contract_BatchSubmit,
+    asset_launchpad-contract_BatchSubmit, TradeController_bundle, TradeController_bundleMultiple]
+identity:
+  address_forms:
+  - form: 'client|<24 hex chars>'
+    description: Gala platform account address, e.g. client|123456789abcdef012345678
+  - form: 'eth|<40 hex chars, no 0x>'
+    description: Ethereum-derived address, produced by headless wallet creation
+  registration: A public key must be registered on chain (public-key-contract) before
+    signatures from it verify.
+request_tracing:
+  request_id_header: null
+  mechanism: errorId in every GalaConnect error response is the correlation id to quote
+    to support; on chain, txid identifies the committed transaction.
+  observability: The SDK emits OpenTelemetry spans for Fabric invokes (added across
+    releases 3.1.5 - 3.1.10), so chaincode-side tracing exists, but no client-facing
+    trace header is documented.
+undocumented_fields:
+  policy: >-
+    The GalaConnect docs state plainly that some endpoints return additional properties
+    that are not documented, that such properties are not guaranteed to be stable, and
+    that applications should not rely on them. Treat the published schema as the
+    contract.
+cross_links:
+  errors: errors/gala-games-problem-types.yml
+  lifecycle: lifecycle/gala-games-lifecycle.yml
+  authentication: authentication/gala-games-authentication.yml
+  rate_limits: rate-limits/gala-games-rate-limits.yml
+  data_model: data-model/gala-games-data-model.yml

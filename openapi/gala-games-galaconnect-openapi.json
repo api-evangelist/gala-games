@@ -1,0 +1,3372 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "GalaConnect API Beta",
+    "description": "# Getting Started\n\nGalaConnect offers a public API for programmatic use cases.\n\nThe base URI for all requests is `https://api-galaswap.gala.com`.\n\n## Authentication\n\nUsing the GalaConnect API requires a Gala account, which can be created at [games.gala.com](https://games.gala.com).\n\nYou must have your GalaChain wallet address, private key, and public key, in order to use the API.\n\nAny write operation (creating swaps, accepting swaps, terminating swaps) via the API needs the following in order to be accepted by GalaChain:\n\n1. Your GalaChain wallet address as an `X-Wallet-Address` header.\n2. Your GalaChain public key as a `signerPublicKey` property in the request body, in base64 encoding.\n3. A signature for the request body signed with your private key, as a `signature` property in the request body.\n\n### Creating a Wallet\n\nAfter creating an account on [games.gala.com](https://games.gala.com), visit [account settings](https://games.gala.com/account?component=GyriPassphrase) and follow the instructions to create a GalaChain \"transfer code\", which also initializes your GalaChain wallet. Keep your transfer code safe and secure. You will need it in the next step.\n\n### Getting your Private Key\n\nOnce you have a GalaChain wallet, visit [account settings](https://games.gala.com/account?component=GalaChainPrivateKey&plaintext) and download your GalaChain private key. Note that this link has a `&plaintext` query parameter to trigger it to download your private key in plaintext as an advanced user. This key is used to sign requests to the GalaConnect API. Your key will be downloaded in a text file which will also contain your GalaChain wallet address, which will look something like `client|123456789abcdef012345678`, and which you should provide in API requests as the `X-Wallet-Address` header.\n\n### Getting your Public Key\n\nTo get your public key, you can make the following request to the GalaConnect API, substituting your GalaChain wallet address for `YOUR_WALLET_ADDRESS_HERE`:\n\n```bash\ncurl --request POST \\\n  --url https://api-galaswap.gala.com/galachain/api/asset/public-key-contract/GetPublicKey \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"user\": \"YOUR_WALLET_ADDRESS_HERE\"}'\n```\n\nYour public key will be returned as a base64 encoded string in the response body. It will look something like `Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY`. For any request that requires a signature, you must include your public key in the request body as a `signerPublicKey` property.\n\n### Request Signing\n\nAny request to the GalaConnect API that executes a write operation (creating swaps, accepting swaps, terminating swaps) must be signed using your GalaChain private key with a secp256k1 signature.\n\nTo calculate the signature for a request, first recursively order the properties of the request body alphabetically by name. Then, stringify the object to a minimal JSON string. Use your private key to calculate the signature on the keccak256 hash of the stringified object. The signature must be [normalized](https://wiki.hyperledger.org/display/BESU/SECP256R1+Support) such that it's less than or equal to half of the secp256k1 curve's order n. Provide the signature in the request body as a property named \"signature\".\n\nHere is TypeScript code that demonstrates how to correctly implement signing in Node.js:\n\n```js\nimport stringify from 'json-stringify-deterministic';\nimport ellipticPkg from 'elliptic';\nimport jsSha3Pkg from 'js-sha3';\nimport BN from 'bn.js';\n\nconst { keccak256 } = jsSha3Pkg;\nconst { ec: EC } = ellipticPkg;\nconst ecSecp256k1 = new EC('secp256k1');\n\nexport function signObject<TInputType extends object>(\n  obj: TInputType,\n  privateKey: string\n): TInputType & { signature: string } {\n  const toSign = { ...obj };\n\n  if ('signature' in toSign) {\n    delete toSign.signature;\n  }\n\n  const stringToSign = stringify(toSign);\n  const stringToSignBuffer = Buffer.from(stringToSign);\n\n  const keccak256Hash = Buffer.from(keccak256.digest(stringToSignBuffer));\n  const privateKeyBuffer = Buffer.from(privateKey.replace(/^0x/, ''), 'hex');\n\n  const signature = ecSecp256k1.sign(keccak256Hash, privateKeyBuffer);\n\n  // Normalize the signature if it's greater than half of order n\n  if (signature.s.cmp(ecSecp256k1.curve.n.shrn(1)) > 0) {\n    const curveN = ecSecp256k1.curve.n;\n    const newS = new BN(curveN).sub(signature.s);\n    const newRecoverParam = signature.recoveryParam != null ? 1 - signature.recoveryParam : null;\n    signature.s = newS;\n    signature.recoveryParam = newRecoverParam;\n  }\n\n  const signatureString = Buffer.from(signature.toDER()).toString('base64');\n\n  return {\n    ...toSign,\n    signature: signatureString,\n  };\n}\n```\n\nFor example, if your private key were `0x0000000000000000000000000000000000000000000000000000000000000001`, then a request body with the following content:\n\n```js\n{\n  \"gala\": \"swap\",\n  \"is\": \"a\",\n  \"decentralized\": \"exchange\",\n  \"on\": \"galachain\",\n  \"uniqueKey\": \"galaconnect-operation-dcdb4974-328b-440b-837d-ed53d80e60dd\",\n  \"signerPublicKey\": \"Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY\"\n}\n```\n\nWould have the signature `MEQCIExBcdA40VmP3a/efnM6J3E/VyN3HgTTXXXsMVPsc3sWAiBIxFesuT74Ge2PWoyrmIcual4UZGO8D8GgNDor93d26Q==`, and the operation would be sent in the request body to the GalaConnect API as follows:\n\n```js\n{\n  \"gala\": \"swap\",\n  \"is\": \"a\",\n  \"decentralized\": \"exchange\",\n  \"on\": \"galachain\",\n  \"uniqueKey\": \"galaconnect-operation-dcdb4974-328b-440b-837d-ed53d80e60dd\",\n  \"signerPublicKey\": \"Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY\",\n  \"signature\": \"MEQCIExBcdA40VmP3a/efnM6J3E/VyN3HgTTXXXsMVPsc3sWAiBIxFesuT74Ge2PWoyrmIcual4UZGO8D8GgNDor93d26Q==\"\n}\n```\n\n### Unique Key\n\nAll write operations require a `uniqueKey` in the request body, as shown in the example above. The uniqueKey should be prefixed with `galaconnect-operation-`. The rest is up to you, but must be globally unique. Using a UUID is a good choice. This key is used to prevent replay attacks and potential repeat submission of operations in the case of retries. GalaChain will not permit two transactions with the same uniqueKey to commit to the chain.\n\n### Headless Wallet\n\nInstead of creating a full Gala platform account on games.gala.com, it is also possible to create a \"headless\" wallet via the GalaConnect API if you prefer, by using the `CreateHeadlessWallet` endpoint. You must provide a public key for the new wallet (unlike elsewhere in the API, you must provide the public key here in lowercase hexadecimal encoding, preceded by `0x`).\n\nTo generate an address and keys for your new headless wallet, the following JavaScript code using the `ethers` library in Node.js will work:\n\n```js\nconst ethers = require('ethers');\nconst newWallet = ethers.Wallet.createRandom();\nconsole.log('Public key:', newWallet.publicKey);\nconsole.log('Private key:', newWallet.privateKey);\nconsole.log('X-Wallet-Address', `eth|${newWallet.address.replace('0x', '')}`);\n```\n\nBe sure to keep your private key safe and secure as it cannot be recovered if lost.\n\nCreating a headless wallet is effectively the same as connecting a Web3 wallet to the GalaConnect website client, and you can use headless wallets and Web3 wallets interchangeably with both the GalaConnect API and website client.\n\n## Uses\n\nSwaps on GalaChain have a concept of `uses`, representing a division of the swap into discrete units that can be accepted separately. For example, a swap may offer 1000 $GALA for 2000 $SILK with five uses. When accepting this swap via the `BatchFillTokenSwap` endpoint, you may choose to use between one and five of those uses. If you choose to use all five uses, then you will receive 5000 $GALA in exchange for 10000 $SILK. If you choose to use only two uses, then you will receive 2000 $GALA in exchange for 4000 $SILK.\n\nA swap remains active on GalaConnect until all of its uses have been accepted (or its creator terminates it). If a swap has already had two of its five uses accepted, then you can only accept up to the remaining three uses (which would be 3000 $GALA for 6000 $SILK in this case). You can determine how many uses of a swap have already been used by checking the `usesSpent` property returned from the `FetchAvailableTokenSwaps` endpoint.\n\nWhen creating swaps via the API, it's best to create swaps with tiny quantity and huge number of uses. This makes your swap more flexible for swappers who may have a very specific amount of tokens they want to swap. When swaps are created via the GalaConnect website client, the quantities and uses are automatically optimized for the swap creator, so swaps created via the website client will always have low quantity and high uses.\n\nThe GalaConnect website client uses TypeScript code similar to the following to automatically optimize quantity and uses:\n\n```js\nimport BigNumber from 'bignumber.js';\n\nconst greatestCommonDivisor = (a: BigNumber, b: BigNumber): BigNumber =>\n  a.isZero() ? b : greatestCommonDivisor(b.mod(a), a);\n\nexport function calculateSwapQuantitiesAndUsesValues(\n  givingTokenDecimals: number,\n  receivingTokenDecimals: number,\n  givingTokenAmount: BigNumber,\n  receivingTokenAmount: BigNumber,\n) {\n  const givingTokenQuantumAmount = BigNumber(\n    givingTokenAmount.toFixed(givingTokenDecimals, BigNumber.ROUND_FLOOR),\n  ).multipliedBy(BigNumber(10).pow(givingTokenDecimals));\n\n  const receivingTokenQuantumAmount = BigNumber(\n    receivingTokenAmount.toFixed(receivingTokenDecimals, BigNumber.ROUND_FLOOR),\n  ).multipliedBy(BigNumber(10).pow(receivingTokenDecimals));\n\n  const gcd = greatestCommonDivisor(givingTokenQuantumAmount, receivingTokenQuantumAmount);\n\n  const givingTokenQuantity = givingTokenQuantumAmount\n    .dividedBy(gcd)\n    .dividedBy(BigNumber(10).pow(givingTokenDecimals));\n\n  const receivingTokenQuantity = receivingTokenQuantumAmount\n    .dividedBy(gcd)\n    .dividedBy(BigNumber(10).pow(receivingTokenDecimals));\n\n  const uses = gcd;\n\n  return {\n    givingTokenQuantity,\n    receivingTokenQuantity,\n    uses,\n  };\n}\n```\n\nFor example if we want to swap a total of 1000 $GALA for 2000 $SILK (both of which have 8 decimals places), then the inputs to this function are `8, 8, 1000, 2000` and the output is:\n\n```js\n{\n  \"givingTokenQuantity\": \"0.00000001\",\n  \"receivingTokenQuantity\": \"0.00000002\",\n  \"uses\": \"100000000000\"\n}\n```\n\nIf we create a new swap with these parameters, then swappers can choose exactly how much they want to swap, with such high granularity that they can effectively swap any amount of $SILK they want up to the total swap size of 2000.\n\nNote that the ability to break down swaps with high granularity requires that the swap creator not have an excessively precise total quantity that they want to swap. For example if we call this function with parameters `8, 8, 1000.00000001, 2000.00000001` then we cannot break that down at all, and the output is:\n\n```js\n{\n  \"givingTokenQuantity\": \"1000.00000001\",\n  \"receivingTokenQuantity\": \"2000.00000001\",\n  \"uses\": \"1\"\n}\n```\n\nIt is advisable to round your total quantities to use no more than four decimal places less than the maximum number of decimal places supported by the tokens you are swapping. For example, use no more than four decimal places when creating swaps for tokens that support up to eight decimal places, such as $GALA and $SILK. This guarantees that any swap you create can have at least ten thousand uses.\n\n## GalaChain Fees\n\nSome GalaChain operations have fees associated with them. To get the current GalaChain fees for any operation, make a request as you normally would, but add `/fee` to the end of the path. You should also omit the `signature` and `uniqueKey` fields from the request body.\n\nThe `/fee` routes are not explicitly listed in the route reference below, but the previously described logic applies to all routes. Note that the fee to create a project token is a separate concept. That fee is not a chaincode fee and is levied in addition to the chaincode fees returned by the `/v1/CreateProjectToken/fee` route (if any).\n\nAs an example, to get the GalaChain fees for creating a swap, make a `POST` request to `https://api-galaswap.gala.com/v1/RequestTokenSwap/fee`. Here is an example of what this endpoint will return:\n\n```js\n{\n  \"fees\": [\n    {\n      \"type\": \"galachain_automatic\",\n      \"operationDto\": {\n        \"offered\": [\n          {\n            \"quantity\": \"10\",\n            \"tokenInstance\": {\n              \"collection\": \"SILK\",\n              \"category\": \"Unit\",\n              \"type\": \"none\",\n              \"additionalKey\": \"none\",\n              \"instance\": \"0\"\n            }\n          }\n        ],\n        \"wanted\": [\n          {\n            \"quantity\": \"20\",\n            \"tokenInstance\": {\n              \"collection\": \"GALA\",\n              \"category\": \"Unit\",\n              \"type\": \"none\",\n              \"additionalKey\": \"none\",\n              \"instance\": \"0\"\n            }\n          }\n        ],\n        \"uses\": \"1\"\n      },\n      \"operationName\": \"RequestTokenSwap\",\n      \"galaChainMethod\": \"RequestTokenSwap\",\n      \"channel\": \"asset\",\n      \"fee\": \"1\",\n      \"feeInGala\": \"1\",\n      \"feeToken\": \"GALA|Unit|none|none\"\n    }\n  ]\n}\n```\n\nThe fee amount in this example is `1` $GALA, as read from the `feeInGala` field. Some operations may return multiple fees, which you can sum together for the total fee. Fees are always in $GALA.\n\nThere are two `type`s of fees and they must be treated quite differently:\n\n### galachain_automatic\n\nYou do not need to do anything special to pay this fee. It is automatically deducted from your wallet balance when you submit your operation and it commits to GalaChain.\n\n### galachain_cross_channel_authorization\n\nThis type of fee must be paid manually and is levied for certain operations on channels besides the asset channel. You will not encounter this type of fee if you only operate on tokens that are swappable on GalaConnect. However you may encounter this type of fee if you use the `/galachain/` endpoints to operate on NFTs, which often exist on channels other than the asset channel.\n\nTo pay the `feeInGala` in such cases, you must make a request to the `/v1/channels/{channel}/AuthorizeFee` endpoint documented below. Making a request to this endpoint will burn $GALA on the asset channel, and give you a fee credit on the target channel. You can then carry out your operation on the target channel. You may also batch and pay this fee in advance if you choose to. For example if you know that you need to transfer ten NFTs and you know that each transfer will cost one $GALA, you may make a single request to `/v1/channels/{channel}/AuthorizeFee` to authorize a fee of ten $GALA, and then you can perform the ten transfers.\n\n## Rate Limiting\n\nThe GalaConnect API has a global rate limit of 20 requests per every 10 seconds. If you exceed the limit, you will receive a `429 Too Many Requests` response. The response will contain a `Retry-After` header indicating the number of seconds you must wait before making another request. For example if you must wait 5 seconds before making another request, the API will send a 429 response containing a `Retry-After` header whose value is `5`.\n\nIn addition, you should avoid performing write operations (such as creating swaps) concurrently, as concurrent transactions affecting the same wallet may result in serialization failures, which would be returned as a `409 Conflict` response.\n\nThe rate limiting policy is subject to change, thus code that uses the API should be prepared for the possibility of being rate limited. If you need a higher rate limit, please contact support@gala.com.\n\n## Errors\n\nThe GalaConnect API returns two classes of errors:\n\n### GalaConnect Errors\n\nGalaConnect errors are errors that occur in GalaConnect's application code, as opposed to GalaChain chaincode. GalaConnect errors will always be returned as an object with:\n\n1. An `error` property containing an error code, such as `INVALID_BODY`.\n2. An `errorId` property with a unique ID for the error. You should record and share this ID with Gala support if you need assistance with the error.\n\nErrors may also contain additional properties with more specific information, such as request validation failure details.\n\n### GalaChain Errors\n\nGalaChain errors are returned when GalaChain chaincode encounters an error, which is then bubbled up through the GalaConnect application and back to you. GalaChain errors will be returned as an object with:\n\n1. A `message` property containing a description of the error.\n2. An `error` property containing an object with more details about the error, including an `ErrorKey` property with a specific error code.\n3. An `errorId` property with a unique ID for the error. You should record and share this ID with Gala support if you need assistance with the error.\n\n## Undocumented Response Properties\n\nSome endpoints may return additional properties that are not documented here. Such properties are not guaranteed to be stable and should not be relied upon in your application.\n\n# API Recipes\n\nLet's look at example requests for some common operations. For all of these requests we are using this wallet:\n\n1. Wallet address: `client|123456789abcdef012345678`\n2. Public key: `Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY`\n3. Private key: `0x0000000000000000000000000000000000000000000000000000000000000001`\n\nThis is not a real wallet, so making these requests verbatim will fail. You would need to use your own credentials in place of the above. You would also need to provide a different `uniqueKey` that is globally unique.\n\nThe signatures in the examples are however correct (using the private key shown above and the `uniqueKey` shown in the request body), so you can use them as a reference to help validate your signing code.\n\n## Fetch Available $GALA to $SILK Swaps\n\nLet's get a list of swaps where we can trade our $GALA for another wallet's $SILK.\n\n```js\nfetch('https://api-galaswap.gala.com/v1/FetchAvailableTokenSwaps', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n  },\n  body: JSON.stringify({\n    offeredTokenClass: {\n      collection: 'GALA',\n      category: 'Unit',\n      type: 'none',\n      additionalKey: 'none',\n    },\n    wantedTokenClass: {\n      collection: 'SILK',\n      category: 'Unit',\n      type: 'none',\n      additionalKey: 'none',\n    },\n  }),\n});\n```\n\nResponse:\n\n```js\n{\n  \"results\": [\n    {\n      \"offeredTokenClass\": \"SILK|Unit|none|none\",\n      \"wantedTokenClass\": \"GALA|Unit|none|none\",\n      \"created\": 1712230114698,\n      \"expires\": 0,\n      \"offered\": [\n        {\n          \"quantity\": \"192\",\n          \"tokenInstance\": {\n            \"additionalKey\": \"none\",\n            \"category\": \"Unit\",\n            \"collection\": \"SILK\",\n            \"instance\": \"0\",\n            \"type\": \"none\"\n          }\n        }\n      ],\n      \"offeredBy\": \"client|222222222222222222222222\",\n      \"swapRequestId\": \"\\u0000GCTSR\\u00001712230114698\\u00004e4c85d5f313ff871d2d677ac72d52c8cfc748bdc821f9d4a3f57395eec9d6c9\\u0000\",\n      \"uses\": \"1\",\n      \"usesSpent\": \"0\",\n      \"wanted\": [\n        {\n          \"quantity\": \"68\",\n          \"tokenInstance\": {\n            \"additionalKey\": \"none\",\n            \"category\": \"Unit\",\n            \"collection\": \"GALA\",\n            \"instance\": \"0\",\n            \"type\": \"none\"\n          }\n        }\n      ]\n    }\n  ]\n}\n```\n\n## Accept a Swap\n\nLet's accept the swap we found in the previous example. This request requires authentication.\n\n```js\nfetch('https://api-galaswap.gala.com/v1/BatchFillTokenSwap', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'X-Wallet-Address': 'client|123456789abcdef012345678',\n  },\n  body: JSON.stringify({\n    swapDtos: [\n      {\n        swapRequestId:\n          '\\u0000GCTSR\\u00001712230114698\\u00004e4c85d5f313ff871d2d677ac72d52c8cfc748bdc821f9d4a3f57395eec9d6c9\\u0000',\n        uses: '1',\n        expectedTokenSwap: {\n          wanted: [\n            {\n              quantity: '68',\n              tokenInstance: {\n                additionalKey: 'none',\n                category: 'Unit',\n                collection: 'GALA',\n                instance: '0',\n                type: 'none',\n              },\n            },\n          ],\n          offered: [\n            {\n              quantity: '192',\n              tokenInstance: {\n                additionalKey: 'none',\n                category: 'Unit',\n                collection: 'SILK',\n                instance: '0',\n                type: 'none',\n              },\n            },\n          ],\n        },\n      },\n    ],\n    uniqueKey: 'galaconnect-operation-1',\n    signerPublicKey: 'Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY',\n    signature:\n      'MEQCIEtyGcJDz9ulqt5Uk+epQbcZWFkwxBVRuLO/wcg3oUhBAiAOPDHZF8h5Sb5oUt5z1AWNqUWJcFsQBkUMt7ReEIZ22w==',\n  }),\n});\n```\n\n## Create a Swap\n\nLet's create a swap where we offer 1000 $GALA for 2000 $SILK. This request requires authentication.\n\n```js\nfetch('https://api-galaswap.gala.com/v1/RequestTokenSwap', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'X-Wallet-Address': 'client|123456789abcdef012345678',\n  },\n  body: JSON.stringify({\n    offered: [\n      {\n        quantity: '1000',\n        tokenInstance: {\n          collection: 'GALA',\n          category: 'Unit',\n          type: 'none',\n          additionalKey: 'none',\n          instance: '0',\n        },\n      },\n    ],\n    wanted: [\n      {\n        quantity: '2000',\n        tokenInstance: {\n          collection: 'SILK',\n          category: 'Unit',\n          type: 'none',\n          additionalKey: 'none',\n          instance: '0',\n        },\n      },\n    ],\n    uses: '1',\n    uniqueKey: 'galaconnect-operation-1',\n    signerPublicKey: 'Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY',\n    signature:\n      'MEUCIQDdwEEGoLF/2pZizVeAeQGl3wBALQw1Dbh/4R6QR3RTiQIgFEwt1K+GgzhGyh6vPyEt8XF24u0d1pCOz78ct3Yhk7k=',\n  }),\n});\n```\n\nResponse:\n\n```js\n{\n  \"Status\": 1,\n  \"Data\": {\n    \"created\": 1712241257995,\n    \"expires\": 0,\n    \"fillIds\": [],\n    \"offered\": [\n      {\n        \"quantity\": \"1000\",\n        \"tokenInstance\": {\n          \"additionalKey\": \"none\",\n          \"category\": \"Unit\",\n          \"collection\": \"GALA\",\n          \"instance\": \"0\",\n          \"type\": \"none\"\n        }\n      }\n    ],\n    \"offeredBy\": \"client|123456789abcdef012345678\",\n    \"swapRequestId\": \"\\u0000GCTSR\\u00001712241257995\\u0000f096cfda086df84a8ee38980b2c14cc9785930bf66dcf3e0448d661127e369b7\\u0000\",\n    \"txid\": \"f096cfda086df84a8ee38980b2c14cc9785930bf66dcf3e0448d661127e369b7\",\n    \"uses\": \"1\",\n    \"usesSpent\": \"0\",\n    \"wanted\": [\n      {\n        \"quantity\": \"2000\",\n        \"tokenInstance\": {\n          \"additionalKey\": \"none\",\n          \"category\": \"Unit\",\n          \"collection\": \"SILK\",\n          \"instance\": \"0\",\n          \"type\": \"none\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Fetch the Fee to Terminate a Swap\n\nLet's check if there is a fee to terminate (cancel) the swap that we just created.\n\n```js\nfetch('https://api-galaswap.gala.com/v1/TerminateTokenSwap/fee', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'X-Wallet-Address': 'client|123456789abcdef012345678',\n  },\n  body: JSON.stringify({\n    swapRequestId:\n      '\\u0000GCTSR\\u00001712241257995\\u0000f096cfda086df84a8ee38980b2c14cc9785930bf66dcf3e0448d661127e369b7\\u0000',\n    signerPublicKey: 'Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY',\n  }),\n});\n```\n\nResponse:\n\n```js\n{\n  \"fees\": [\n    {\n      \"type\": \"galachain_automatic\",\n      \"operationDto\": {\n        \"swapRequestId\": \"GCTSR1710792378701ce0ec09292994e537eda883d8c40668a17641cb085d4c1fee8816ef41d91560e\"\n      },\n      \"operationName\": \"TerminateTokenSwap\",\n      \"galaChainMethod\": \"TerminateTokenSwap\",\n      \"channel\": \"asset\",\n      \"fee\": \"0\"\n      \"feeToken\": \"GALA|Unit|none|none\"\n    }\n  ]\n}\n```\n\nThe fee is zero $GALA.\n\n## Terminate a Swap\n\nLet's go ahead and terminate (cancel) the above swap that we just created.\n\n```js\nfetch('https://api-galaswap.gala.com/v1/TerminateTokenSwap', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'X-Wallet-Address': 'client|123456789abcdef012345678',\n  },\n  body: JSON.stringify({\n    swapRequestId:\n      '\\u0000GCTSR\\u00001712241257995\\u0000f096cfda086df84a8ee38980b2c14cc9785930bf66dcf3e0448d661127e369b7\\u0000',\n    uniqueKey: 'galaconnect-operation-1',\n    signerPublicKey: 'Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY',\n    signature:\n      'MEUCIQDqI9xkV2tocjBzpLMqI0WwFkVlieMaOt/nFIoSq9uoRgIgIcbGQ7kwXre2SDFOow62AoIc9Z9TfdZtiLE/cNEUDcI=',\n  }),\n});\n```\n",
+    "x-logo": {
+      "url": "https://connect.gala.com/img/hero-image.png",
+      "backgroundColor": "rgb(18, 18, 18)",
+      "altText": "GalaConnect logo"
+    }
+  },
+  "paths": {
+    "theme": {
+      "openapi": {
+        "theme": {
+          "codeBlock": {
+            "tokens": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            }
+          },
+          "components": {
+            "buttons": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            },
+            "httpBadges": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            }
+          },
+          "sidebar": {
+            "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji",
+            "backgroundColor": "rgb(18, 18, 18)",
+            "textColor": "white"
+          },
+          "rightPanel": {
+            "textColor": "white",
+            "backgroundColor": "rgb(18, 18, 18)"
+          },
+          "typography": {
+            "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji",
+            "fieldName": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            },
+            "links": {
+              "color": "#0090cc"
+            },
+            "heading1": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            },
+            "heading2": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            },
+            "heading3": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            },
+            "headings": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            },
+            "rightPanelHeading": {
+              "fontFamily": "Figtree,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+            }
+          }
+        }
+      }
+    },
+    "/v1/tokens": {
+      "get": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Get Tokens",
+        "description": "Get a list of tokens available on GalaConnect. By default, only \"trending\" tokens are returned. To get other tokens, use the `searchprefix` query parameter to search for them. Note that price information is not guaranteed, and the `currentPrices` property may be an empty object. Token prices are sourced from CoinGecko when possible. For project tokens (created by GalaConnect users) the price shown will be a historical average of the price that the token has been swapped at on GalaConnect. If there is no swap history yet for a project token, then its price will be assigned based on the amount of $GALA the creator burned to create it.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "searchprefix",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Perform a case-insensitive prefix search for tokens. The searched fields for each token are `symbol`, `name`, `priceSymbol`."
+          },
+          {
+            "in": "query",
+            "name": "symbols",
+            "schema": {
+              "type": "string"
+            },
+            "description": "A comma-separated list of token symbols to fetch. If provided, only tokens with these symbols will be returned."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "tokens"
+                  ],
+                  "properties": {
+                    "tokens": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SwappableToken"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/FetchAvailableTokenSwaps": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Get Swaps",
+        "description": "Get a list of available swaps for the provided token pair. The `wantedTokenClass` should be the token that you want to receive, and the `offeredTokenClass` should be the token that you are willing to give in exchange. Up to 100 results are returned, ordered such that the ones with the best exchange rate (for you) come first. Note that in the response body, the perspective and meaning of \"offered\" and \"wanted\" is reversed compared to the request body. The \"offered\" field in the response is what the swap creator is offering, and the \"wanted\" field is what they want from you in exchange.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "offeredTokenClass",
+                  "wantedTokenClass"
+                ],
+                "properties": {
+                  "offeredTokenClass": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/TokenClass"
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "collection"
+                        ],
+                        "properties": {
+                          "collection": {
+                            "type": "string",
+                            "example": "SILK"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "wantedTokenClass": {
+                    "$ref": "#/components/schemas/TokenClass"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "results"
+                  ],
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Swap"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/BatchFillTokenSwap": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Accept Swaps",
+        "description": "Accept one or more swaps that are being offered on GalaConnect.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "swapDtos",
+                      "signature",
+                      "signerPublicKey"
+                    ],
+                    "properties": {
+                      "swapDtos": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "swapRequestId",
+                            "uses"
+                          ],
+                          "properties": {
+                            "swapRequestId": {
+                              "type": "string",
+                              "example": "\u0000GCTSR\u00001706318260580\u00009b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2\u0000",
+                              "description": "The ID of the swap to accept."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "example": "1",
+                              "description": "How many units of the swap to accept."
+                            },
+                            "expectedTokenSwap": {
+                              "type": "object",
+                              "description": "Optional but highly recommended. Provide the details of the swap you're accepting, including the quantity of tokens you expect to give and receive. In this future it may be possible to edit existing swaps, so by providing this property you defend yourself against accepting a swap that has changed after you fetched it.",
+                              "required": [
+                                "offered",
+                                "wanted"
+                              ],
+                              "properties": {
+                                "offered": {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/components/schemas/SwapOffered"
+                                  }
+                                },
+                                "wanted": {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/components/schemas/SwapWanted"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "swapRequestId",
+                          "created"
+                        ],
+                        "properties": {
+                          "swapRequestId": {
+                            "type": "string",
+                            "example": "\u0000GCTSR\u00001706318260580\u00009b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2\u0000"
+                          },
+                          "created": {
+                            "type": "number",
+                            "example": 1707179736229
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/RequestTokenSwap": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Create Swap",
+        "description": "Create a swap that other wallets will be able to see and accept.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NewSwap"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "$ref": "#/components/schemas/Swap"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/TerminateTokenSwap": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Cancel Swap",
+        "description": "Cancel (terminate) a swap that you created.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "swapRequestId"
+                    ],
+                    "properties": {
+                      "swapRequestId": {
+                        "type": "string",
+                        "example": "\u0000GCTSR\u00001706318260580\u00009b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2\u0000",
+                        "description": "The ID of the swap to cancel."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "$ref": "#/components/schemas/Swap"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/CreateHeadlessWallet": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Create Headless Wallet",
+        "description": "Create a new headless wallet.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "publicKey"
+                ],
+                "properties": {
+                  "publicKey": {
+                    "type": "string",
+                    "example": "0x02c5953291283d92392fad8d7ed2f77a976c35a472a5554dbe63c2269eacd8ff52",
+                    "description": "The public key for the new wallet in lowercase hex format, preceded by 0x."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "walletAddress",
+                    "publicKey"
+                  ],
+                  "properties": {
+                    "walletAddress": {
+                      "type": "string",
+                      "example": "eth|4098698F65985F8C47DB8fBDdb47C90c36499a77",
+                      "description": "The address of the new wallet. Use this for the `X-Wallet-Address` header in future signed requests."
+                    },
+                    "publicKey": {
+                      "type": "string",
+                      "example": "AsWVMpEoPZI5L62NftL3epdsNaRypVVNvmPCJp6s2P9S",
+                      "description": "The public key of the new wallet. Use this as the `signerPublicKey` request body property in future signed requests."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/FetchBalances": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "summary": "Get Balances",
+        "description": "Use this endpoint to retrieve your wallet's balances on GalaChain. Some of your tokens may be locked (see the `lockedHolds` property in the response). Tokens are locked when they are currently being offered in an active swap, or may have been locked elsewhere on the Gala platform. Locked tokens cannot be used to create new swaps or to fill (accept) swaps, so you will generally want to subtract the quantity of locked tokens from your total overall `quantity` to decide how much you have available to use at the moment.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "owner"
+                ],
+                "properties": {
+                  "owner": {
+                    "type": "string",
+                    "example": "client|0123456789abcdef01234567",
+                    "description": "Your wallet address."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "collection",
+                          "category",
+                          "type",
+                          "additionalKey",
+                          "quantity",
+                          "instanceIds",
+                          "lockedHolds"
+                        ],
+                        "properties": {
+                          "collection": {
+                            "type": "string",
+                            "example": "Gala"
+                          },
+                          "category": {
+                            "type": "string",
+                            "example": "Unit"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "none"
+                          },
+                          "additionalKey": {
+                            "type": "string",
+                            "example": "none"
+                          },
+                          "quantity": {
+                            "type": "string",
+                            "example": "12.345678",
+                            "description": "The quantity of the token that the wallet possesses. This is a decimal number represented as a string. If you need to do arithmetic with this number, it is recommend to use a library like `bignumber.js` for arbitrary precision."
+                          },
+                          "instanceIds": {
+                            "description": "For non-fungible tokens, an array of the instance IDs of the tokens that the wallet possesses. For fungible tokens, this will always be an empty array.",
+                            "example": [],
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "lockedHolds": {
+                            "description": "An array of locks that are currently in place on the wallet's tokens of this class (if any). When a token is locked, the locked quantity cannot be used to create new swaps or to fill swaps. For example if a wallet has 1000 $GALA but a total of 200 $GALA is locked, then the wallet effectively only has 800 $GALA to work with for creating or filling swaps.",
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "expires",
+                                "instanceId",
+                                "quantity"
+                              ],
+                              "properties": {
+                                "expires": {
+                                  "type": "number",
+                                  "description": "The Unix timestamp at which the lock will expire. This number is in milliseconds.",
+                                  "example": 1702319713645
+                                },
+                                "instanceId": {
+                                  "example": "0",
+                                  "type": "string",
+                                  "description": "The instance ID of the token that is locked. For fungible tokens, this will always be zero."
+                                },
+                                "quantity": {
+                                  "example": "250.5",
+                                  "type": "string",
+                                  "description": "The quantity of the token that is locked as a stringified decimal number. For non-fungible tokens, this will always be \"1\"."
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "The name of the lock, if one was provided when the lock was created. This is an arbitrary string that can be used to help identify the purpose of the lock, and may or may not be understandable to a user."
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/FetchAllowances": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "summary": "Get Allowances",
+        "description": "Use this endpoint to check your wallet's allowances on GalaChain. An allowance is a permission granted to you by another wallet, and allows you to perform operations that you wouldn't otherwise be able to do, such as locking or burning someone else's tokens.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "grantedTo"
+                ],
+                "properties": {
+                  "grantedTo": {
+                    "type": "string",
+                    "example": "client|0123456789abcdef01234567",
+                    "description": "The wallet address to fetch allowances for."
+                  },
+                  "collection": {
+                    "type": "string",
+                    "example": "GALA",
+                    "description": "A `collection` to filter by. Only allowances for tokens whose `collection` is this value will be returned."
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "Unit",
+                    "description": "A `category` to filter by. Only allowances for tokens whose `category` is this value will be returned. If you specify this, you MUST also specify `collection`."
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "none",
+                    "description": "A `type` to filter by. Only allowances for tokens whose `type` is this value will be returned. If you specify this, you MUST also specify `category`."
+                  },
+                  "additionalKey": {
+                    "type": "string",
+                    "example": "none",
+                    "description": "An `additionalKey` to filter by. Only allowances for tokens whose `additionalKey` is this value will be returned. If you specify this, you MUST also specify `type`."
+                  },
+                  "instance": {
+                    "type": "string",
+                    "example": "0",
+                    "description": "An `instance` to filter by. Only allowances for tokens whose `instance` is this value will be returned. If you specify this, you MUST also specify `additionalKey`."
+                  },
+                  "allowanceType": {
+                    "$ref": "#/components/schemas/AllowanceType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Allowance"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/asset/token-contract/FetchTokenSwapsOfferedByUser": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Get Swaps by User",
+        "description": "Use this endpoint to fetch a list of swaps that you have created on GalaChain. This will include swaps that are currently active, and may also include swaps that are already expired or fully used.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "user"
+                ],
+                "properties": {
+                  "limit": {
+                    "type": "number",
+                    "example": 100,
+                    "description": "The maximum number of swaps to fetch in this request."
+                  },
+                  "bookmark": {
+                    "type": "string",
+                    "description": "After making a request to this endpoint and receiving a response, you can use the `nextPageBookMark` property from the response to fetch the next page of results, by providing it here as the `bookmark` property in your next request."
+                  },
+                  "user": {
+                    "type": "string",
+                    "example": "client|0123456789abcdef01234567"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "object",
+                      "required": [
+                        "nextPageBookMark",
+                        "results"
+                      ],
+                      "properties": {
+                        "nextPageBookMark": {
+                          "type": "string",
+                          "description": "A bookmark that can be used to fetch the next page of results. If this property is an empty string, there are no more results to fetch."
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Swap"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/FetchMintAllowanceSupply": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "summary": "Get Mint Allowance Supply",
+        "description": "Use this endpoint to fetch the mint allowance supply data for a given token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenClass"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "object",
+                      "required": [
+                        "supply"
+                      ],
+                      "properties": {
+                        "supply": {
+                          "type": "string",
+                          "example": "10000000000"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/FetchTokenClassesWithSupply": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "summary": "Get Token Classes With Supply",
+        "description": "Use this endpoint to fetch supply data for a given list of token classes.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "tokenClasses"
+                ],
+                "properties": {
+                  "tokenClasses": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/TokenClass"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TokenClassWithSupply"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/FetchTokenMintConfigurations": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "summary": "Get Token Mint Configurations",
+        "description": "Use this endpoint to fetch a list of mint configurations for a given token. On mint actions, recipes can be configured to apply before or after the action.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TokenClass"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "bookmark"
+                    ],
+                    "properties": {
+                      "bookmark": {
+                        "type": "string",
+                        "example": "",
+                        "description": "After making a request to this endpoint and receiving a response, you can use the `bookmark` property from the response to fetch the next page of results, by providing it here as the `bookmark` property in your next request."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "object",
+                      "required": [
+                        "bookmark",
+                        "results"
+                      ],
+                      "properties": {
+                        "bookmark": {
+                          "type": "string",
+                          "example": "",
+                          "description": "A bookmark that can be used to fetch the next page of results. If this property is an empty string, there are no more results to fetch."
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/MintConfiguration"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/asset/public-key-contract/GetPublicKey": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Get Public Key",
+        "description": "Use this endpoint to get your GalaChain public key.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "user"
+                ],
+                "properties": {
+                  "user": {
+                    "type": "string",
+                    "example": "client|0123456789abcdef01234567",
+                    "description": "The wallet address to fetch the public key for for."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "object",
+                      "required": [
+                        "publicKey"
+                      ],
+                      "properties": {
+                        "publicKey": {
+                          "type": "string",
+                          "example": "Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/TransferToken": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Transfer Tokens",
+        "description": "Use this endpoint to transfer tokens from your wallet to another wallet on GalaChain.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          },
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "from",
+                      "to",
+                      "tokenInstance",
+                      "quantity"
+                    ],
+                    "properties": {
+                      "from": {
+                        "type": "string",
+                        "example": "client|0123456789abcdef01234567",
+                        "description": "This should be your own wallet address."
+                      },
+                      "to": {
+                        "type": "string",
+                        "example": "client|0123456789abcdef01234567",
+                        "description": "The wallet address to send the tokens to."
+                      },
+                      "tokenInstance": {
+                        "$ref": "#/components/schemas/TokenInstance"
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "example": "100",
+                        "description": "The quantity of the token to send. This is a decimal number represented as a string. If you need to do arithmetic with this number, it is recommend to use a library like `bignumber.js` for arbitrary precision."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success."
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/MintTokenWithAllowance": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Mint Token With Allowance",
+        "description": "Use this endpoint to mint tokens that you have created. You can only mint tokens that you have created via the project token feature (see `/v1/CreateProjectToken`) and only after they have been distributed to the node network.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          },
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "owner",
+                      "quantity",
+                      "tokenClass",
+                      "tokenInstance"
+                    ],
+                    "properties": {
+                      "owner": {
+                        "type": "string",
+                        "example": "client|0123456789abcdef01234567",
+                        "description": "The wallet address you want to mint to (doesn't have to be your own)."
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "example": "1000",
+                        "description": "The quantity of the token to mint. This is a decimal number represented as a string."
+                      },
+                      "tokenClass": {
+                        "$ref": "#/components/schemas/TokenClass"
+                      },
+                      "tokenInstance": {
+                        "type": "string",
+                        "example": "0",
+                        "description": "This should always be the literal value \"0\"."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success."
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/MintToken": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Mint Token",
+        "description": "Use this endpoint to mint tokens that you have a mint allowance for.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          },
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "owner",
+                      "quantity",
+                      "tokenClass"
+                    ],
+                    "properties": {
+                      "owner": {
+                        "type": "string",
+                        "example": "client|0123456789abcdef01234567",
+                        "description": "The wallet address you want to mint to (doesn't have to be your own)."
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "example": "1000",
+                        "description": "The quantity of the token to mint. This is a decimal number represented as a string."
+                      },
+                      "tokenClass": {
+                        "$ref": "#/components/schemas/TokenInstance"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success."
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/BatchMintToken": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Batch Mint Token",
+        "description": "Use this endpoint to perform multiple (up to 250) mint operations in one transaction. You must have a valid mint allowance for the tokens you want to mint.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          },
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "mintDtos"
+                    ],
+                    "properties": {
+                      "mintDtos": {
+                        "type": "array",
+                        "description": "Between 1 and 250 mint operations to perform.",
+                        "minItems": 1,
+                        "maxItems": 250,
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "owner",
+                            "quantity",
+                            "tokenClass"
+                          ],
+                          "properties": {
+                            "owner": {
+                              "type": "string",
+                              "example": "client|0123456789abcdef01234567",
+                              "description": "The wallet address you want to mint to (doesn't have to be your own)."
+                            },
+                            "quantity": {
+                              "type": "string",
+                              "example": "1000",
+                              "description": "The quantity of the token to mint. This is a decimal number represented as a string."
+                            },
+                            "tokenClass": {
+                              "allOf": [
+                                {
+                                  "$ref": "#/components/schemas/TokenClass"
+                                },
+                                {
+                                  "description": "The token to mint"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TokenInstance"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/CreateProjectToken": {
+      "post": {
+        "tags": [
+          "GalaConnect Client Operations"
+        ],
+        "summary": "Create Project Token",
+        "description": "Use this endpoint to begin the process of creating a new token on GalaChain. Note that unlike most other operations, this one requires two separate signatures. You must sign the `tokenCreationFeeBurn` and `burnAllowanceGrant` properties in the request body.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "tokenCreationFeeBurn",
+                  "burnAllowanceGrant",
+                  "newToken"
+                ],
+                "properties": {
+                  "tokenCreationFeeBurn": {
+                    "description": "A burn operation to burn $GALA as a fee for creating the new token.",
+                    "type": "object",
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/SignedRequest"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "tokenInstances": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "quantity",
+                                "tokenInstanceKey"
+                              ],
+                              "properties": {
+                                "quantity": {
+                                  "type": "string",
+                                  "example": "1999",
+                                  "description": "The quantity of the token to burn. This is a decimal number represented as a string, with no trailing zeroes after the decimal place. The quantity must be roughly $100 USD worth of $GALA at current prices."
+                                },
+                                "tokenInstanceKey": {
+                                  "description": "The token instance key of the $GALA token to burn. This must be $GALA, and must be exactly as shown in the example to the right.",
+                                  "type": "object",
+                                  "required": [
+                                    "collection",
+                                    "category",
+                                    "type",
+                                    "additionalKey",
+                                    "instance"
+                                  ],
+                                  "properties": {
+                                    "collection": {
+                                      "type": "string",
+                                      "example": "GALA"
+                                    },
+                                    "category": {
+                                      "type": "string",
+                                      "example": "Unit"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "none"
+                                    },
+                                    "additionalKey": {
+                                      "type": "string",
+                                      "example": "none"
+                                    },
+                                    "instance": {
+                                      "type": "string",
+                                      "example": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "burnAllowanceGrant": {
+                    "description": "A burn allowance grant that allows Gala to burn a limited amount of additional $GALA on your behalf in the future, to influence the new token's displayed price. You must provide this, but the quantity may be zero. We'll burn these tokens from your wallet after the node vote passes to create your new token (if it does).",
+                    "type": "object",
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/SignedRequest"
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "tokenInstance",
+                          "quantities",
+                          "expires",
+                          "allowanceType",
+                          "uses"
+                        ],
+                        "properties": {
+                          "tokenInstance": {
+                            "$ref": "#/components/schemas/TokenInstance"
+                          },
+                          "quantities": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "quantity",
+                                "user"
+                              ],
+                              "properties": {
+                                "quantity": {
+                                  "type": "string",
+                                  "example": "100",
+                                  "description": "The quantity of $GALA to grant a burn allowance for. This is a decimal number represented as a string, with no trailing zeroes after the decimal place."
+                                },
+                                "user": {
+                                  "type": "string",
+                                  "example": "client|GALASWAP_COIN_ADMIN",
+                                  "description": "The wallet address to grant the burn allowance to. This must be the GalaConnect Coin Admin wallet address (client|GALASWAP_COIN_ADMIN), as shown in the example to the right."
+                                }
+                              }
+                            }
+                          },
+                          "expires": {
+                            "type": "number",
+                            "example": 0,
+                            "description": "The Unix timestamp at which the burn allowance will expire. This number is in milliseconds. After this time, the burn allowance will no longer be valid and we will not be able to perform any burns on your behalf. If your token has not been created on GalaChain by the time this allowance expires, token creation will fail (if you are providing a non-zero burn allowance). A date about a week in the future is recommended. You can calculate this number in JavaScript with the following code: `new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).getTime()`. You may use the number 0 to indicate that the burn allowance never expires, but note that there is currently no way to revoke an allowance manually. If your token is not approved by the node network, then your tokens will not be burned, and this allowance will expire automatically at the specified time."
+                          },
+                          "allowanceType": {
+                            "type": "number",
+                            "example": 6,
+                            "description": "This must be \"6\", which means the allowance type is \"BurnAllowance\"."
+                          },
+                          "uses": {
+                            "type": "string",
+                            "example": "9007199254740991",
+                            "description": "This must be \"9007199254740991\". This is the maximum number of times that the burn allowance can be used. This is a stringified integer. Note that even with multiple uses, the total quantity of $GALA that can be burned is limited by the `quantity` property in the `quantities` array. Multiple uses just allows the burn to be spread out over multiple transactions. For example, for a total quantity of 1000 with 2 uses, we could burn 300 and then 700 separately. If we only had one use, then we would have to burn the full 1000 in a single transaction."
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "newToken": {
+                    "$ref": "#/components/schemas/NewProjectTokenDetails"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success."
+          }
+        }
+      }
+    },
+    "/v1/channels/{channel}/AuthorizeFee": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Authorize Cross-Channel Fee",
+        "description": "Use this endpoint to pay a cross-channel fee. See the `Fees` section above for important information about cross-channel fees.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          },
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The target channel for the operation you need to pay a fee for. You should read this from the `channel` property in the response from the `/fee` endpoint for your desired operation.",
+              "example": "music"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "authority",
+                      "quantity"
+                    ],
+                    "properties": {
+                      "authority": {
+                        "type": "string",
+                        "description": "This must be your wallet address and must match the key used to sign the request.",
+                        "example": "client|0123456789abcdef01234567"
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "description": "The quantity of $GALA to pay for the fee. This is a decimal number represented as a string, with no trailing zeroes after the decimal place.",
+                        "example": "100"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "authorizeResponse",
+                    "creditResponse"
+                  ],
+                  "properties": {
+                    "authorizeResponse": {
+                      "type": "object",
+                      "description": "A receipt for the transaction to authorize (pay) $GALA on the asset channel.",
+                      "required": [
+                        "authority",
+                        "authorization",
+                        "created",
+                        "feeAuthorizationKey",
+                        "quantity",
+                        "txId"
+                      ],
+                      "properties": {
+                        "authority": {
+                          "type": "string",
+                          "example": "client|0123456789abcdef01234567",
+                          "description": "The wallet address that authorized the fee (yours)."
+                        },
+                        "authorization": {
+                          "type": "string",
+                          "example": "{\\\"authority\\\":\\\"client|635f048ab243d7eb7f5ba044\\\",\\\"quantity\\\":\\\"1\\\",\\\"signature\\\":\\\"c1bfd9f4a0d657b6f23e8a66fb1197045c53e70007388246dd4a57a74b6579935467c979bdf6d7aab5c00b450ac41cd19801f4d45644de74a8e967ffb353b3fc1b\\\",\\\"trace\\\":{\\\"spanId\\\":\\\"1934648603122828225\\\",\\\"traceId\\\":\\\"3789661451710399155\\\"},\\\"uniqueKey\\\":\\\"gyri-studio-1740775581262-0.727670207162787\\\"}",
+                          "description": "The full request you sent to this endpoint, augmented with some additional trace information, and serialized into a string."
+                        },
+                        "created": {
+                          "type": "number",
+                          "example": 1740775582867,
+                          "description": "Timestamp when the fee was authorized (in milliseconds)."
+                        },
+                        "feeAuthorizationKey": {
+                          "type": "string",
+                          "example": "client|635f048ab243d7eb7f5ba044$2025$02$28$1e351b6a2590eff147680337c608c95ccfbcd053ea890c3ef2fdfca1f3b51e30",
+                          "description": "Unique identifier for this fee authorization."
+                        },
+                        "quantity": {
+                          "type": "string",
+                          "example": "100",
+                          "description": "Amount of GALA tokens authorized for the fee."
+                        },
+                        "txId": {
+                          "type": "string",
+                          "example": "1e351b6a2590eff147680337c608c95ccfbcd053ea890c3ef2fdfca1f3b51e30",
+                          "description": "Transaction ID for the fee authorization."
+                        }
+                      }
+                    },
+                    "creditResponse": {
+                      "type": "object",
+                      "description": "A receipt for the transaction to credit your fee balance on the target channel",
+                      "required": [
+                        "authority",
+                        "authorization",
+                        "created",
+                        "feeAuthorizationKey",
+                        "quantity",
+                        "txId"
+                      ],
+                      "properties": {
+                        "authority": {
+                          "type": "string",
+                          "example": "client|0123456789abcdef01234567",
+                          "description": "The wallet address that authorized the fee (yours)."
+                        },
+                        "authorization": {
+                          "type": "string",
+                          "example": "{\\\"authority\\\":\\\"client|635f048ab243d7eb7f5ba044\\\",\\\"quantity\\\":\\\"1\\\",\\\"signature\\\":\\\"c1bfd9f4a0d657b6f23e8a66fb1197045c53e70007388246dd4a57a74b6579935467c979bdf6d7aab5c00b450ac41cd19801f4d45644de74a8e967ffb353b3fc1b\\\",\\\"trace\\\":{\\\"spanId\\\":\\\"1934648603122828225\\\",\\\"traceId\\\":\\\"3789661451710399155\\\"},\\\"uniqueKey\\\":\\\"gyri-studio-1740775581262-0.727670207162787\\\"}",
+                          "description": "The full request you sent to this endpoint, augmented with some additional trace information, and serialized into a string."
+                        },
+                        "created": {
+                          "type": "number",
+                          "example": 1740775582867,
+                          "description": "Timestamp when the fee was authorized (in milliseconds)."
+                        },
+                        "feeAuthorizationKey": {
+                          "type": "string",
+                          "example": "client|635f048ab243d7eb7f5ba044$2025$02$28$1e351b6a2590eff147680337c608c95ccfbcd053ea890c3ef2fdfca1f3b51e30",
+                          "description": "Unique identifier for this fee authorization."
+                        },
+                        "quantity": {
+                          "type": "string",
+                          "example": "100",
+                          "description": "Amount of GALA tokens authorized for the fee."
+                        },
+                        "txId": {
+                          "type": "string",
+                          "example": "1e351b6a2590eff147680337c608c95ccfbcd053ea890c3ef2fdfca1f3b51e30",
+                          "description": "Transaction ID for the fee credit."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tokencreationjobs": {
+      "get": {
+        "tags": [
+          "GalaConnect Client Operations"
+        ],
+        "summary": "Get Token Creation Jobs",
+        "description": "Get a list of project tokens you have submitted for creation, including their status.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "jobs"
+                  ],
+                  "properties": {
+                    "jobs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "submittedAt",
+                          "feeAmount",
+                          "burnAllowanceAmount",
+                          "status",
+                          "tokenDetails"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "121d5373-7634-4b36-b703-89440c74752f"
+                          },
+                          "submittedAt": {
+                            "type": "string",
+                            "example": "2024-05-28T21:18:50.920Z"
+                          },
+                          "feeAmount": {
+                            "type": "string",
+                            "example": "1000"
+                          },
+                          "burnAllowanceAmount": {
+                            "type": "string",
+                            "example": "500"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "PENDING_NODE_VOTE_CREATION",
+                              "PENDING_NODE_VOTE_RESULT",
+                              "PENDING_ALLOWANCE_BURN",
+                              "PENDING_NODE_NETWORK_DISTRIBUTION",
+                              "PENDING_NODE_NETWORK_DISTRIBUTION_CONFIRMATION",
+                              "CREATED",
+                              "FAILED"
+                            ],
+                            "example": "PENDING_NODE_VOTE_CREATION"
+                          },
+                          "tokenDetails": {
+                            "$ref": "#/components/schemas/NewProjectTokenDetails"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/RequestBridgeToken": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Request to Bridge a Token",
+        "description": "Create a request to bridge a token. This is the first of two requests you must make to bridge a token (the second is `/v1/BridgeToken`). Currently, it is only possible to bridge $MUSIC from the music channel to the asset channel, and vice versa. No other tokens may be bridged via the GalaConnect API at this time. Note that this is same as \"wrapping\" a token, as it is currently referred to in the GalaConnect web client.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "destinationChainId",
+                      "quantity",
+                      "recipient",
+                      "tokenInstance"
+                    ],
+                    "properties": {
+                      "destinationChainId": {
+                        "type": "number",
+                        "example": 1,
+                        "description": "The ID of the destination chain. This should be either 1 (when bridging to the asset channel) or 3 (when bridging to the music channel)."
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "example": "100"
+                      },
+                      "recipient": {
+                        "type": "string",
+                        "example": "client|0123456789abcdef01234567",
+                        "description": "Your wallet address"
+                      },
+                      "tokenInstance": {
+                        "$ref": "#/components/schemas/TokenInstance"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "string",
+                      "example": "\u0000GCTXR\u00003\u0000client|635f048ab243d7eb7f5ba044\u00001722632271929\u0000"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/BridgeToken": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Bridge a Token",
+        "description": "Bridge a token. This is the second of two calls you must make to bridge a token (the first is `/v1/RequestBridgeToken`).",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "bridgeFromChannel",
+                      "bridgeRequestId"
+                    ],
+                    "properties": {
+                      "bridgeFromChannel": {
+                        "type": "string",
+                        "example": "asset",
+                        "description": "The name of the channel you are bridging from. This should be either \"asset\" or \"music\"."
+                      },
+                      "bridgeRequestId": {
+                        "type": "string",
+                        "example": "\u0000GCTXR\u00003\u0000client|635f048ab243d7eb7f5ba044\u00001722632271929\u0000",
+                        "description": "The ID of the bridge request you are fulfilling. This is the value returned by the `/v1/RequestBridgeToken` endpoint, which must be called first."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data",
+                    "Hash",
+                    "Status"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "object",
+                      "required": [
+                        "chainId",
+                        "emitter",
+                        "nonce",
+                        "sequence",
+                        "payload"
+                      ],
+                      "properties": {
+                        "chainId": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "emitter": {
+                          "type": "string",
+                          "example": "0x159ae617db2bc67c1cef659ce3571b3de1236980c3a551e17ebae0674af60188"
+                        },
+                        "nonce": {
+                          "type": "string",
+                          "example": "0xa5d0e32e361675b0c539b5244c61b7e2eadba15b411508ca6947847d82858b6c"
+                        },
+                        "payload": {
+                          "type": "string",
+                          "example": "0x01000300001f636c69656e747c363566643839326336303930646435613166333831356134010000000000000000000000000000000000000000000000000000000011e1a30000000000000000000000000000000000000000000000000000000000000000000015244d5553494324556e6974246e6f6e65246e6f6e65"
+                        },
+                        "sequence": {
+                          "type": "string",
+                          "example": "3406"
+                        }
+                      }
+                    },
+                    "Hash": {
+                      "type": "string",
+                      "example": "08ea70035f3dc4b7e1cb813e85333275a48abddf1d645b41910ce37fc4fd8022"
+                    },
+                    "Status": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/BurnTokens": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Burn Tokens",
+        "description": "Use this endpoint to burn GalaChain tokens.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          },
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "tokenInstances"
+                    ],
+                    "properties": {
+                      "tokenInstances": {
+                        "type": "array",
+                        "description": "The tokens to burn",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "quantity",
+                            "tokenInstanceKey"
+                          ],
+                          "properties": {
+                            "quantity": {
+                              "type": "string",
+                              "example": "100",
+                              "description": "The quantity of the token to burn. This is a decimal number represented as a string, with no trailing zeroes after the decimal place."
+                            },
+                            "tokenInstanceKey": {
+                              "$ref": "#/components/schemas/TokenInstance"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/TokenInstance"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "burnedBy",
+                              "created"
+                            ],
+                            "properties": {
+                              "burnedBy": {
+                                "type": "string",
+                                "example": "client|0123456789abcdef01234567",
+                                "description": "The wallet address that burned the tokens."
+                              },
+                              "created": {
+                                "type": "number",
+                                "example": 1723578110195,
+                                "description": "The Unix timestamp at which the tokens were burned. This number is in milliseconds."
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/GrantAllowance": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Grant Allowance",
+        "description": "Use this endpoint to grant a mint allowance. You can only grant mint allowances for tokens that you are authority of (e.x. you created the token on GalaConnect).",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet whose keys are being used to sign the request.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          },
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The home channel of the token you are operating on. In most cases (and in all cases for tokens that are swappable on GalaConnect) this will be `asset`.",
+              "example": "asset"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "tokenInstance",
+                      "quantities",
+                      "allowanceType",
+                      "uses"
+                    ],
+                    "properties": {
+                      "tokenInstance": {
+                        "$ref": "#/components/schemas/TokenInstance"
+                      },
+                      "quantities": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 250,
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "quantity",
+                            "user"
+                          ],
+                          "properties": {
+                            "quantity": {
+                              "type": "string",
+                              "example": "100",
+                              "description": "The quantity of the token to grant a mint allowance for. This is a decimal number represented as a string, with no trailing zeroes after the decimal place."
+                            },
+                            "user": {
+                              "type": "string",
+                              "example": "client|0123456789abcdef01234567",
+                              "description": "The wallet address to grant the mint allowance to."
+                            }
+                          }
+                        }
+                      },
+                      "allowanceType": {
+                        "type": "number",
+                        "example": 4,
+                        "description": "This must be `4`, which means the allowance type is \"MintAllowance\"."
+                      },
+                      "uses": {
+                        "type": "string",
+                        "example": "9007199254740991",
+                        "description": "This must equal `9007199254740991`. This is the number of times an allowance can be used before it becomes unusable (even if the full quantity has not been used). This is a stringified integer."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success."
+          }
+        }
+      }
+    },
+    "/galachain/api/{channel}/token-contract/FetchFeeBalances": {
+      "post": {
+        "tags": [
+          "API: GalaChain Operations"
+        ],
+        "summary": "Fetch Fee Balances",
+        "description": "Use this endpoint to check your existing fee credit balance for fees on the specified channel. See the `Fees` section above for more info about fees on channels other than the asset channel.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The channel to fetch your fee balances for.",
+              "example": "music"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "owner"
+                    ],
+                    "properties": {
+                      "owner": {
+                        "type": "string",
+                        "example": "client|0123456789abcdef01234567",
+                        "description": "The wallet address to check fee balances for (typically your own)."
+                      },
+                      "bookmark": {
+                        "type": "string",
+                        "description": "After making a request to this endpoint and receiving a response, you can use the `nextPageBookmark` property from the response to fetch the next page of results, by providing it here as the `bookmark` property in your next request."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "nextPageBookmark",
+                              "results"
+                            ],
+                            "properties": {
+                              "nextPageBookmark": {
+                                "type": "string",
+                                "example": "eyJwYXJhb",
+                                "description": "Bookmark to fetch the next page of results. If this is an empty string, there are no more pages of results."
+                              },
+                              "results": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "required": [
+                                    "key",
+                                    "value"
+                                  ],
+                                  "properties": {
+                                    "key": {
+                                      "type": "string",
+                                      "example": "\u0000GCFB\u0000client|65e643532aff1b5cf00a92bf\u0000"
+                                    },
+                                    "value": {
+                                      "type": "object",
+                                      "required": [
+                                        "created",
+                                        "owner",
+                                        "quantity"
+                                      ],
+                                      "properties": {
+                                        "created": {
+                                          "type": "number",
+                                          "example": 1723578110195
+                                        },
+                                        "owner": {
+                                          "type": "string",
+                                          "example": "client|0123456789abcdef01234567"
+                                        },
+                                        "quantity": {
+                                          "type": "string",
+                                          "example": "100",
+                                          "description": "The quantity of fee credits. This is a decimal number represented as a string, with no trailing zeroes after the decimal place."
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/multisig": {
+      "post": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Create Multisignature Policy",
+        "description": "Create a new multisignature policy on GalaChain. A multi-ignature policy allows multiple wallets to jointly control transactions on a shared multi-sig wallet.\n\n**Important Notes:**\n- This endpoint requires a signed request. You must sign the request body with your wallet.\n- The policy will be registered on GalaChain with the signers and threshold you specify.\n- The created multi-signature wallet address will have the format: `client|ms_<random-id>`\n- This multi-sig wallet can then be used like a regular wallet for token operations.\n\n**Request Flow:**\n1. Client signs the request body with their private key\n2. Server validates the signature\n3. Server calls app-server GraphQL to register the policy with admin key signing\n4. GalaChain creates the multi-signature policy\n5. Server returns the new multi-sig wallet address and transaction hash\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the wallet that is creating this multi-signature policy. This should be the owner/creator of the policy.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignedRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "displayName",
+                      "signers",
+                      "threshold"
+                    ],
+                    "properties": {
+                      "displayName": {
+                        "type": "string",
+                        "example": "Team Wallet",
+                        "description": "A human-readable name for this multi-signature policy. This is for your reference only and is not used on-chain.",
+                        "minLength": 1,
+                        "maxLength": 255
+                      },
+                      "signers": {
+                        "type": "array",
+                        "description": "The list of wallet addresses that will be signers for this multi-signature policy. Each signer will need to sign transactions that require authorization.",
+                        "minItems": 1,
+                        "maxItems": 10,
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "address"
+                          ],
+                          "properties": {
+                            "address": {
+                              "type": "string",
+                              "example": "eth|0x1234567890123456789012345678901234567890",
+                              "description": "A wallet address in the format `eth|<address>` or `client|<id>`. This wallet will become a signer on the multi-sig policy."
+                            }
+                          }
+                        }
+                      },
+                      "threshold": {
+                        "type": "number",
+                        "example": 2,
+                        "description": "The number of signatures required to authorize transactions on this multi-signature wallet. Must be between 1 and the number of signers (inclusive).",
+                        "minimum": 1,
+                        "maximum": 10
+                      },
+                      "expiration": {
+                        "type": "number",
+                        "example": 30,
+                        "description": "Optional. Number of days until the policy expires. Once expired, this multi-signature policy can no longer be used to authorize transactions. If not provided, the policy will not expire.",
+                        "minimum": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Multi-signature policy created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "policyName",
+                    "status",
+                    "transactionHash"
+                  ],
+                  "properties": {
+                    "policyName": {
+                      "type": "string",
+                      "pattern": "^client\\|ms_[a-f0-9]{24}$",
+                      "example": "client|ms_a1b2c3d4e5f6g7h8i9j0k1l2m3n4",
+                      "description": "The newly created multi-signature wallet address. Use this address in the `X-Wallet-Address` header for future operations with this multi-sig wallet. Format is `client|ms_<24-char-hex-string>`."
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "created",
+                        "pending"
+                      ],
+                      "example": "created",
+                      "description": "The status of the multi-signature policy creation. Should be \"created\" on success."
+                    },
+                    "transactionHash": {
+                      "type": "string",
+                      "example": "tx_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0",
+                      "description": "The transaction hash from GalaChain where the multi-signature policy was registered. This can be used to verify the transaction on GalaChain."
+                    },
+                    "expiration": {
+                      "type": "number",
+                      "example": 30,
+                      "description": "Optional. Number of days until the policy expires. Only present if provided during policy creation."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid threshold",
+                      "description": "Error message describing what was invalid about the request."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Signature validation failed or invalid wallet address.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid signature",
+                      "description": "Error message indicating authentication failure."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error during policy creation or GalaChain communication.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Failed to register policy on GalaChain",
+                      "description": "Error message describing the server-side failure."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "List Multi-Signature Policies",
+        "description": "Retrieve all multi-signature policies owned by the authenticated user.\nThis endpoint requires authentication and returns a list of all policies created by the user's wallet.\n",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Wallet-Address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The wallet address of the user requesting their policies.",
+              "example": "client|0123456789abcdef01234567"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Multi-signature policies retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "policyId",
+                          "policyName",
+                          "displayName",
+                          "ownerWalletAddress",
+                          "threshold",
+                          "signers",
+                          "status",
+                          "createdAt"
+                        ],
+                        "properties": {
+                          "policyId": {
+                            "type": "string",
+                            "description": "Unique identifier for the policy (MongoDB ObjectId as hex string)"
+                          },
+                          "policyName": {
+                            "type": "string",
+                            "pattern": "^client\\|ms_[a-f0-9]{24}$",
+                            "description": "The multi-signature wallet address in format `client|ms_<24-char-hex-string>`"
+                          },
+                          "displayName": {
+                            "type": "string",
+                            "description": "Human-readable name for the policy"
+                          },
+                          "ownerWalletAddress": {
+                            "type": "string",
+                            "description": "The wallet address that owns/created this policy"
+                          },
+                          "threshold": {
+                            "type": "number",
+                            "description": "Number of signatures required to authorize transactions"
+                          },
+                          "signers": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "address": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "transactionHash": {
+                            "type": "string",
+                            "description": "Optional. The transaction hash from GalaChain"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "created",
+                              "pending",
+                              "failed"
+                            ]
+                          },
+                          "expiration": {
+                            "type": "number",
+                            "description": "Optional. Number of days until policy expires"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "ISO 8601 timestamp when the policy was created"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing authentication."
+          },
+          "500": {
+            "description": "Server error retrieving policies."
+          }
+        }
+      }
+    },
+    "/v1/multi-signature/{policyName}": {
+      "get": {
+        "tags": [
+          "API: GalaConnect Operations"
+        ],
+        "summary": "Get Multi-Signature Policy by Name",
+        "description": "Retrieve a specific multi-signature policy by its policy name.\nThe policy name follows the format: `client|ms_<24-char-hex-string>`\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "policyName",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^client\\|ms_[a-f0-9]{24}$"
+            },
+            "description": "The policy name to retrieve (e.g., client|ms_a1b2c3d4e5f6g7h8i9j0k1l2)",
+            "example": "client|ms_a1b2c3d4e5f6g7h8i9j0k1l2m3n4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Multi-signature policy retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Data"
+                  ],
+                  "properties": {
+                    "Data": {
+                      "type": "object",
+                      "required": [
+                        "policyId",
+                        "policyName",
+                        "displayName",
+                        "ownerWalletAddress",
+                        "threshold",
+                        "signers",
+                        "status",
+                        "createdAt"
+                      ],
+                      "properties": {
+                        "policyId": {
+                          "type": "string",
+                          "description": "Unique identifier for the policy (MongoDB ObjectId as hex string)"
+                        },
+                        "policyName": {
+                          "type": "string",
+                          "pattern": "^client\\|ms_[a-f0-9]{24}$",
+                          "description": "The multi-signature wallet address"
+                        },
+                        "displayName": {
+                          "type": "string",
+                          "description": "Human-readable name for the policy"
+                        },
+                        "ownerWalletAddress": {
+                          "type": "string",
+                          "description": "The wallet address that owns/created this policy"
+                        },
+                        "threshold": {
+                          "type": "number",
+                          "description": "Number of signatures required to authorize transactions"
+                        },
+                        "signers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "transactionHash": {
+                          "type": "string",
+                          "description": "Optional. The transaction hash from GalaChain"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "created",
+                            "pending",
+                            "failed"
+                          ]
+                        },
+                        "expiration": {
+                          "type": "number",
+                          "description": "Optional. Number of days until policy expires"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "ISO 8601 timestamp when the policy was created"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Policy not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Multi-signature policy not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error retrieving the policy."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {},
+    "schemas": {
+      "AllowanceType": {
+        "type": "integer",
+        "description": "The type of allowance. Some allowance types might not have any current use cases. The possible values are: `0` (Use), `1` (Lock), `2` (Spend), `3` (Transfer), `4` (Mint), `5` (Swap), `6` (Burn). If you specify this, you MUST also specify `instance`.",
+        "oneOf": [
+          {
+            "title": "Use",
+            "const": 0
+          },
+          {
+            "title": "Lock",
+            "const": 1,
+            "description": "An allowance to lock another wallet's tokens."
+          },
+          {
+            "title": "Spend",
+            "const": 2
+          },
+          {
+            "title": "Transfer",
+            "const": 3,
+            "description": "An allowance to transfer another wallet's tokens."
+          },
+          {
+            "title": "Mint",
+            "const": 4,
+            "description": "An allowance to mint tokens."
+          },
+          {
+            "title": "Swap",
+            "const": 5
+          },
+          {
+            "title": "Burn",
+            "const": 6,
+            "description": "An allowance to burn another wallet's tokens."
+          }
+        ]
+      },
+      "Allowance": {
+        "type": "object",
+        "required": [
+          "grantedTo",
+          "grantedBy",
+          "collection",
+          "category",
+          "type",
+          "additionalKey",
+          "instance",
+          "allowanceType",
+          "uses",
+          "usesSpent",
+          "expires",
+          "created",
+          "quantity",
+          "quantitySpent"
+        ],
+        "properties": {
+          "grantedTo": {
+            "type": "string",
+            "example": "client|123456789abcdef012345678",
+            "description": "The wallet address of the user who is granted the allowance."
+          },
+          "grantedBy": {
+            "type": "string",
+            "example": "client|123456789abcdef012345678",
+            "description": "The wallet address of the user who granted the allowance."
+          },
+          "quantity": {
+            "type": "string",
+            "example": "10",
+            "description": "The initial quantity of tokens allowed to perform the action on."
+          },
+          "quantitySpent": {
+            "type": "string",
+            "example": "0",
+            "description": "The amount of the initial quantity that has already been used. For example if you get a mint allowance for 10 tokens and you mint 4 tokens, then this property will be 4, and you can mint 6 more tokens."
+          },
+          "collection": {
+            "type": "string",
+            "example": "GALA"
+          },
+          "category": {
+            "type": "string",
+            "example": "Unit"
+          },
+          "type": {
+            "type": "string",
+            "example": "none"
+          },
+          "additionalKey": {
+            "type": "string",
+            "example": "none"
+          },
+          "instance": {
+            "type": "string",
+            "example": "0",
+            "description": "The instance of the token (always \"0\" for fungible tokens)"
+          },
+          "allowanceType": {
+            "$ref": "#/components/schemas/AllowanceType"
+          },
+          "uses": {
+            "type": "string",
+            "example": "1",
+            "description": "The number of times the allowance can be used. For example if the value of this is `1`, then you can only perform the action once. If you have an allowance with 1 use to mint 10 tokens, for example, and you mint 4 tokens, then you have exhausted your uses and you cannot mint the remaining 6 tokens."
+          },
+          "usesSpent": {
+            "type": "string",
+            "example": "0",
+            "description": "The number of uses of the allowance that have been spent."
+          },
+          "expires": {
+            "type": "integer",
+            "example": 0,
+            "description": "The date and time the allowance expires. Often this will be zero, indicating no expiration. If non-zero, this will be a Unix timestamp in milliseconds."
+          },
+          "created": {
+            "type": "integer",
+            "example": 1711982017548,
+            "description": "The date and time the allowance was created in milliseconds since the Unix epoch."
+          }
+        }
+      },
+      "MintConfiguration": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TokenClass"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "additionalFee": {
+                "required": [
+                  "flatFee"
+                ],
+                "properties": {
+                  "flatFee": {
+                    "type": "number",
+                    "example": 100
+                  }
+                }
+              },
+              "postMintBurn": {
+                "required": [
+                  "burnPercentage"
+                ],
+                "properties": {
+                  "burnPercentage": {
+                    "type": "number",
+                    "example": 0.1
+                  }
+                }
+              },
+              "postMintLock": {
+                "required": [
+                  "expirationModifier",
+                  "lockAuthority",
+                  "lockName",
+                  "lockPercentage"
+                ],
+                "properties": {
+                  "expirationModifier": {
+                    "type": "number",
+                    "example": 86400000
+                  },
+                  "lockAuthority": {
+                    "type": "string",
+                    "example": "client|123456789abcdef012345678"
+                  },
+                  "lockName": {
+                    "type": "string",
+                    "example": "post-mint-lock"
+                  },
+                  "lockPercentage": {
+                    "type": "number",
+                    "example": 0.1
+                  }
+                }
+              },
+              "preMintBurn": {
+                "required": [
+                  "burnPercentage"
+                ],
+                "properties": {
+                  "burnPercentage": {
+                    "type": "number",
+                    "example": 0.1
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "TokenClass": {
+        "type": "object",
+        "required": [
+          "collection",
+          "category",
+          "type",
+          "additionalKey"
+        ],
+        "properties": {
+          "collection": {
+            "type": "string",
+            "example": "GALA"
+          },
+          "category": {
+            "type": "string",
+            "example": "Unit"
+          },
+          "type": {
+            "type": "string",
+            "example": "none"
+          },
+          "additionalKey": {
+            "type": "string",
+            "example": "none"
+          }
+        }
+      },
+      "TokenClassWithSupply": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TokenClass"
+          },
+          {
+            "type": "object",
+            "required": [
+              "supply",
+              "knownMintAllowanceSupply",
+              "knownMintSupply",
+              "maxCapacity",
+              "maxSupply",
+              "totalBurned",
+              "totalSupply"
+            ],
+            "properties": {
+              "knownMintAllowanceSupply": {
+                "type": "string",
+                "example": "1000000"
+              },
+              "knownMintSupply": {
+                "type": "string",
+                "example": "1000000"
+              },
+              "maxCapacity": {
+                "type": "string",
+                "example": "100000000"
+              },
+              "maxSupply": {
+                "type": "string",
+                "example": "100000000"
+              },
+              "totalBurned": {
+                "type": "string",
+                "example": "1000"
+              },
+              "totalSupply": {
+                "type": "string",
+                "example": "1000000"
+              }
+            }
+          }
+        ]
+      },
+      "TokenInstance": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TokenClass"
+          },
+          {
+            "type": "object",
+            "required": [
+              "instance"
+            ],
+            "properties": {
+              "instance": {
+                "type": "string",
+                "example": "0",
+                "description": "The instance of the token (always \"0\" for fungible tokens)"
+              }
+            }
+          }
+        ]
+      },
+      "SwapOffered": {
+        "type": "object",
+        "required": [
+          "quantity",
+          "tokenInstance"
+        ],
+        "properties": {
+          "quantity": {
+            "type": "string",
+            "example": "10",
+            "description": "The quantity of token offered."
+          },
+          "tokenInstance": {
+            "$ref": "#/components/schemas/TokenInstance"
+          }
+        }
+      },
+      "SwapWanted": {
+        "type": "object",
+        "required": [
+          "quantity",
+          "tokenInstance"
+        ],
+        "properties": {
+          "quantity": {
+            "type": "string",
+            "example": "10",
+            "description": "The quantity of token wanted."
+          },
+          "tokenInstance": {
+            "$ref": "#/components/schemas/TokenInstance"
+          }
+        }
+      },
+      "NewSwap": {
+        "type": "object",
+        "required": [
+          "offered",
+          "wanted",
+          "uses"
+        ],
+        "properties": {
+          "offered": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SwapOffered"
+            }
+          },
+          "wanted": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SwapWanted"
+            }
+          },
+          "uses": {
+            "type": "string",
+            "example": "1"
+          }
+        }
+      },
+      "Swap": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NewSwap"
+          },
+          {
+            "type": "object",
+            "required": [
+              "created",
+              "expires",
+              "offeredBy",
+              "swapRequestId",
+              "usesSpent"
+            ],
+            "properties": {
+              "created": {
+                "type": "integer",
+                "example": 1711982017548,
+                "description": "The date and time the swap was created in milliseconds since the Unix epoch."
+              },
+              "expires": {
+                "type": "integer",
+                "example": 0,
+                "description": "The date and time the swap expires. Normally this will be zero, indicating no expiration."
+              },
+              "offeredBy": {
+                "type": "string",
+                "example": "client|123456789abcdef012345678",
+                "description": "The wallet address of the user who created the swap."
+              },
+              "swapRequestId": {
+                "type": "string",
+                "example": "\u0000GCTSR\u00001706318260580\u00009b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2\u0000",
+                "description": "The unique identifier of the swap."
+              },
+              "usesSpent": {
+                "type": "string",
+                "example": "0",
+                "description": "The number of uses of the swap that have been spent."
+              }
+            }
+          }
+        ]
+      },
+      "SwappableToken": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TokenClass"
+          },
+          {
+            "type": "object",
+            "required": [
+              "decimals",
+              "currentPrices",
+              "swappable",
+              "trending"
+            ],
+            "properties": {
+              "swappable": {
+                "type": "boolean",
+                "example": true,
+                "description": "Whether the token can be swapped on GalaConnect."
+              },
+              "trending": {
+                "type": "boolean",
+                "example": true,
+                "description": "Whether the token is trending."
+              },
+              "symbol": {
+                "type": "string",
+                "example": "GALA",
+                "description": "The symbol of the token on GalaChain. Note that more than one token may have the same symbol. To differentiate tokens properly, you should use the combination of `collection`, `category`, `type`, and `additionalKey`."
+              },
+              "name": {
+                "type": "string",
+                "example": "Gala",
+                "description": "The name of the token on GalaChain."
+              },
+              "priceSymbol": {
+                "type": "string",
+                "example": "USD",
+                "description": "The symbol used to fetch the token's price (generally from the CoinGecko API). This property usually is not of interest to developers."
+              },
+              "decimals": {
+                "type": "integer",
+                "example": 8,
+                "description": "The number of decimal places in the token."
+              },
+              "currentPrices": {
+                "type": "object",
+                "properties": {
+                  "usd": {
+                    "type": "number",
+                    "example": 0.063152,
+                    "description": "The current price of the token in USD. This property may be missing if this information is not available."
+                  },
+                  "usd24hChange": {
+                    "type": "number",
+                    "example": -6.421877021583615,
+                    "description": "The amount the price has changed in the last 24 hours. This property may be if this information is not available."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedRequest": {
+        "required": [
+          "signature",
+          "signerPublicKey",
+          "uniqueKey"
+        ],
+        "properties": {
+          "signature": {
+            "type": "string",
+            "example": "MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA="
+          },
+          "signerPublicKey": {
+            "type": "string",
+            "example": "Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY"
+          },
+          "uniqueKey": {
+            "type": "string",
+            "example": "galaconnect-operation-0123456789"
+          }
+        }
+      },
+      "NewProjectTokenDetails": {
+        "required": [
+          "decimals",
+          "maxSupply",
+          "tokenClass",
+          "name",
+          "symbol",
+          "description",
+          "image"
+        ],
+        "properties": {
+          "decimals": {
+            "type": "number"
+          },
+          "maxSupply": {
+            "type": "string",
+            "example": "1000000000",
+            "description": "The maximum number of tokens that can exist at any given time. If this many tokens exist, then some will need to be burned before new ones can be minted."
+          },
+          "maxCapacity": {
+            "type": "string",
+            "example": "1000000000",
+            "description": "The maximum number of tokens that can ever be minted. If this many tokens are minted, then no more can ever be minted, even if some are burned. You may omit this property if you want the token to have unlimited maximum capacity."
+          },
+          "tokenClass": {
+            "required": [
+              "collection",
+              "category",
+              "type",
+              "additionalKey"
+            ],
+            "properties": {
+              "collection": {
+                "type": "string",
+                "example": "Token",
+                "description": "This must always be \"Token\"."
+              },
+              "category": {
+                "type": "string",
+                "example": "Unit",
+                "description": "This must always be \"Unit\"."
+              },
+              "type": {
+                "type": "string",
+                "example": "MTOKEN",
+                "pattern": "/^[A-Z]{2,8}$/",
+                "description": "The symbol of your token. This must be a 6-character uppercase string."
+              },
+              "additionalKey": {
+                "type": "string",
+                "example": "client:123",
+                "description": "This must be your wallet address, but with the pipe character replaced by a colon character."
+              }
+            }
+          },
+          "name": {
+            "type": "string",
+            "example": "My Token",
+            "description": "The name of your token."
+          },
+          "symbol": {
+            "type": "string",
+            "example": "MTOKEN",
+            "description": "This must exactly match the `type` property of the `tokenClass` object."
+          },
+          "description": {
+            "type": "string",
+            "example": "This is a token that I created.",
+            "description": "A description of your token. This will be shown to users voting for your token in the node dashboard, so be sure to describe why they should vote for your token."
+          },
+          "image": {
+            "type": "string",
+            "example": "https://example.com/image.png",
+            "description": "A URL to an image that represents your token. This should be an icon 256x256 pixels in size, and it will be shown for your token on GalaConnect. For reference, see the $GALA icon: https://static.gala.games/images/icons/units/gala.png"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "API: GalaConnect Operations"
+    },
+    {
+      "name": "API: GalaChain Operations",
+      "description": "These operations are direct interactions with the GalaChain blockchain, with the GalaConnect API doing little more than proxying your request."
+    },
+    {
+      "name": "GalaConnect Client Operations",
+      "description": "These are operations that you should generally do via the GalaConnect website client. Nonetheless, they are documented here for completeness. These APIs are **not** likely to remain stable and you should not depend on them for production use."
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api-galaswap.gala.com"
+    }
+  ]
+}

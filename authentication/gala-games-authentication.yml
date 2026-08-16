@@ -1,0 +1,132 @@
+generated: '2026-08-16'
+method: searched
+source: https://connect.gala.com/info/swagger.json (info.description, Authentication +
+  Request Signing) + https://raw.githubusercontent.com/GalaChain/sdk/main/docs/authorization.md
+  + openapi/gala-games-defi-backend-openapi.json
+docs: https://docs.galachain.com/latest/authorization/
+summary:
+  types: [signature, apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+  headline: >-
+    Gala's public APIs use NO bearer tokens, NO OAuth and NO OIDC. Reads are almost
+    entirely unauthenticated. Writes are authenticated by a secp256k1 signature over
+    the request body, verified against a public key registered on chain. The only
+    declared securityScheme across 413 published operations is one apiKey guarding
+    admin endpoints on the DeFi backend — the signature scheme that protects everything
+    that matters is documented in prose and modelled in no spec.
+schemes:
+- name: galachain-dto-signature
+  type: signature
+  algorithm: secp256k1
+  location: request body
+  applies_to:
+  - GalaChain Gateway (all submit operations across all channels and contracts)
+  - GalaConnect API (all write operations)
+  fields:
+  - {name: signature, required: for execution, description: 'Signature of the DTO signed
+      with the caller''s private key, verified against the public key saved on chain.
+      Optional on the DTO type, required for a transaction to execute.'}
+  - {name: signerPublicKey, required: conditional, description: Public key of the signer,
+      base64 encoded.}
+  - {name: signerAddress, required: for multisig, description: 'Address of the signer —
+      typically an Ethereum address, or a user alias.'}
+  - {name: multisig, required: false, description: 'Array of signatures when there are
+      multiple signers. minItems 2. When present, signerAddress is required and
+      signature/signerPublicKey are forbidden; the signing scheme must be ETH.'}
+  - {name: prefix, required: false, description: Prefix for MetaMask transaction
+      signatures, needed to format payloads so publicKey can be recovered from web3
+      signatures.}
+  - {name: uniqueKey, required: true, description: 'Idempotency key written to chain
+      state; prevents double execution.'}
+  - {name: dtoExpiresAt, required: false, description: Unix epoch milliseconds after
+      which the DTO is invalid. Bounds replay exposure.}
+  - {name: dtoOperation, required: for multisig, description: 'Full on-chain operation
+      identifier in the form channelId_chaincodeId_methodName. Required for multisig
+      DTOs, optional for single-signed ones.'}
+  procedure:
+  - Remove any existing signature property from the body.
+  - Recursively order every property alphabetically by name.
+  - Stringify to a minimal deterministic JSON string.
+  - keccak256 hash the stringified object.
+  - Sign the hash with the wallet private key using secp256k1.
+  - Normalize s to be less than or equal to half the curve order n.
+  - DER encode and base64 the result; place it in the body as `signature`.
+  reference_implementation: Published in full as TypeScript in the GalaConnect API
+    description, and implemented in @gala-chain/api. `galachain dto:sign` performs the
+    same operation from the CLI.
+  verification_aid: Gala publishes worked examples whose signatures are genuinely
+    correct for the documented example key, so an integrator can validate their signing
+    code offline before ever calling the API.
+- name: X-Wallet-Address
+  type: apiKey
+  in: header
+  parameter: X-Wallet-Address
+  applies_to: [GalaConnect API]
+  description: >-
+    Identifies the calling wallet on every GalaConnect write. Not a secret and not a
+    credential on its own — it must be accompanied by a valid signature over the body.
+    Format is client|<24 hex> for a Gala platform account or eth|<40 hex> for a headless
+    or web3 wallet.
+- name: api-key
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  description: Required for admin endpoints protected by ApiKeyGuard.
+  applies_to: [Gala DeFi Backend API]
+  sources: [openapi/gala-games-defi-backend-openapi.json]
+  note: The only securityScheme declared in any Gala OpenAPI document. Not obtainable
+    by a public developer; there is no key-issuance flow published.
+- name: none
+  type: none
+  applies_to:
+  - Gala Block Explorer API (all 17 operations)
+  - GalaChain Gateway evaluate/read operations
+  - GalaConnect read operations (swap discovery, GetPublicKey, /fee quotes)
+  - Gala DeFi Backend public trade, explore, market, leaderboard and pairs endpoints
+  description: A large, genuinely open read surface. An agent can read chain state,
+    pool data, prices and swap inventory with no credential at all.
+credential_acquisition:
+- path: Gala platform account
+  steps:
+  - Create an account at games.gala.com.
+  - Create a GalaChain transfer code at account settings, which initializes the wallet.
+  - Download the private key from account settings (the docs expose a &plaintext query
+    parameter for advanced users).
+  - Retrieve the public key via POST /galachain/api/asset/public-key-contract/GetPublicKey
+    with your wallet address.
+  note: The key material is a wallet private key with spending authority, not a scoped
+    API credential. There is no way to issue a read-only or least-privilege token.
+- path: headless wallet
+  steps:
+  - Generate an ethers keypair locally.
+  - POST /v1/CreateHeadlessWallet with the public key in lowercase hex prefixed 0x
+    (note this differs from the base64 encoding used everywhere else in the API).
+  - Use address form eth|<address without 0x> as X-Wallet-Address.
+  note: No Gala platform account required. Headless and web3 wallets are interchangeable
+    with both the API and the website client.
+- path: on-chain key registration
+  contract: public-key-contract
+  note: A public key must be registered on chain before signatures from it verify.
+roles:
+  model: contract-level role annotations
+  observed: >-
+    Every gateway operation description carries an allowed-roles annotation, e.g.
+    "Transaction is read only (evaluate). Allowed roles: EVALUATE." Roles seen across
+    the specs include EVALUATE, SUBMIT and CURATOR.
+  note: Roles are described per operation in the spec description text, not modelled as
+    OAuth scopes or as a securityScheme. There is no scopes surface to derive — see
+    scopes/ (intentionally absent).
+oauth_scopes:
+  applicable: false
+  reason: No OAuth or OIDC anywhere. derive-oauth-scopes.py returned zero oauth2 schemes
+    across all nine specs.
+gaps:
+- The signature scheme is not modelled as an OpenAPI securityScheme on any of the 413
+  operations it protects, so generated SDKs and agent tooling see an unauthenticated
+  API and will produce calls that fail at 401.
+- Credentials are raw wallet private keys with full spending authority. There is no
+  scoped, revocable, least-privilege credential for an integration or an agent, which
+  is why the MCP server's only safety control is "omit PRIVATE_KEY for read-only mode".
+- The private-key download flow instructs users to fetch plaintext key material over a
+  URL query parameter.

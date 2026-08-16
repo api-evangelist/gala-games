@@ -1,0 +1,76 @@
+generated: '2026-08-16'
+method: searched
+source: https://connect.gala.com/info/swagger.json (info.description, "GalaChain Fees"
+  section) + https://galachain.com/ + https://gateway-mainnet.galachain.com/docs
+plan_count: 0
+summary: >-
+  Gala publishes no API plans, no tiers, no free/paid split and no API pricing page.
+  There is nothing to sign up and pay for: the GalaChain Gateway, Block Explorer and
+  DeFi backend read endpoints are open and uncredentialed, and GalaConnect requires a
+  wallet rather than a subscription. The commercial model is not API pricing at all —
+  it is per-transaction gas denominated in the GALA token, charged on chain.
+plans: []
+monetization:
+  model: per-transaction on-chain fees
+  currency: GALA
+  unit: token
+  summary: >-
+    Some GalaChain operations carry a fee. The fee is quoted per operation, not per
+    plan, and is discoverable programmatically rather than from a pricing page.
+  quote_mechanism:
+    description: Append /fee to any GalaConnect route path and POST the same body with
+      signature and uniqueKey omitted. The response is the fee schedule for that exact
+      operation with those exact arguments.
+    example_request: POST https://api-galaswap.gala.com/v1/RequestTokenSwap/fee
+    example_response_fields:
+    - fees[].type
+    - fees[].operationName
+    - fees[].galaChainMethod
+    - fees[].channel
+    - fees[].fee
+    - fees[].feeInGala
+    - fees[].feeToken
+    note: The /fee routes are deliberately absent from the OpenAPI; the rule applies
+      to every route.
+  fee_types:
+  - id: galachain_automatic
+    charged: automatically deducted from wallet balance when the operation commits
+    caller_action: none
+  - id: galachain_cross_channel_authorization
+    charged: must be authorized and paid in advance
+    caller_action: POST /v1/channels/{channel}/AuthorizeFee, which burns GALA on the
+      asset channel and credits a fee allowance on the target channel. Can be batched
+      — authorize ten GALA once, then perform ten one-GALA transfers.
+    when: operations on channels other than asset, commonly NFT operations on per-game
+      channels
+  - id: project-token creation fee
+    charged: levied in addition to chaincode fees when creating a project token
+    caller_action: quote via POST /v1/CreateProjectToken/fee
+    note: The docs are explicit that this is a separate concept from chaincode fees.
+  observed_example:
+    operation: RequestTokenSwap
+    fee: '1'
+    fee_token: GALA|Unit|none|none
+    source: worked example published in the GalaConnect API description
+  on_chain_reference: openapi/gala-games-galachain-asset-fee-contract-openapi.json
+access_gates:
+- surface: GalaChain Gateway read + write
+  gate: none for reads; a registered on-chain public key and a signed DTO for writes
+  cost: no subscription; per-operation GALA fees may apply
+- surface: GalaConnect API
+  gate: a Gala account (games.gala.com) or a headless wallet created via POST /v1/CreateHeadlessWallet
+  cost: no subscription; per-operation GALA fees may apply
+- surface: Gala Block Explorer API
+  gate: none observed
+  cost: free
+- surface: Gala DeFi Backend API
+  gate: none for public trade/explore/market endpoints; X-Api-Key for admin endpoints
+  cost: free
+- surface: chaincode deployment
+  gate: developer registration via `galachain register`, then chaincode submitted for
+    automated review before it may run on testnet
+  cost: not published
+note: >-
+  plan_count is 0 as a finding, not as a gap in this pass. Gala genuinely sells no API
+  plans. Recording a zero here is the accurate measurement for a chain provider whose
+  pricing is gas, and it should not be read as "pricing not found".

@@ -1,0 +1,174 @@
+generated: '2026-08-16'
+method: searched
+source: https://registry.npmjs.org/ (unauthenticated registry metadata) + https://github.com/GalaChain/sdk
+note: >-
+  All first-party client libraries are published to npm under the @gala-chain scope by
+  the gala-devops (devops+npmjs@gala.games) and aschuler-gala (aschuler@gala.games)
+  maintainer accounts, which is the ownership evidence for official: true. No PyPI,
+  Maven Central, NuGet, RubyGems, crates.io, Packagist or pkg.go.dev distribution was
+  found — GalaChain is a TypeScript-only SDK surface. The core SDK packages (@gala-chain/api,
+  chaincode, client, test, cli, connect) share the SDK monorepo version and were all
+  republished on 2026-08-14, so the SDK is actively maintained. The two DeFi packages
+  (launchpad-sdk, launchpad-mcp-server) version independently out of a GitLab monorepo
+  at gitlab.com/gala-games/defi/launchpad/sdk. @gala-chain/stream and @gala-chain/gswap-sdk
+  are the stale entries: last published 2025-05-08 and 2025-11-18 respectively, both
+  well behind the 3.1.x SDK line they sit alongside.
+packages:
+- language: typescript
+  registry: npm
+  name: '@gala-chain/api'
+  url: https://www.npmjs.com/package/@gala-chain/api
+  install: npm install @gala-chain/api
+  official: true
+  version: 3.1.11
+  published: '2026-08-14'
+  description: Common types, DTOs (Data Transfer Objects), APIs, signatures and utilities
+    for GalaChain. This is the package that implements DTO signing and the uniqueKey
+    idempotency contract.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/chaincode'
+  url: https://www.npmjs.com/package/@gala-chain/chaincode
+  install: npm install @gala-chain/chaincode
+  official: true
+  version: 3.1.11
+  published: '2026-08-14'
+  description: Framework for building chaincodes (smart contracts) on GalaChain.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/client'
+  url: https://www.npmjs.com/package/@gala-chain/client
+  install: npm install @gala-chain/client
+  official: true
+  version: 3.1.11
+  published: '2026-08-14'
+  description: GalaChain client library — REST and Hyperledger Fabric clients for calling
+    deployed chaincode.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/connect'
+  url: https://www.npmjs.com/package/@gala-chain/connect
+  install: npm install @gala-chain/connect
+  official: true
+  version: 3.1.11
+  published: '2026-08-14'
+  repository: https://github.com/GalaChain/sdk
+  description: Browser/wallet connectivity — MetaMask and Trust Wallet signing clients,
+    TokenApi/PublicKeyApi/FeeApi wrappers over the gateway REST surface.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/test'
+  url: https://www.npmjs.com/package/@gala-chain/test
+  install: npm install @gala-chain/test
+  official: true
+  version: 3.1.11
+  published: '2026-08-14'
+  description: Unit and integration testing harness for GalaChain chaincode, including
+    fixtures and mocked chaincode clients.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/cli'
+  url: https://www.npmjs.com/package/@gala-chain/cli
+  install: npm install -g @gala-chain/cli
+  official: true
+  version: 3.1.11
+  published: '2026-08-14'
+  description: CLI for GalaChain to manage and deploy chaincodes. Command surface captured
+    in cli/gala-games-cli.yml.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/launchpad-sdk'
+  url: https://www.npmjs.com/package/@gala-chain/launchpad-sdk
+  install: npm install @gala-chain/launchpad-sdk
+  official: true
+  version: 5.1.1
+  published: '2026-08-12'
+  repository: https://gitlab.com/gala-games/defi/launchpad/sdk
+  description: TypeScript SDK for the Gala Launchpad backend API — 273 public methods,
+    read-only and full-access (wallet) modes.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/launchpad-mcp-server'
+  url: https://www.npmjs.com/package/@gala-chain/launchpad-mcp-server
+  install: npm install -g @gala-chain/launchpad-mcp-server
+  official: true
+  version: 5.1.1
+  published: '2026-08-12'
+  repository: https://gitlab.com/gala-games/defi/launchpad/sdk
+  description: MCP server for Gala Launchpad — 310 tools and 292 prompts. Captured in
+    mcp/gala-games-mcp.yml.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/dex'
+  url: https://www.npmjs.com/package/@gala-chain/dex
+  install: npm install @gala-chain/dex
+  official: true
+  version: 1.1.2
+  published: '2026-07-01'
+  repository: https://github.com/GalaChain/dex
+  description: GalaChain DEX chaincode package.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/launchpad'
+  url: https://www.npmjs.com/package/@gala-chain/launchpad
+  install: npm install @gala-chain/launchpad
+  official: true
+  version: 1.1.2
+  published: '2026-07-01'
+  repository: https://github.com/GalaChain/launchpad
+  description: GalaChain Launchpad chaincode package.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/gswap-sdk'
+  url: https://www.npmjs.com/package/@gala-chain/gswap-sdk
+  install: npm install @gala-chain/gswap-sdk
+  official: true
+  version: 0.0.10
+  published: '2025-11-18'
+  repository: https://github.com/GalaChain/gswap-sdk
+  description: SDK for interacting with GSwap. Still pre-1.0 and last published 2025-11-18,
+    nine months behind the 3.1.x core SDK line.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/stream'
+  url: https://www.npmjs.com/package/@gala-chain/stream
+  install: npm install @gala-chain/stream
+  official: true
+  version: 0.1.0
+  published: '2025-05-08'
+  repository: https://github.com/GalaChain/stream
+  description: Streams blocks from a GalaChain or Hyperledger Fabric network. Last published
+    2025-05-08 — the oldest first-party package on the shelf.
+- language: typescript
+  registry: npm
+  name: '@gala-chain/claude-plugin'
+  url: https://www.npmjs.com/package/@gala-chain/claude-plugin
+  install: npm install -g @gala-chain/claude-plugin
+  official: true
+  version: 1.0.0
+  published: '2026-01-16'
+  description: Claude Code plugin for Gala Launchpad development.
+registries_checked:
+- registry: npm
+  result: 13 first-party packages found under the @gala-chain scope
+- registry: pypi
+  result: 404 for galachain and gala-chain — no Python distribution
+- registry: maven-central
+  result: no first-party artifact found
+- registry: nuget
+  result: no first-party artifact found
+- registry: rubygems
+  result: no first-party artifact found
+- registry: crates.io
+  result: no first-party artifact found
+- registry: packagist
+  result: no first-party artifact found
+- registry: pkg.go.dev
+  result: no first-party module found
+deprecated:
+- name: '@gala-games/chain-cli'
+  version: 0.4.37
+  published: '2023-11-21'
+  official: true
+  note: Superseded by @gala-chain/cli. Listed here as history, not as a recommended
+    install.

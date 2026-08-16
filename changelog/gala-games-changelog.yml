@@ -1,0 +1,167 @@
+generated: '2026-08-16'
+method: searched
+source: https://api.github.com/repos/GalaChain/sdk/releases
+docs: https://github.com/GalaChain/sdk/releases
+scheme: semver
+current_version: 3.1.11
+current_version_published: '2026-08-14'
+format: github-releases
+note: >-
+  Gala publishes no product changelog page for any of its four public APIs. The only
+  dated change record is the GitHub release feed for the GalaChain SDK, which tracks
+  the chaincode framework and client libraries rather than the hosted API surface. A
+  caller of the GalaChain Gateway, GalaConnect, the Block Explorer or the DeFi backend
+  has no changelog at all: nothing announces when a deployed contract or a hosted
+  endpoint changes. The gateway does surface a version (3.0.2) on its OpenAPI, but
+  nothing records what changed between versions.
+
+  Release notes are auto-generated from merged PR titles by galachain-release-bot.
+  They are dated and linked, but not classified — nothing is marked breaking, and there
+  is no migration guidance. Breaking-vs-additive below is inferred from the semver
+  bump and the PR titles, and is marked as such.
+covers: GalaChain SDK (@gala-chain/api, chaincode, client, connect, test, cli)
+does_not_cover:
+- GalaChain Gateway hosted API (gateway-mainnet.galachain.com)
+- GalaConnect API (api-galaswap.gala.com)
+- Gala Block Explorer API (explorer-api.galachain.com)
+- Gala DeFi Backend API (dex-backend-prod1.defi.gala.com)
+entries:
+- version: 3.1.11
+  date: '2026-08-14'
+  classification: patch
+  breaking: false
+  highlights:
+  - Published to npm across all six core packages; no GitHub release body.
+- version: 3.1.10
+  date: '2026-08-06'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: OpenTelemetry span order and parenting.'
+- version: 3.1.9
+  date: '2026-08-06'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: harden OTEL nested span parenting for auth, state and flush.'
+- version: 3.1.8
+  date: '2026-08-06'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Feat: end-to-end OTEL parent span for Fabric invokes.'
+- version: 3.1.7
+  date: '2026-08-06'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: OTEL span parent linking.'
+- version: 3.1.6
+  date: '2026-08-05'
+  classification: patch
+  breaking: false
+  highlights: []
+- version: 3.1.5
+  date: '2026-08-04'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Feat: correlate chaincode timeline logs with the OTEL dto.trace.'
+  - 'Chore: move Begin/End transaction timeline logs to debug level.'
+- version: 3.1.4
+  date: '2026-07-13'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: authorization check for grantNftCollectionAuthorization.'
+- version: 3.1.3
+  date: '2026-06-17'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: insufficient-allowance error message.'
+  - 'Fix: TokenClass symbol property may include numeric characters.'
+- version: 3.1.2
+  date: '2026-05-27'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Feat: allow the chaincode id to be overridden with the GC_CHAINCODE_ID env var.'
+  - 'Docs: provide units for time-related field documentation.'
+- version: 3.1.1
+  date: '2026-04-13'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: missing contract name for transactions to apply.'
+- version: 3.1.0
+  date: '2026-04-07'
+  classification: minor
+  breaking: false
+  additions:
+  - 'Feat: support the request/apply flow in contracts.'
+- version: 3.0.0
+  date: '2026-03-17'
+  classification: major
+  breaking: true
+  breaking_inferred: true
+  highlights:
+  - 'Feat: replace elliptic with secp256k1-node to improve signing performance.'
+  - 'Feat: chaincode deploy command now waits for a successful deploy.'
+  note: Classified breaking from the major-version bump. The release body itself does
+    not label anything as breaking and offers no migration notes.
+- version: 3.0.0-beta
+  date: '2026-02-06'
+  classification: prerelease
+  breaking: false
+  highlights:
+  - 'Feat: support chainId as a signature string prefix for EIP-712.'
+- version: 2.7.1
+  date: '2026-01-15'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: delete allowances — possible race condition and key mismatch.'
+- version: 2.7.0
+  date: '2026-01-07'
+  classification: minor
+  breaking: false
+  additions:
+  - 'Feat: add and remove multiple signers in a single transaction.'
+  - 'Fix: protect the local environment from command-injection patterns.'
+- version: 2.6.2
+  date: '2025-12-18'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: revalidate mint allowances against current authorities.'
+- version: 2.6.1
+  date: '2025-11-25'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Fix: deserialization of nested DTOs in the DryRun method.'
+- version: 2.6.0
+  date: '2025-11-24'
+  classification: minor
+  breaking: true
+  breaking_inferred: true
+  highlights:
+  - 'Feat: refactor multisig to use signer addresses instead of public keys.'
+  - 'Feat: drop migration support from legacy profiles.'
+  note: Dropping legacy profile migration is a behavioural removal shipped in a minor
+    release.
+- version: 2.5.3
+  date: '2025-10-13'
+  classification: patch
+  breaking: true
+  breaking_inferred: true
+  highlights:
+  - 'Fix: rename dto.operation() to prevent conflicts with existing chaincodes.'
+  note: A public method rename shipped in a patch release.
+- version: 2.5.2
+  date: '2025-10-13'
+  classification: patch
+  breaking: false
+  highlights:
+  - 'Feat: mandatory operation-name authorization for multisig.'

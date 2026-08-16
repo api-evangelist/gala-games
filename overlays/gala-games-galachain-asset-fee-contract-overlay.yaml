@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for GalaChain Fee Contract API
+  version: 1.0.0
+extends: openapi/gala-games-galachain-asset-fee-contract-openapi.json
+generated: '2026-08-16'
+method: generated
+source: openapi/gala-games-galachain-asset-fee-contract-openapi.json
+x-note: >-
+  Captures API Evangelist enhancements without mutating the harvested specification.
+  The spec under openapi/ is stored exactly as Gala serves it, so any correction we
+  make lives here instead. Apply this overlay to get a spec that names its own host
+  and declares the authentication that actually protects it.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: gala-games
+    x-apievangelist-api: galachain-asset-fee-contract
+    x-apievangelist-harvested: '2026-08-16'
+    x-apievangelist-operations: 2
+    x-apievangelist-conventions: conventions/gala-games-conventions.yml
+    x-apievangelist-errors: errors/gala-games-problem-types.yml
+    x-apievangelist-idempotency-field: uniqueKey
+- target: $
+  description: >-
+    The harvested document declares no usable servers[] block, so a generated client has
+    no host to call. This adds the production base URL that Gala documents in prose.
+  update:
+    servers:
+    - url: https://gateway-mainnet.galachain.com/api/asset/fee-contract
+      description: Production (GalaChain Fee Contract API)

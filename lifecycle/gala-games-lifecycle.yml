@@ -1,0 +1,124 @@
+generated: '2026-08-16'
+method: searched
+source: https://api.github.com/repos/GalaChain/sdk/releases + https://docs.galachain.com/latest/
+  + openapi/ deprecated flags
+versioning:
+  sdk:
+    scheme: semver
+    current: 3.1.11
+    released: '2026-08-14'
+    source: https://www.npmjs.com/package/@gala-chain/api
+  docs:
+    scheme: version-pinned site
+    current: v3.1.11
+    mechanism: https://docs.galachain.com/latest/ 302s client-side to /v3.1.11/. Every
+      published SDK version keeps its own docs tree, so old versions remain readable
+      (v1.0.18, v1.2.2, v1.3.0, v1.9.3, v2.04, v2.2.0, v2.7.0 are all still live).
+    note: This is a genuinely good practice and rarer than it should be — a caller on
+      2.7.0 can still read 2.7.0 docs.
+  gateway:
+    scheme: none-in-path
+    current: '3.0.2'
+    note: 'The gateway path carries no version segment: /api/{channel}/{contract}/{Method}.
+      The version that matters is the deployed chaincode version, surfaced only as
+      info.version on the OpenAPI. There is no way for a caller to pin a gateway
+      contract version from the URL.'
+  galaconnect:
+    scheme: uri-path
+    current: v1
+    status: Beta — info.title is literally "GalaConnect API Beta"
+  defi_backend:
+    scheme: uri-path-partial
+    current: v1
+    note: /v1/ on trade and marketplace; explore, market, leaderboard, user, incentive
+      and competition are unversioned. A breaking change to an unversioned route has
+      nowhere to land.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Gala publishes NO deprecation policy, no sunset policy and no RFC 8594 Sunset or
+    Deprecation header support. Deprecation is communicated ad hoc: an OpenAPI
+    deprecated flag on two operations, and prose notes in the SDK docs such as "This
+    parameter is deprecated and will be removed in future versions. Use allowedRoles
+    instead." A caller gets no dated notice and no machine-readable warning at runtime.
+  observed_practice:
+  - kind: in-spec flag
+    detail: 2 of 413 published operations carry deprecated true
+  - kind: docs prose
+    detail: individual parameters marked deprecated inline in chaincode-development.md
+  - kind: package supersession
+    detail: '@gala-games/chain-cli (last published 2023-11-21) superseded by @gala-chain/cli
+      with no deprecation notice on the npm listing'
+deprecated_operations:
+- operation: openapi/gala-games-galachain-asset-token-contract-openapi.json#asset_token-contract_FetchAllowances
+  replacement: asset_token-contract_FetchAllowancesWithPagination
+  note: replacement inferred from the spec's own operation set, not stated by Gala
+- operation: openapi/gala-games-defi-backend-openapi.json#TradeController_exec
+  replacement: null
+retired_surfaces:
+- name: Gala Games Server API
+  former_docs: https://game-server-api.gala.games/api/docs
+  status: gone
+  evidence: game-server-api.gala.games resolves NXDOMAIN as of 2026-08-16
+  note: The user-centric server-to-server API that let a game query a player's owned
+    NFTs and token balances, authenticated by HMAC-SHA256 request signatures. Retired
+    with no redirect and no successor named.
+- name: Gala Games Object API
+  former_docs: https://creators.gala.com/documentation/9-0-gala-games-object-api/
+  status: gone
+  evidence: creators.gala.com returns 302 to https://gala.com/ for every documentation
+    path
+- name: Gala Creators documentation portal
+  former_url: https://creators.gala.com/documentation/
+  status: gone
+  evidence: 'HTTP 302 -> https://gala.com/ (probed 2026-08-16). Every indexed creators.gala.com
+    documentation page — onboarding roadmap, web/desktop game launching, external client
+    authentication, the platform development agreement — now lands on the GalaConnect
+    marketing page.'
+  impact: The entire game-studio integration track is undocumented. Everything Gala
+    publishes today is chain-developer facing.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: null
+  published: false
+  evidence:
+  - {url: 'https://status.gala.com', status: 000, note: does not resolve}
+  - {url: 'https://status.galachain.com', status: 000, note: does not resolve}
+  - {url: 'https://galachain.statuspage.io', status: 200, note: redirects to the Atlassian
+      Statuspage marketing site — no such page exists}
+  - {url: 'https://gala.statuspage.io', status: 200, note: 'resolves to "Galaxian.org
+      Status - Page Inactive" — a different organization, inactive'}
+  note: No StatusPage pointer is emitted in apis.yml. There is no health dashboard for
+    any Gala API. The only liveness signal available to a caller is GET /health on the
+    Block Explorer API (AppController_getHealth) and GET /api/v1/wallet/compat/health
+    on the DeFi backend.
+health_endpoints:
+- operation: AppController_getHealth
+  spec: openapi/gala-games-block-explorer-openapi.json
+- operation: WalletExtensionCompatController_health
+  spec: openapi/gala-games-defi-backend-openapi.json
+release_cadence:
+  source: https://github.com/GalaChain/sdk/releases
+  observation: 21 tagged releases between 2025-10-13 and 2026-08-06, including 6 in
+    August 2026 alone. Releases are cut by a bot (galachain-release-bot) with a
+    conventional "Bump Version to X" commit, and every release carries a generated
+    What's Changed list linking the merged PRs.
+  assessment: actively maintained
+environments:
+- name: mainnet
+  gateway: https://gateway-mainnet.galachain.com
+  channels: 18 channel/contract pairs
+- name: testnet
+  gateway: https://gateway-testnet.galachain.com
+  channels: 20 channel/contract pairs — carries two contracts mainnet does not (asset/dex-contract,
+    asset/registrar-contract)
+  note: Testnet chaincode must be submitted for approval before deployment; an automated
+    review checks syntax, dependencies and security risks, with manual review if
+    flagged. Gala reserves the right to remove a developer's chaincode and data from
+    testnet on termination.

@@ -1,0 +1,368 @@
+generated: '2026-08-16'
+method: derived
+source: mcp/gala-games-mcp.yml + openapi/gala-games-defi-backend-openapi.json + openapi/gala-games-galachain-asset-launchpad-contract-openapi.json
+note: >-
+  Gala's MCP server and Gala's OpenAPI documents describe DIFFERENT backends. The
+  MCP server wraps @gala-chain/launchpad-sdk, which talks to the Gala Launchpad
+  backend (lpad-backend-prod1.defi.gala.com) — a host that answers 401 at its root
+  and publishes no OpenAPI. The public OpenAPI surface is the GalaChain Gateway,
+  GalaConnect, Block Explorer and the Gala DeFi backend. Where a Launchpad tool and
+  a DeFi-backend operation clearly perform the same job against the same GSwap DEX,
+  the row is bound with confidence medium and the binding is marked `semantic`, NOT
+  `rest` — the tool does not literally call that operationId, it calls the Launchpad
+  backend's own equivalent. Bonding-curve tools bind to the on-chain launchpad
+  contract, which IS the settlement layer the Launchpad backend submits to; those
+  are `chaincode` bindings. No row asserts a call path that was observed. Live
+  tools/list introspection was not possible: the server is stdio-only, so there is no
+  anonymous endpoint to introspect and the real inputSchemas remain unverified.
+surfaces:
+  openapi:
+  - file: openapi/gala-games-defi-backend-openapi.json
+    host: https://dex-backend-prod1.defi.gala.com
+    gated: false
+    operations: 316
+  - file: openapi/gala-games-galachain-asset-launchpad-contract-openapi.json
+    host: https://gateway-mainnet.galachain.com
+    gated: false
+    operations: 8
+  - file: openapi/gala-games-galachain-asset-dexv3-contract-openapi.json
+    host: https://gateway-mainnet.galachain.com
+    gated: false
+    operations: 21
+  - file: openapi/gala-games-galachain-asset-token-contract-openapi.json
+    host: https://gateway-mainnet.galachain.com
+    gated: false
+    operations: 38
+  - file: openapi/gala-games-galaconnect-openapi.json
+    host: https://api-galaswap.gala.com
+    gated: false
+    operations: 28
+  mcp:
+    transport: stdio
+    package: '@gala-chain/launchpad-mcp-server'
+    gated: true
+    gate: stdio-only; tools/list requires a local install, so input schemas were not
+      introspected
+  graphql: null
+crosswalk:
+- tool: gala_launchpad_fetch_pool_details
+  category: pools
+  rest: [TradeController_getPoolDetails]
+  binding: semantic
+  confidence: medium
+  note: DeFi backend GET /v1/trade/pool returns DEX pool detail; the tool returns bonding-curve
+    pool detail from the Launchpad backend. Same concept, different pool type.
+- tool: gala_launchpad_fetch_composite_pool_data
+  category: pools
+  rest: [TradeController_getCompositePool, TradeController_getCompositePoolDirect]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_volume_data
+  category: pools
+  rest: [ExploreController_volumeDetails]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_price_history
+  category: pools
+  rest: [MarketController_priceSeries, MarketController_sparkline]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_all_price_history
+  category: pools
+  rest: [MarketController_priceSeries]
+  binding: semantic
+  confidence: low
+  note: Auto-paginated variant; the REST operation exposes a single window.
+- tool: gala_launchpad_fetch_prices
+  category: pools
+  rest: [MarketController_price, TradeController_getPriceMultiple]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_all_prices
+  category: pools
+  rest: [TradeController_getPriceMultiple]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_gala_spot_price
+  category: pools
+  rest: [PriceOracleController_fetchPrice]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_token_spot_price
+  category: pools
+  rest: [PriceOracleController_fetchPrice, TradeController_getPrice]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_token_details
+  category: pools
+  rest: [MarketController_tokenSeries, TokenRegistryController_getTokenNameMapping]
+  binding: semantic
+  confidence: low
+- tool: gala_launchpad_fetch_trades
+  category: pools
+  rest: [ExploreController_transactionsDetails]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_buy_tokens
+  category: trading
+  rest: [asset_launchpad-contract_CallNativeTokenIn, asset_launchpad-contract_CallMemeTokenOut]
+  binding: chaincode
+  confidence: medium
+  note: A bonding-curve buy spends the native token and receives the meme token. The
+    Launchpad backend submits the signed DTO to these gateway operations.
+- tool: gala_launchpad_sell_tokens
+  category: trading
+  rest: [asset_launchpad-contract_CallMemeTokenIn, asset_launchpad-contract_CallNativeTokenOut]
+  binding: chaincode
+  confidence: medium
+- tool: gala_launchpad_calculate_buy_amount
+  category: trading
+  rest: [asset_launchpad-contract_FetchSaleDetails]
+  binding: chaincode
+  confidence: low
+  note: The tool advertises a LOCAL bonding-curve calculation; the on-chain sale details
+    are the authoritative inputs to that curve.
+- tool: gala_launchpad_calculate_sell_amount
+  category: trading
+  rest: [asset_launchpad-contract_FetchSaleDetails]
+  binding: chaincode
+  confidence: low
+- tool: gala_launchpad_fetch_launch_token_fee
+  category: trading
+  rest: [asset_launchpad-contract_FetchLaunchpadFeeAmount, asset_launchpad-contract_FetchLaunchpadFeeConfig]
+  binding: chaincode
+  confidence: high
+- tool: gala_launchpad_is_token_graduated
+  category: trading
+  rest: [TokenRegistryController_getUngraduatedLaunchpad]
+  binding: semantic
+  confidence: medium
+  note: The REST surface publishes the ungraduated list; the tool answers the inverse
+    per token.
+- tool: gala_launchpad_get_bundler_transaction_result
+  category: trading
+  rest: [TradeController_transactionStatus]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_dex_pools
+  category: dex-pools
+  rest: [ExploreController_poolsDetails, PairsController_getPairs]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_fetch_all_dex_pools
+  category: dex-pools
+  rest: [ExploreController_poolsDetails]
+  binding: semantic
+  confidence: medium
+- tool: gala_launchpad_get_swap_pool_info
+  category: dex-pools
+  rest: [TradeController_getPoolDetails, TradeController_getSlot0]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_get_swap_pool_price
+  category: dex-pools
+  rest: [TradeController_getPrice]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_fetch_available_dex_tokens
+  category: dex-pools
+  rest: [UserController_fetchTokens, TokenRegistryController_getTokenNameMapping]
+  binding: semantic
+  confidence: low
+- tool: gala_launchpad_get_swap_quote_exact_input
+  category: dex-trading
+  rest: [TradeController_quote]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_get_swap_quote_exact_output
+  category: dex-trading
+  rest: [TradeController_quote]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_execute_swap
+  category: dex-trading
+  rest: [TradeController_swap, asset_dexv3-contract_BatchSubmit]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_calculate_dex_pool_quote_external
+  category: dex-trading
+  rest: [asset_dexv3-contract_GetCompositePool, asset_dexv3-contract_GetSlot0]
+  binding: chaincode
+  confidence: medium
+  note: The README says the "external" variant reads real-time GalaChain DEX data,
+    which is the dexv3 contract.
+- tool: gala_launchpad_get_swap_user_assets
+  category: dex-trading
+  rest: [UserController_fetchAssets]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_get_all_swap_user_assets
+  category: dex-trading
+  rest: [UserController_fetchAssets]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_fetch_swap_position_by_id
+  category: dex-liquidity
+  rest: [TradeController_getUserPosition, asset_dexv3-contract_GetPositions]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_fetch_gala_balance
+  category: balances
+  rest: [UserController_fetchGalaBalance]
+  binding: semantic
+  confidence: high
+- tool: gala_launchpad_fetch_token_balance
+  category: balances
+  rest: [asset_token-contract_FetchBalances]
+  binding: chaincode
+  confidence: high
+- tool: gala_launchpad_fetch_tokens_held
+  category: balances
+  rest: [asset_token-contract_FetchBalancesWithTokenMetadata, UserController_fetchAssets]
+  binding: chaincode
+  confidence: medium
+- tool: gala_launchpad_transfer_token
+  category: transfers
+  rest: [asset_token-contract_TransferToken]
+  binding: chaincode
+  confidence: high
+- tool: gala_launchpad_transfer_gala
+  category: transfers
+  rest: [asset_token-contract_TransferToken]
+  binding: chaincode
+  confidence: high
+  note: GALA is a token class on the asset channel, so a GALA transfer is a TransferToken
+    call with collection GALA.
+- tool: gala_launchpad_create_wallet
+  category: wallet
+  rest: []
+  binding: none
+  confidence: high
+  note: GalaConnect exposes an equivalent at POST /v1/CreateHeadlessWallet, but that
+    spec declares no operationId so there is no id to bind to. Recorded as a spec
+    defect rather than a missing capability.
+- tool: gala_launchpad_get_public_key_from_private_key
+  category: wallet
+  rest: [asset_public-key-contract_GetObjectByKey]
+  binding: chaincode
+  confidence: low
+  note: The tool derives the key locally; the contract operation resolves a REGISTERED
+    key on chain. Related, not equivalent.
+mcp_only:
+- tool: gala_launchpad_on_launchpad_token_creation
+  reason: WebSocket event watcher. No REST polling equivalent is published on any Gala
+    OpenAPI; this is a genuine MCP-only real-time capability.
+- tool: gala_launchpad_on_dex_pool_creation
+  reason: WebSocket event watcher, same as above.
+- tool: gala_launchpad_launch_token
+  reason: Token creation runs through the Launchpad backend, which publishes no OpenAPI.
+    The nearest public analogue is GalaConnect POST /v1/CreateProjectToken, a different
+    product.
+- tool: gala_launchpad_graduate_token
+  reason: Bonding-curve graduation to a DEX pool is orchestrated by the Launchpad backend;
+    no public REST operation exposes it.
+- tool: gala_launchpad_check_token_name
+  reason: Launchpad name-availability check; no public REST equivalent.
+- tool: gala_launchpad_check_token_symbol
+  reason: Launchpad symbol-availability check; no public REST equivalent.
+- tool: gala_launchpad_upload_token_image
+  reason: Launchpad media upload; no public REST equivalent.
+- tool: gala_launchpad_upload_profile_image
+  reason: Launchpad media upload; no public REST equivalent.
+- tool: gala_launchpad_fetch_profile
+  reason: Launchpad social profile; no public REST equivalent.
+- tool: gala_launchpad_update_profile
+  reason: Launchpad social profile; no public REST equivalent.
+- tool: gala_launchpad_fetch_token_badges
+  reason: Launchpad-specific badge metadata.
+- tool: gala_launchpad_fetch_token_distribution
+  reason: Launchpad-specific holder distribution.
+- tool: gala_launchpad_fetch_tokens_created
+  reason: Launchpad creator index; no public REST equivalent.
+- tool: gala_launchpad_query_events
+  reason: Launchpad analytics event query.
+- tool: gala_launchpad_track_event
+  reason: Launchpad analytics event write.
+- tool: overseer tools (9)
+  reason: 'Launchpad moderation: list/summary/status, invite create/get/list/claim/revoke,
+    revoke overseer. Moderation is entirely absent from every public Gala OpenAPI.'
+- tool: content flag tools (4)
+  reason: Launchpad content moderation flags — create, list, action, dismiss. No public
+    REST equivalent.
+- tool: wallet and cache management tools (12)
+  reason: Client-side session state (has_wallet, set_wallet, get_wallet, get_address,
+    get_environment, switch_environment, get_config, get_version, cache info/clear/flush
+    x3, cleanup, explain_sdk_usage). These are server-local utilities with no backing
+    HTTP operation by design.
+rest_only:
+- capability: chain observability
+  operations: [ExplorerController_getBalances, ExplorerController_getAllowances, ExplorerController_getBridgeOps,
+    CachedExplorerController_getBlocks, CachedExplorerController_getRecentBlocks, CachedExplorerController_getBlocksByChannel,
+    CachedExplorerController_getRecentBlocksByChannel, CachedExplorerController_getBlockByNumber,
+    CachedExplorerController_getBlockHeightOnChannel, CachedExplorerController_getTransactions,
+    CachedExplorerController_getRecentTransactions, CachedExplorerController_getTransactionsByChannel,
+    CachedExplorerController_getRecentTransactionsByChannel, CachedExplorerController_getTokenMedia,
+    CachedExplorerController_getRegisteredChannels, CachedExplorerController_search,
+    AppController_getHealth]
+  note: The entire Block Explorer API has no MCP tool. Blocks, transactions and search
+    are invisible to agents.
+- capability: token lifecycle on chain
+  operations: [asset_token-contract_MintToken, asset_token-contract_MintTokenWithAllowance,
+    asset_token-contract_BatchMintToken, asset_token-contract_BurnTokens, asset_token-contract_LockTokens,
+    asset_token-contract_UnlockTokens, asset_token-contract_GrantAllowance, asset_token-contract_RefreshAllowances,
+    asset_token-contract_FetchAllowances, asset_token-contract_FetchAllowancesWithPagination,
+    asset_token-contract_FetchBurns, asset_token-contract_UpdateTokenClass, asset_token-contract_FetchTokenClasses,
+    asset_token-contract_FetchTokenClassesWithPagination, asset_token-contract_FetchTokenClassesWithSupply]
+- capability: NFT collections
+  operations: [asset_token-contract_CreateNftCollection, asset_token-contract_GrantNftCollectionAuthorization,
+    asset_token-contract_RevokeNftCollectionAuthorization, asset_token-contract_FetchNftCollectionAuthorizationsWithPagination]
+- capability: on-chain token swaps
+  operations: [asset_token-contract_RequestTokenSwap, asset_token-contract_FillTokenSwap,
+    asset_token-contract_BatchFillTokenSwap, asset_token-contract_TerminateTokenSwap,
+    asset_token-contract_FetchTokenSwaps, asset_token-contract_FetchTokenSwapByRequestId,
+    asset_token-contract_FetchTokenSwapsByInstanceOffered, asset_token-contract_FetchTokenSwapsByInstanceWanted,
+    asset_token-contract_FetchTokenSwapsOfferedByUser, asset_token-contract_FetchTokenSwapsOfferedToUser]
+  note: GalaConnect's entire swap product is unreachable from the MCP server.
+- capability: cross-chain bridging
+  operations: [asset_token-contract_BridgeTokenOut, asset_token-contract_RequestTokenBridgeOut,
+    asset_token-contract_BatchRequestTokenBridgeOut, asset_token-contract_FetchTokenBridgeStatus]
+- capability: fees
+  operations: [asset_fee-contract_FetchFeeAuthorizations, asset_token-contract_FetchProposedFee]
+- capability: liquidity management
+  operations: [TradeController_addLiquidity, TradeController_removeLiquidity, TradeController_addLiquidityEsimate,
+    TradeController_removeLiquidityEsimate, TradeController_collect, TradeController_createPool,
+    asset_dexv3-contract_GrantSwapAllowance, asset_dexv3-contract_GrantBulkSwapAllowance,
+    asset_dexv3-contract_DeleteSwapAllowances, asset_dexv3-contract_FetchSwapAllowances,
+    asset_dexv3-contract_TransferDexPosition, asset_dexv3-contract_GetAddLiquidityEstimation,
+    asset_dexv3-contract_GetRemoveLiquidityEstimation, asset_dexv3-contract_GetLiquidity,
+    asset_dexv3-contract_GetTickData, asset_dexv3-contract_GetBitMapChanges, asset_dexv3-contract_GetBalanceDelta]
+- capability: incentives, competitions and leaderboards
+  operations: [IncentiveController_getActivePrograms, IncentiveController_getProgramByPool,
+    IncentiveController_getUserReward, IncentiveController_getWalletPositions, IncentiveController_enrollPosition,
+    IncentiveController_getProgramAnalytics, CompetitionController_getActiveCompetition,
+    CompetitionController_getCompetition, CompetitionController_getCompetitionStats,
+    CompetitionController_getParticipant, CompetitionController_getLeaderboard, CompetitionController_getInventory,
+    CompetitionController_enroll, CompetitionController_openChest, LeaderboardController_getLeaderboard,
+    LeaderboardController_getLeaderboardSeasons, LeaderboardController_getUserPosition,
+    LeaderboardController_getUserBreakdown]
+- capability: marketplace and market data
+  operations: [MarketplaceController_getListings, MarketplaceController_getListing,
+    CoinGeckoController_getTickerData, TerminalController_getLatestBlock, TerminalController_getAsset,
+    TerminalController_getPair, TerminalController_getEvents, TerminalController_getLiquidityOperations,
+    MarketController_images, MarketController_walletTransactions, TokenSupplyController_supply]
+coverage:
+  tools_advertised: 310
+  tools_named: 98
+  tools_bound: 36
+  tools_mcp_only: 62
+  rest_operations_total: 413
+  rest_operations_with_a_tool: 41
+  rest_operations_bound_pct: 10
+  note: >-
+    413 = 316 DeFi backend + 71 GalaChain gateway asset-channel contract operations +
+    17 Block Explorer + 9 unique GalaConnect paths reachable by operationId. The
+    GalaConnect spec declares zero operationIds across all 28 operations, so its
+    operations cannot be addressed by id at all and are excluded from the bound count.
+    The headline is the divergence: the MCP server covers one product (Launchpad) that
+    has no OpenAPI, and roughly 90% of the OpenAPI surface Gala does publish has no
+    agent tool.

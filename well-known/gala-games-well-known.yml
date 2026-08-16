@@ -1,0 +1,149 @@
+generated: '2026-08-16'
+method: probed
+source: live GET of each path on every apis.yml host and every OpenAPI servers[] host
+result: no-hits
+note: >-
+  Every /.well-known/ path was probed on nine Gala hosts and NOT ONE returned a real
+  document. No security.txt, no OIDC discovery, no OAuth authorization-server or
+  protected-resource metadata, no api-catalog, no ai-plugin.json, no agent card. This
+  is a recorded absence, not a failed run — no WellKnown or SecurityTxt pointer is
+  emitted in apis.yml, because a pointer would assert Gala serves a surface it does
+  not.
+
+  Two hosts are soft-404 traps and are called out explicitly: gala.com/connect.gala.com
+  and swap.gala.com/galaswap.gala.com are single-page apps whose catch-all returns
+  HTTP 200 with the SAME HTML shell (44,106 and 95,146 bytes respectively) for every
+  path requested, including /llms.txt and every /.well-known/* path. Those 200s are
+  scored here as misses. A naive probe that trusted the status code would have
+  credited Gala with a security.txt, an OIDC configuration, an api-catalog, an
+  ai-plugin and an A2A agent card, all of which are the same marketing page.
+
+  gala.games and galachain.com both 404 the SPA shell on most paths but returned 200
+  with a shorter shell on three paths on gala.games; those are the same catch-all
+  behaviour and are recorded as misses for the same reason.
+hosts:
+- host: https://gala.com
+  catch_all: soft-200
+  documents:
+  - {path: /.well-known/security.txt, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/openid-configuration, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/api-catalog, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/agent.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /llms.txt, status: 200, content_type: text/html, result: miss-html-shell}
+- host: https://creators.gala.com
+  catch_all: soft-200
+  note: Also 302s to https://gala.com/ for every documentation path — the Gala Creators
+    developer portal has been retired.
+  documents:
+  - {path: /.well-known/security.txt, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/openid-configuration, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/api-catalog, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/agent.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /llms.txt, status: 200, content_type: text/html, result: miss-html-shell}
+- host: https://galaswap.gala.com
+  catch_all: soft-200
+  documents:
+  - {path: /.well-known/security.txt, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/openid-configuration, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/api-catalog, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/agent.json, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /llms.txt, status: 200, content_type: text/html, result: miss-html-shell}
+- host: https://galachain.com
+  catch_all: 404-html
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://docs.galachain.com
+  catch_all: 404-html
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://gateway-mainnet.galachain.com
+  catch_all: 404-json
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://gateway-testnet.galachain.com
+  catch_all: 404-json
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://explorer-api.galachain.com
+  catch_all: 404-json
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://gala.games
+  catch_all: mixed
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html,
+    result: miss-html-shell}
+  - {path: /.well-known/api-catalog, status: 200, content_type: text/html, result: miss-html-shell}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+adjacent_findings:
+- kind: content-signal
+  path: /robots.txt
+  hosts: [galachain.com, docs.galachain.com, gateway-mainnet.galachain.com, connect.gala.com]
+  status: 200
+  summary: >-
+    Every galachain.com and gala.com host serves a Cloudflare-managed robots.txt
+    carrying a Content-Signal declaration: `Content-Signal: search=yes,ai-train=no,use=reference`
+    with Allow: / for the default agent, plus explicit Disallow: / for Amazonbot,
+    Applebot-Extended, Bytespider, CCBot, ClaudeBot, CloudflareBrowserRenderingCrawler,
+    Google-Extended, GPTBot and meta-externalagent. It cites Article 4 of EU Directive
+    2019/790 as the reservation of rights.
+  note: >-
+    This is the only machine-readable agent-consent signal Gala publishes, and it is
+    restrictive. Recorded here rather than in a WellKnown pointer because a robots.txt
+    Content-Signal is not a /.well-known/ document.

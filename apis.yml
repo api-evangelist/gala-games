@@ -1,23 +1,246 @@
 aid: gala-games
 name: Gala Games
-description: 'Gala Games is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Gala (formerly Gala Games) is a Web3 gaming and entertainment company
+  that operates GalaChain, a Hyperledger Fabric based Layer 1 built for games, music
+  and film. Its public API surface is REST-first rather than RPC. The GalaChain Gateway
+  publishes an OpenAPI document per deployed chaincode contract (token, DEX v3, launchpad,
+  fee and public key) across eighteen channel/contract pairs including per-game channels
+  such as mirandus, championsarena and thewalkingdeadempires. GalaConnect exposes token
+  swaps, headless wallet creation and cross-chain operations at api-galaswap.gala.com,
+  a Block Explorer API serves blocks, transactions and balances, and the Gala DeFi
+  backend serves pool, trading, liquidity and leaderboard data for GalaSwap. Write
+  operations are authenticated by secp256k1 request signatures rather than bearer tokens,
+  and every write carries a uniqueKey that GalaChain enforces as an idempotency key.'
 url: https://raw.githubusercontent.com/api-evangelist/gala-games/refs/heads/main/apis.yml
+image: https://avatars.githubusercontent.com/u/135145372?v=4
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-16'
 modified: '2026-08-16'
 tags:
 - Company
-apis: []
+- Blockchain
+- Web3
+- Gaming
+- NFT
+- Tokens
+- DeFi
+- Cryptocurrency
+- Distributed Ledger
+- Smart Contracts
+- Entertainment
+- Decentralized Exchange
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: gala-games:galachain-token-contract
+  name: GalaChain Token Contract API
+  description: 'The GalaChain asset-channel token contract, exposed over REST by the
+    GalaChain Gateway. Covers fungible and non-fungible token classes, balances, allowances,
+    minting, burning, locking, transfers, NFT collections, on-chain token swaps and
+    cross-chain bridge-out requests. Every write is a signed DTO carrying a uniqueKey.'
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - Tokens
+  - NFT
+  - Blockchain
+  - Swaps
+  - Bridge
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-galachain-asset-token-contract-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-galachain-asset-token-contract-overlay.yaml
+- aid: gala-games:galachain-dexv3-contract
+  name: GalaChain DEX v3 Contract API
+  description: 'The GalaChain asset-channel concentrated-liquidity DEX contract (dexv3),
+    exposed over REST by the GalaChain Gateway. Covers pool data, positions, liquidity
+    estimation, tick and bitmap data, swap allowances and protocol fee configuration.'
+  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=dexv3-contract
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/dexv3-contract
+  tags:
+  - DeFi
+  - Decentralized Exchange
+  - Liquidity
+  - Blockchain
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-galachain-asset-dexv3-contract-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-galachain-asset-dexv3-contract-overlay.yaml
+- aid: gala-games:galachain-launchpad-contract
+  name: GalaChain Launchpad Contract API
+  description: 'The GalaChain asset-channel launchpad contract, exposed over REST by
+    the GalaChain Gateway. Covers bonding-curve token sales: buying and selling meme
+    tokens against the native token, sale details and launchpad fee configuration.'
+  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=launchpad-contract
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/launchpad-contract
+  tags:
+  - Tokens
+  - DeFi
+  - Launchpad
+  - Blockchain
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-galachain-asset-launchpad-contract-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-galachain-asset-launchpad-contract-overlay.yaml
+- aid: gala-games:galachain-fee-contract
+  name: GalaChain Fee Contract API
+  description: 'The GalaChain asset-channel fee contract, exposed over REST by the
+    GalaChain Gateway. Used to fetch fee authorizations that pay for cross-channel
+    operations, and to dry-run fee transactions before submitting them.'
+  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=fee-contract
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/fee-contract
+  tags:
+  - Fees
+  - Blockchain
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-galachain-asset-fee-contract-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-galachain-asset-fee-contract-overlay.yaml
+- aid: gala-games:galachain-public-key-contract
+  name: GalaChain Public Key Contract API
+  description: 'The GalaChain asset-channel public key contract, exposed over REST
+    by the GalaChain Gateway. Resolves on-chain identity: fetching registered public
+    keys and chain objects by key, plus dry-run support for signature verification.'
+  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=public-key-contract
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/public-key-contract
+  tags:
+  - Identity
+  - Authentication
+  - Blockchain
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-galachain-asset-public-key-contract-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-galachain-asset-public-key-contract-overlay.yaml
+- aid: gala-games:galaconnect
+  name: GalaConnect API
+  description: 'GalaConnect is Gala''s public programmatic surface for GalaSwap: fetching
+    and filling token swaps, creating and terminating swaps, creating headless wallets,
+    creating project tokens, authorizing cross-channel fees, and proxying GalaChain
+    token-contract calls across channels. Documented as OpenAPI 3.0 and labelled Beta.'
+  humanURL: https://connect.gala.com/info/api.html
+  baseURL: https://api-galaswap.gala.com
+  tags:
+  - Swaps
+  - Wallets
+  - Tokens
+  - DeFi
+  - Blockchain
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-galaconnect-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-galaconnect-overlay.yaml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+- aid: gala-games:block-explorer
+  name: Gala Block Explorer API
+  description: 'Near real-time GalaChain chain data: blocks and recent blocks by channel,
+    transactions, block height, registered channels, token media, balances, allowances,
+    bridge operations and a cross-entity search endpoint.'
+  humanURL: https://explorer-api.galachain.com/docs/
+  baseURL: https://explorer-api.galachain.com
+  tags:
+  - Block Explorer
+  - Blockchain
+  - Analytics
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-block-explorer-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-block-explorer-overlay.yaml
+- aid: gala-games:defi-backend
+  name: Gala DeFi Backend API
+  description: 'The backend behind GalaSwap: trade quotes, pools and composite pools,
+    positions, add and remove liquidity, swaps, bundles, slot0 and transaction status,
+    plus explore analytics, price oracle, CoinGecko ticker feeds, pairs, incentives,
+    competitions, leaderboards and marketplace endpoints. Admin endpoints are guarded
+    by an X-Api-Key header.'
+  humanURL: https://dex-backend-prod1.defi.gala.com/docs
+  baseURL: https://dex-backend-prod1.defi.gala.com
+  tags:
+  - DeFi
+  - Decentralized Exchange
+  - Trading
+  - Liquidity
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-defi-backend-openapi.json
+  - type: Overlay
+    url: overlays/gala-games-defi-backend-overlay.yaml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
 common:
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://gala.com/
+- type: DeveloperPortal
+  url: https://galachain.com/
+- type: Documentation
+  url: https://docs.galachain.com/latest/
+- type: APIReference
+  url: https://gateway-mainnet.galachain.com/docs
+- type: GettingStarted
+  url: https://docs.galachain.com/latest/getting-started/
+- type: Support
+  url: https://support.gala.com/hc/en-us
+- type: GitHubOrganization
+  url: https://github.com/GalaChain
+- type: SourceCode
+  url: https://github.com/GalaChain/sdk
+- type: SignUp
+  url: https://games.gala.com/account
+- type: Authentication
+  url: authentication/gala-games-authentication.yml
+- type: DomainSecurity
+  url: security/gala-games-domain-security.yml
+- type: Packages
+  url: packages/gala-games-packages.yml
+- type: SDKs
+  url: packages/gala-games-packages.yml
+- type: CLI
+  url: cli/gala-games-cli.yml
+- type: MCPServer
+  url: mcp/gala-games-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/gala-games-tool-crosswalk.yml
+- type: Conventions
+  url: conventions/gala-games-conventions.yml
+- type: Idempotency
+  url: conventions/gala-games-conventions.yml
+- type: ErrorCatalog
+  url: errors/gala-games-problem-types.yml
+- type: RateLimits
+  url: rate-limits/gala-games-rate-limits.yml
+- type: Plans
+  url: plans/gala-games-plans-pricing.yml
+- type: Lifecycle
+  url: lifecycle/gala-games-lifecycle.yml
+- type: ChangeLog
+  url: changelog/gala-games-changelog.yml
+- type: Conformance
+  url: conformance/gala-games-conformance.yml
+- type: DataModel
+  url: data-model/gala-games-data-model.yml
+- type: LLMsTxt
+  url: llms/gala-games-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+
+x-enrichment:
+  date: '2026-08-16'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v1

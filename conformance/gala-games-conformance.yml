@@ -1,0 +1,161 @@
+generated: '2026-08-16'
+method: derived
+source: openapi/*.json + https://raw.githubusercontent.com/GalaChain/sdk/main/docs/
+  + live probes of gala.com and galachain.com
+note: >-
+  Derived from the harvested specs and the SDK documentation, with live probe results
+  where a standard is observable on the wire. Gala publishes no compliance program,
+  no certifications and no trust center, so NO Compliance pointer is emitted in
+  apis.yml — only Conformance. Several rows record a deliberate architectural choice
+  rather than a shortfall: a chain API authenticated by wallet signatures has no use
+  for OAuth or OIDC.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: All nine harvested documents declare openapi 3.0.0. 413 operations across
+    four hosts.
+- id: openapi-3.1
+  conforms: false
+  evidence: Every document is 3.0.0; none has moved to 3.1.
+- id: openapi-operationid-unique
+  conforms: false
+  evidence: >-
+    Two failures. The GalaConnect spec declares NO operationId on any of its 28
+    operations. The Gala DeFi backend reuses the single operationId
+    WalletExtensionCompatController_handleLegacyRoute across roughly 200 wildcard
+    legacy-route operations, so the id is neither unique nor addressable. Both break
+    SDK generation and tool binding.
+- id: openapi-error-responses
+  conforms: false
+  evidence: The GalaChain Gateway (71 ops) and the Gala DeFi backend (316 ops) declare
+    only 200 responses. Only GalaConnect declares 400/401/404/500.
+- id: openapi-servers-declared
+  conforms: partial
+  evidence: GalaConnect declares servers https://api-galaswap.gala.com. The Block
+    Explorer and DeFi backend declare an EMPTY servers array; the GalaChain Gateway
+    documents omit servers entirely. A caller reading the gateway spec alone cannot
+    tell which host to call.
+- id: openapi-components-reuse
+  conforms: partial
+  evidence: The DeFi backend defines 30 component schemas, the Block Explorer 12,
+    GalaConnect 13. The five GalaChain Gateway documents define ZERO components and
+    inline every schema, which is why a 38-operation spec is 417 KB.
+- id: openapi-security-schemes
+  conforms: partial
+  evidence: Only the DeFi backend declares a securityScheme (apiKey, X-Api-Key, admin
+    endpoints). The signature-based authentication that actually protects every write
+    on the gateway and GalaConnect is described in prose only and is not modelled as a
+    securityScheme anywhere.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No application/problem+json on any surface. Three distinct vendor error
+    envelopes instead — see errors/gala-games-problem-types.yml.
+- id: idempotency
+  conforms: true
+  evidence: >-
+    uniqueKey is a mandatory field on every write DTO, enforced at the ledger:
+    "GalaChain will not permit two transactions with the same uniqueKey to commit to
+    the chain." A replay is rejected with UniqueTransactionConflictError. Stronger
+    than the usual opt-in Idempotency-Key header, because it is mandatory and the
+    deduplication window is permanent.
+  detail: conventions/gala-games-conventions.yml
+- id: pagination
+  conforms: partial
+  evidence: The gateway uses Hyperledger Fabric bookmark pagination, exposed as
+    separate WithPagination operations (bookmark + limit in, nextPageBookmark out).
+    The DeFi backend uses page/limit query parameters. The two surfaces share no
+    convention.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support; no deprecation policy published.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every galachain.com and gala.games
+    host, and an HTML SPA shell on gala.com, creators.gala.com and galaswap.gala.com.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme in any spec; /.well-known/oauth-authorization-server
+    404s on every API host. By design — writes are authenticated by secp256k1 request
+    signatures, not delegated tokens.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration 404s on every API host.
+- id: api-keys
+  conforms: partial
+  evidence: One apiKey scheme exists (X-Api-Key on the DeFi backend), scoped to admin
+    endpoints guarded by ApiKeyGuard. There is no developer-facing API key anywhere on
+    the platform.
+- id: secp256k1-request-signing
+  conforms: true
+  evidence: >-
+    Documented end to end with reference implementation. Body properties recursively
+    sorted alphabetically, deterministically stringified, keccak256 hashed, signed with
+    secp256k1, DER encoded, base64, s normalized to the lower half of the curve order
+    n. Worked examples with verifiable signatures are published in the GalaConnect
+    description.
+- id: eip-712
+  conforms: true
+  evidence: 'SDK 3.0.0-beta added support for chainId as a signature string prefix for
+    EIP-712; the gateway DTO carries a prefix field described as "Prefix for Metamask
+    transaction signatures. Necessary to format payloads correctly to recover publicKey
+    from web3 signatures."'
+- id: multisig
+  conforms: true
+  evidence: 'Gateway DTOs accept a multisig array requiring minItems 2, with signerAddress
+    mandatory and signature/signerPublicKey forbidden; signing scheme must be ETH. SDK
+    2.5.2 added mandatory operation-name authorization for multisig; 2.6.0 refactored
+    multisig to signer addresses.'
+- id: hyperledger-fabric
+  conforms: true
+  evidence: GalaChain is built on Hyperledger Fabric. The SDK ships CAClient, HFClient
+    and FabloRestClient, a bevel-operator-fabric fork, and Run_Own_Peer instructions.
+- id: opentelemetry
+  conforms: true
+  evidence: SDK releases 3.1.5 through 3.1.10 added end-to-end OTEL parent spans for
+    Fabric invokes and correlated chaincode timeline logs with dto.trace. Chaincode-side
+    only — no client-facing trace header is documented.
+- id: json-schema
+  conforms: partial
+  evidence: Schemas are expressed as OpenAPI 3.0 Schema Objects (a JSON Schema dialect
+    subset). No standalone JSON Schema documents are published.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document published, despite two real event surfaces existing
+    (Block Explorer websocket block streaming, and the MCP server's WebSocket pool and
+    token-creation watchers). See asyncapi/ note.
+- id: webhooks
+  conforms: partial
+  evidence: One inbound webhook route exists on the DeFi backend (/api/v1/galachain/onramper/webhook),
+    but it is a third-party callback receiver for the Onramper fiat on-ramp, not a
+    webhook Gala delivers to customers. Gala publishes no outbound webhook catalog.
+- id: coingecko-terminal-integration
+  conforms: true
+  evidence: The DeFi backend implements the CoinGecko / GeckoTerminal integration
+    contract — /coin-gecko/tickers plus /coin-gecko/terminal/{latest-block,asset,pair,events,liquidity-operations}.
+    A third-party data standard Gala genuinely conforms to.
+- id: content-signal
+  conforms: true
+  evidence: >-
+    Every galachain.com and gala.com host serves a Cloudflare-managed robots.txt
+    declaring `Content-Signal: search=yes,ai-train=no,use=reference` with an explicit
+    Article 4 (EU Directive 2019/790) reservation of rights, plus Disallow for
+    Amazonbot, Applebot-Extended, Bytespider, CCBot, ClaudeBot, CloudflareBrowserRenderingCrawler,
+    Google-Extended, GPTBot and meta-externalagent. Gala has taken a machine-readable
+    position on AI use, and the position is restrictive.
+- id: mcp
+  conforms: true
+  evidence: '@gala-chain/launchpad-mcp-server 5.1.1 built on @modelcontextprotocol/sdk,
+    advertising 310 tools and 292 prompts. stdio transport only — no hosted endpoint.'
+- id: a2a
+  conforms: false
+  evidence: No agent card at /.well-known/agent-card.json or /.well-known/agent.json
+    on any of nine hosts probed.
+compliance:
+  published: false
+  certifications: []
+  trust_center: null
+  evidence: >-
+    probe-security-programs.py returned vdp=none trust=none. No trust.gala.com,
+    security.gala.com, /trust, /security or /compliance page carrying named
+    certifications was found, and no SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP claim
+    appears anywhere on the public surface. No Compliance pointer is emitted.

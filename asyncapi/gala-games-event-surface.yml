@@ -1,0 +1,79 @@
+generated: '2026-08-16'
+method: searched
+source: https://raw.githubusercontent.com/GalaChain/sdk/main/docs/integration-guide.md
+  + https://www.npmjs.com/package/@gala-chain/launchpad-mcp-server + https://www.npmjs.com/package/@gala-chain/stream
+  + openapi/gala-games-defi-backend-openapi.json
+spec_type: none
+asyncapi_published: false
+webhooks_published: false
+note: >-
+  Gala HAS real event surfaces and publishes NO machine-readable description of any of
+  them. There is no AsyncAPI document, no event catalog, and no outbound webhook
+  product. This file records the event surfaces that demonstrably exist so a later
+  round can pick them up if Gala ever documents them.
+
+  No AsyncAPI or Webhooks pointer is emitted in apis.yml. Emitting one would credit
+  Gala with an event contract it has not published — the surfaces below are real, but
+  what is missing is precisely the machine-readable description that the pointer would
+  assert.
+event_surfaces:
+- name: Block Explorer block streaming
+  kind: websocket
+  host: explorer-api.galachain.com
+  evidence: 'Gala''s own integration guide describes the Explorer API as providing
+    "Near real-time transaction data, Block streaming via websocket, Search functionality".'
+  source: https://docs.galachain.com/latest/integration-guide/
+  documented: prose only
+  gap: No channel address, no message schema, no subscribe protocol is published. The
+    Block Explorer OpenAPI covers only the 17 HTTP operations.
+- name: Launchpad pool and token creation watchers
+  kind: websocket
+  transport: socket.io-client
+  evidence: >-
+    @gala-chain/launchpad-mcp-server ships two MCP tools that are explicitly described
+    as "WebSocket-based watchers for pool and token creation events" —
+    gala_launchpad_on_launchpad_token_creation and gala_launchpad_on_dex_pool_creation
+    — and depends on socket.io-client.
+  source: https://www.npmjs.com/package/@gala-chain/launchpad-mcp-server
+  documented: package README only
+  gap: The websocket endpoint, event names and payload schemas are not published
+    anywhere. They are reachable only through the SDK.
+- name: GalaChain block stream
+  kind: library
+  package: '@gala-chain/stream'
+  version: 0.1.0
+  published: '2025-05-08'
+  evidence: '"Streams blocks from GalaChain or Hyperledger Fabric network" — a
+    first-party package for consuming chain events.'
+  source: https://github.com/GalaChain/stream
+  documented: package only
+  gap: Consuming chain events requires running this library against a peer. There is no
+    hosted event feed and the package has not been republished since 2025-05-08.
+- name: DeFi backend analytics events
+  kind: http-poll
+  operations: [TerminalController_getEvents, ExploreController_transactionsDetails]
+  evidence: GET /coin-gecko/terminal/events returns a GetEventsResponseDto containing
+    an events array, in the GeckoTerminal integration shape.
+  documented: openapi
+  note: A polled event feed for a third-party data aggregator, not a push surface for
+    integrators.
+inbound_webhooks:
+- path: /api/v1/galachain/onramper/webhook
+  spec: openapi/gala-games-defi-backend-openapi.json
+  direction: inbound
+  note: >-
+    This is Gala RECEIVING a callback from Onramper, the third-party fiat on-ramp. It
+    is not a webhook Gala delivers to a customer, and it must not be counted as an
+    outbound webhook surface.
+outbound_webhooks:
+  published: false
+  note: No webhook registration endpoint, no event type catalog, no signature-verification
+    documentation and no delivery/retry semantics exist on any Gala surface. An
+    integrator who needs to know that a swap was filled or a token graduated has to
+    poll.
+recommendation: >-
+  The highest-value event artifact Gala could publish is an AsyncAPI 3.x document for
+  the Block Explorer websocket. It already streams blocks and transactions in near real
+  time, the message shapes already exist as BlockDetailsDTO and the transaction DTOs in
+  the Block Explorer OpenAPI, and it is the one event surface that is already public
+  and uncredentialed.

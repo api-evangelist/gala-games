@@ -1,0 +1,63 @@
+generated: '2026-08-16'
+method: searched
+source: https://connect.gala.com/info/swagger.json (info.description, "Rate Limiting"
+  section)
+docs: https://connect.gala.com/info/api.html
+limit_count: 1
+summary: >-
+  Exactly one Gala API publishes a rate limit. GalaConnect states a global limit in
+  prose in its OpenAPI description. The GalaChain Gateway, the Block Explorer API and
+  the Gala DeFi backend publish no limits at all, and no Gala surface emits
+  X-RateLimit-* or RateLimit-* headers — the only runtime signal an agent gets is
+  Retry-After on a 429.
+limits:
+- api: GalaConnect API
+  base_url: https://api-galaswap.gala.com
+  scope: global
+  scope_detail: A single global limit across the API, not per key or per wallet — the
+    docs say "The GalaConnect API has a global rate limit".
+  limit: 20
+  window: 10s
+  burst: null
+  exhaustion_status: 429
+  headers:
+  - name: Retry-After
+    on: 429
+    description: Whole number of seconds to wait before the next request. The docs give
+      the example of a 429 carrying Retry-After 5.
+  - name: X-RateLimit-Limit
+    published: false
+  - name: X-RateLimit-Remaining
+    published: false
+  - name: X-RateLimit-Reset
+    published: false
+  - name: RateLimit
+    published: false
+  stability: 'Explicitly unstable: "The rate limiting policy is subject to change, thus
+    code that uses the API should be prepared for the possibility of being rate limited."'
+  increase: Contact support@gala.com for a higher limit. No self-serve tier and no
+    published paid ceiling.
+concurrency_limits:
+- api: GalaConnect API
+  rule: Do not perform write operations concurrently. Concurrent transactions affecting
+    the same wallet may produce serialization failures.
+  exhaustion_status: 409
+  note: This is a concurrency constraint rather than a request-rate limit, but it is
+    the constraint most likely to break an agent that parallelises writes.
+undocumented:
+- api: GalaChain Token / DEX v3 / Launchpad / Fee / Public Key Contract APIs
+  base_url: https://gateway-mainnet.galachain.com
+  result: no published limits
+- api: Gala Block Explorer API
+  base_url: https://explorer-api.galachain.com
+  result: no published limits
+- api: Gala DeFi Backend API
+  base_url: https://dex-backend-prod1.defi.gala.com
+  result: no published limits
+- api: Gala Launchpad backend
+  base_url: https://lpad-backend-prod1.defi.gala.com
+  result: no published limits; host answers 401 at root and publishes no documentation
+note: >-
+  Limits were not probed against live traffic. Recording an observed 429 would require
+  deliberately exhausting a production limit on a chain API, which this pipeline does
+  not do. method is searched, sourced from the provider's own published description.

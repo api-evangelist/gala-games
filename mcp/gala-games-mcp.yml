@@ -1,0 +1,181 @@
+generated: '2026-08-16'
+method: searched
+status: published
+source: https://www.npmjs.com/package/@gala-chain/launchpad-mcp-server
+deployment:
+  mode: local-stdio
+  install: npx -y @gala-chain/launchpad-mcp-server@latest
+  package: https://www.npmjs.com/package/@gala-chain/launchpad-mcp-server
+  auth: api-key
+  verified: searched
+  note: >-
+    Gala ships an MCP server as an npm package only. There is NO hosted remote MCP
+    endpoint — nothing an agent can POST to without a human first installing and
+    running the package on a machine. The credential is a wallet private key supplied
+    as the PRIVATE_KEY environment variable; omitting it starts the server in a
+    read-only mode where every fetch/query tool still works and only signing
+    operations (buy, sell, transfer, launch, graduate) are refused. Established from
+    the package's published README and npm registry metadata, not from a live
+    tools/list — the server is stdio, so there is no anonymous endpoint to introspect.
+server:
+  name: gala-launchpad
+  transport: stdio
+  binary: gala-launchpad-mcp
+  package: '@gala-chain/launchpad-mcp-server'
+  version: 5.1.1
+  published: '2026-08-12'
+  license: MIT
+  repository: https://gitlab.com/gala-games/defi/launchpad/sdk
+  directory: packages/mcp-server
+  publisher: Gala Launchpad Team (dev@gala-launchpad.com); npm maintainers include
+    devops+npmjs@gala.games and aschuler@gala.games
+  backs: '@gala-chain/launchpad-sdk 5.1.1 (Gala Launchpad backend API, 273 public methods)'
+configuration:
+  claude_desktop:
+    command: npx
+    args: ['-y', '@gala-chain/launchpad-mcp-server@latest']
+  claude_code_full_access: claude mcp add "galachain-launchpad" -- env PRIVATE_KEY=0x...
+    ENVIRONMENT=production npx -y @gala-chain/launchpad-mcp-server@latest
+  claude_code_read_only: claude mcp add "galachain-launchpad-readonly" -- env ENVIRONMENT=production
+    npx -y @gala-chain/launchpad-mcp-server@latest
+  environment:
+  - name: PRIVATE_KEY
+    required: false
+    description: Ethereum wallet private key. Omit for read-only mode.
+  - name: ENVIRONMENT
+    required: false
+    default: production
+    values: [development, production]
+  - name: DEBUG
+    required: false
+  - name: TIMEOUT
+    required: false
+    default: '30000'
+  - name: ETHEREUM_RPC_URL
+    required: false
+  - name: SOLANA_RPC_URL
+    required: false
+counts:
+  tools_claimed: 310
+  prompts_claimed: 292
+  tool_categories_claimed: 38
+  tools_named_in_readme: 98
+  note: >-
+    The package advertises 310 tools and 292 prompts. 98 distinct tool names are
+    written out verbatim in the published README and are the only ones recorded
+    below. The remaining tools are summarised by the README only as category counts
+    (chat, bans, API keys, moderators, streaming, cross-chain bridging), so their
+    names are NOT recorded here — enumerating them would require running the server
+    and calling tools/list with a wallet.
+tools:
+- {name: gala_launchpad_fetch_pools, category: pools}
+- {name: gala_launchpad_fetch_all_pools, category: pools}
+- {name: gala_launchpad_fetch_pool_details, category: pools}
+- {name: gala_launchpad_fetch_pool_details_for_calculation, category: pools}
+- {name: gala_launchpad_fetch_composite_pool_data, category: pools}
+- {name: gala_launchpad_fetch_volume_data, category: pools}
+- {name: gala_launchpad_fetch_price_history, category: pools}
+- {name: gala_launchpad_fetch_all_price_history, category: pools}
+- {name: gala_launchpad_fetch_prices, category: pools}
+- {name: gala_launchpad_fetch_all_prices, category: pools}
+- {name: gala_launchpad_fetch_token_spot_price, category: pools}
+- {name: gala_launchpad_fetch_launchpad_token_spot_price, category: pools}
+- {name: gala_launchpad_fetch_gala_spot_price, category: pools}
+- {name: gala_launchpad_fetch_token_details, category: pools}
+- {name: gala_launchpad_fetch_token_distribution, category: pools}
+- {name: gala_launchpad_fetch_token_badges, category: pools}
+- {name: gala_launchpad_fetch_trades, category: pools}
+- {name: gala_launchpad_on_launchpad_token_creation, category: watchers}
+- {name: gala_launchpad_on_dex_pool_creation, category: watchers}
+- {name: gala_launchpad_buy_tokens, category: trading}
+- {name: gala_launchpad_sell_tokens, category: trading}
+- {name: gala_launchpad_calculate_buy_amount, category: trading}
+- {name: gala_launchpad_calculate_buy_amount_local, category: trading}
+- {name: gala_launchpad_calculate_buy_amount_external, category: trading}
+- {name: gala_launchpad_calculate_buy_amount_for_graduation, category: trading}
+- {name: gala_launchpad_calculate_sell_amount, category: trading}
+- {name: gala_launchpad_calculate_sell_amount_local, category: trading}
+- {name: gala_launchpad_calculate_sell_amount_external, category: trading}
+- {name: gala_launchpad_calculate_initial_buy, category: trading}
+- {name: gala_launchpad_graduate_token, category: trading}
+- {name: gala_launchpad_is_token_graduated, category: trading}
+- {name: gala_launchpad_fetch_launch_token_fee, category: trading}
+- {name: gala_launchpad_get_bundler_transaction_result, category: trading}
+- {name: gala_launchpad_fetch_dex_pools, category: dex-pools}
+- {name: gala_launchpad_fetch_all_dex_pools, category: dex-pools}
+- {name: gala_launchpad_fetch_available_dex_tokens, category: dex-pools}
+- {name: gala_launchpad_fetch_all_available_dex_tokens, category: dex-pools}
+- {name: gala_launchpad_get_swap_pool_info, category: dex-pools}
+- {name: gala_launchpad_get_swap_pool_price, category: dex-pools}
+- {name: gala_launchpad_get_swap_quote_exact_input, category: dex-trading}
+- {name: gala_launchpad_get_swap_quote_exact_output, category: dex-trading}
+- {name: gala_launchpad_execute_swap, category: dex-trading}
+- {name: gala_launchpad_calculate_dex_pool_quote, category: dex-trading}
+- {name: gala_launchpad_calculate_dex_pool_quote_local, category: dex-trading}
+- {name: gala_launchpad_calculate_dex_pool_quote_external, category: dex-trading}
+- {name: gala_launchpad_get_swap_user_assets, category: dex-trading}
+- {name: gala_launchpad_get_all_swap_user_assets, category: dex-trading}
+- {name: gala_launchpad_fetch_swap_position_by_id, category: dex-liquidity}
+- {name: gala_launchpad_fetch_gala_balance, category: balances}
+- {name: gala_launchpad_fetch_token_balance, category: balances}
+- {name: gala_launchpad_fetch_tokens_held, category: balances}
+- {name: gala_launchpad_fetch_tokens_created, category: balances}
+- {name: gala_launchpad_fetch_profile, category: balances}
+- {name: gala_launchpad_update_profile, category: balances}
+- {name: gala_launchpad_has_wallet, category: wallet}
+- {name: gala_launchpad_set_wallet, category: wallet}
+- {name: gala_launchpad_get_wallet, category: wallet}
+- {name: gala_launchpad_create_wallet, category: wallet}
+- {name: gala_launchpad_get_address, category: wallet}
+- {name: gala_launchpad_get_ethereum_address, category: wallet}
+- {name: gala_launchpad_get_ethereum_address_from_private_key, category: wallet}
+- {name: gala_launchpad_get_public_key_from_private_key, category: wallet}
+- {name: gala_launchpad_launch_token, category: token-creation}
+- {name: gala_launchpad_check_token_name, category: token-creation}
+- {name: gala_launchpad_check_token_symbol, category: token-creation}
+- {name: gala_launchpad_upload_token_image, category: token-creation}
+- {name: gala_launchpad_upload_profile_image, category: token-creation}
+- {name: gala_launchpad_transfer_gala, category: transfers}
+- {name: gala_launchpad_transfer_token, category: transfers}
+- {name: gala_launchpad_resolve_token_class_key, category: utility}
+- {name: gala_launchpad_resolve_vault_address, category: utility}
+- {name: gala_launchpad_get_url_by_token_name, category: utility}
+- {name: gala_launchpad_get_config, category: utility}
+- {name: gala_launchpad_get_environment, category: utility}
+- {name: gala_launchpad_switch_environment, category: utility}
+- {name: gala_launchpad_get_version, category: utility}
+- {name: gala_launchpad_explain_sdk_usage, category: utility}
+- {name: gala_launchpad_cleanup, category: utility}
+- {name: gala_launchpad_get_cache_info, category: utility}
+- {name: gala_launchpad_clear_cache, category: utility}
+- {name: gala_launchpad_flush_all_cache, category: utility}
+- {name: gala_launchpad_flush_cache_by_token, category: utility}
+- {name: gala_launchpad_flush_cache_by_address, category: utility}
+- {name: gala_launchpad_query_events, category: events}
+- {name: gala_launchpad_track_event, category: events}
+- {name: gala_launchpad_list_overseers, category: overseers}
+- {name: gala_launchpad_get_my_overseer_status, category: overseers}
+- {name: gala_launchpad_get_overseer_summary, category: overseers}
+- {name: gala_launchpad_create_overseer_invite, category: overseers}
+- {name: gala_launchpad_get_overseer_invite, category: overseers}
+- {name: gala_launchpad_list_overseer_invites, category: overseers}
+- {name: gala_launchpad_claim_overseer_invite, category: overseers}
+- {name: gala_launchpad_revoke_overseer_invite, category: overseers}
+- {name: gala_launchpad_revoke_overseer, category: overseers}
+- {name: gala_launchpad_create_content_flag, category: content-flags}
+- {name: gala_launchpad_list_content_flags, category: content-flags}
+- {name: gala_launchpad_action_content_flag, category: content-flags}
+- {name: gala_launchpad_dismiss_content_flag, category: content-flags}
+related:
+- name: '@gala-chain/claude-plugin'
+  version: 1.0.0
+  published: '2026-01-16'
+  url: https://www.npmjs.com/package/@gala-chain/claude-plugin
+  description: Claude Code plugin for Gala Launchpad development, published by the same
+    team.
+gaps:
+- The GalaChain Gateway, GalaConnect, Block Explorer and DeFi backend APIs — the four
+  surfaces Gala actually documents with OpenAPI — have no MCP server at all. The only
+  MCP server covers Launchpad, which has no public OpenAPI.
+- No remote/hosted MCP endpoint, so there is no agent-reachable Gala surface without a
+  local install.

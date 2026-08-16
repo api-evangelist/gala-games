@@ -1,0 +1,195 @@
+generated: '2026-08-16'
+method: derived
+source: openapi/gala-games-galaconnect-openapi.json + openapi/gala-games-defi-backend-openapi.json
+  + openapi/gala-games-block-explorer-openapi.json + openapi/gala-games-galachain-asset-token-contract-openapi.json
+docs: https://docs.galachain.com/latest/concepts/chain-key-design/
+note: >-
+  Derived from component schemas and from the composite-key convention that runs
+  through every Gala surface. GalaChain has no opaque object ids of the Stripe cus_/in_
+  kind. Identity is a COMPOSITE KEY: a token is addressed by the tuple
+  collection|category|type|additionalKey, and a specific unit of it adds instance. That
+  tuple appears as four sibling fields in JSON and as a pipe-joined string on the wire
+  (GALA|Unit|none|none). Understanding that one convention is most of what an
+  integrator needs.
+identity_conventions:
+- name: token class key
+  form: 'collection|category|type|additionalKey'
+  example: GALA|Unit|none|none
+  json_form: four sibling string properties
+  note: '"none" is a real, required value — it is how an unused axis is expressed, not
+    a null.'
+- name: token instance key
+  form: 'collection|category|type|additionalKey|instance'
+  note: instance is a BigNumber-as-string. Fungible token balances use instance "0";
+    an NFT uses a nonzero instance.
+- name: user address
+  forms:
+  - 'client|<24 hex chars>'
+  - 'eth|<40 hex chars, no 0x>'
+  note: The pipe-prefixed form identifies the identity provider.
+- name: swapRequestId
+  form: 'NUL-delimited composite: <NUL>GCTSR<NUL><created-ms><NUL><64 hex><NUL>'
+  note: Contains embedded NUL characters. It must be passed back verbatim, which is a
+    real serialization hazard for any client that sanitizes control characters.
+- name: poolHash
+  note: The DEX pool identifier used across the DeFi backend incentive and explore
+    endpoints.
+- name: txid
+  form: 64 hex chars
+  note: Returned on a committed transaction; the join key to the Block Explorer.
+- name: uniqueKey
+  form: 'caller-supplied; GalaConnect requires the prefix galaconnect-operation-'
+  note: Not an entity id — an idempotency key, but it is the only caller-controlled
+    identifier in the system.
+entities:
+- name: TokenClass
+  surface: [galaconnect, gateway]
+  schema: TokenClass
+  key: collection|category|type|additionalKey
+  fields: [collection, category, type, additionalKey]
+  description: The definition of a token — fungible or non-fungible. Everything else
+    hangs off this.
+- name: TokenClassWithSupply
+  surface: [galaconnect]
+  extends: TokenClass
+  description: TokenClass plus current supply figures.
+- name: TokenInstance
+  surface: [galaconnect, gateway]
+  extends: TokenClass
+  adds: [instance]
+  description: A specific unit of a token class.
+- name: TokenBalance
+  surface: [gateway, explorer]
+  description: A wallet's holding of one token class, including locked holds.
+- name: Allowance
+  surface: [galaconnect, gateway]
+  schema: Allowance
+  fields: [grantedTo, grantedBy, quantity, quantitySpent, collection, category, type,
+    additionalKey, instance, allowanceType, uses, usesSpent, expires, created]
+  description: A delegated permission to mint, burn, transfer or lock a token on
+    someone else's behalf, metered by uses.
+- name: Swap
+  surface: [galaconnect, gateway]
+  schema: Swap
+  key: swapRequestId
+  fields: [offered, wanted, uses, usesSpent, offeredBy, created, expires, fillIds, swapRequestId,
+    txid]
+  description: 'A peer-to-peer token swap offer. The `uses` model is the unusual part:
+    a swap is divided into discrete units that can be filled separately and partially,
+    so one offer serves many counterparties.'
+- name: NewProjectToken
+  surface: [galaconnect]
+  schema: NewProjectTokenDetails
+  fields: [tokenClass, name, symbol, description, image, decimals, maxSupply, maxCapacity]
+- name: Pool
+  surface: [defi-backend]
+  schema: PoolDto
+  key: id
+  fields: [id, name, assetIds, pairIds, metadata]
+  description: A DEX liquidity pool.
+- name: Pair
+  surface: [defi-backend]
+  schema: PairDto
+  key: id
+  fields: [id, dexKey, asset0Id, asset1Id, createdAtBlockNumber, createdAtBlockTimestamp,
+    createdAtTxnId, creator, feeBps, pool, metadata]
+- name: Asset
+  surface: [defi-backend]
+  schema: AssetDto
+  key: id
+  fields: [id, name, symbol, decimals, totalSupply, circulatingSupply, coinGeckoId,
+    metadata]
+- name: Position
+  surface: [defi-backend, dexv3]
+  key: positionId
+  description: A concentrated-liquidity LP position bounded by tickLower and tickUpper.
+- name: IncentiveProgram
+  surface: [defi-backend]
+  schema: ActiveIncentiveProgramResponse
+  key: id
+  fields: [id, name, poolHash, bonusToken, bonusPoolAmount, status, startTime, endTime,
+    requiresFullRange, minPositionValueUsd, termsUrl, totalTvl, participantCount]
+- name: IncentiveReward
+  surface: [defi-backend]
+  schema: IncentiveRewardResponse
+  fields: [programId, programName, status, bonusTokenSymbol, bonusTokenReward, sharePercentage,
+    isQualified, disqualificationReason, timeRemainingSeconds, distributionTxHash]
+- name: Competition
+  surface: [defi-backend]
+  key: id
+- name: Block
+  surface: [explorer]
+  schema: BlockDetailsDTO
+  key: number (scoped by channel)
+  fields: [block, channel, number, parsedBlock]
+- name: Transaction
+  surface: [explorer]
+  key: txid
+- name: Channel
+  surface: [explorer, gateway]
+  description: A GalaChain channel. Eighteen channel/contract pairs are live on mainnet
+    — asset plus one per game or media property.
+- name: FeeAuthorization
+  surface: [gateway]
+  description: A prepaid cross-channel fee credit, created by burning GALA on the asset
+    channel.
+relationships:
+- {from: TokenInstance, to: TokenClass, type: belongs_to, via: collection+category+type+additionalKey}
+- {from: TokenBalance, to: TokenClass, type: belongs_to, via: collection+category+type+additionalKey}
+- {from: TokenBalance, to: User, type: belongs_to, via: owner}
+- {from: Allowance, to: TokenInstance, type: belongs_to, via: collection+category+type+additionalKey+instance}
+- {from: Allowance, to: User, type: belongs_to, via: grantedTo}
+- {from: Allowance, to: User, type: belongs_to, via: grantedBy}
+- {from: Swap, to: User, type: belongs_to, via: offeredBy}
+- {from: Swap, to: TokenInstance, type: has_many, via: 'offered[].tokenInstance'}
+- {from: Swap, to: TokenInstance, type: has_many, via: 'wanted[].tokenInstance'}
+- {from: Swap, to: Transaction, type: has_one, via: txid}
+- {from: NewProjectToken, to: TokenClass, type: has_one, via: tokenClass}
+- {from: Pair, to: Asset, type: belongs_to, via: asset0Id}
+- {from: Pair, to: Asset, type: belongs_to, via: asset1Id}
+- {from: Pair, to: Pool, type: belongs_to, via: pool}
+- {from: Pool, to: Asset, type: has_many, via: assetIds}
+- {from: Pool, to: Pair, type: has_many, via: pairIds}
+- {from: Pair, to: Block, type: belongs_to, via: createdAtBlockNumber}
+- {from: Pair, to: Transaction, type: belongs_to, via: createdAtTxnId}
+- {from: Position, to: Pool, type: belongs_to, via: poolHash}
+- {from: Position, to: User, type: belongs_to, via: walletAddress}
+- {from: IncentiveProgram, to: Pool, type: belongs_to, via: poolHash}
+- {from: IncentiveReward, to: IncentiveProgram, type: belongs_to, via: programId}
+- {from: IncentiveReward, to: Transaction, type: has_one, via: distributionTxHash}
+- {from: EnrollPosition, to: IncentiveProgram, type: belongs_to, via: programId}
+- {from: EnrollPosition, to: Position, type: belongs_to, via: positionId}
+- {from: Transaction, to: Block, type: belongs_to, via: blockNumber}
+- {from: Block, to: Channel, type: belongs_to, via: channel}
+- {from: FeeAuthorization, to: Channel, type: belongs_to, via: channel}
+envelopes:
+- name: BaseResponseDto
+  surface: defi-backend
+  fields: [status, message, error, data]
+- name: GalaChainResponse
+  surface: [gateway, galaconnect]
+  fields: [Status, Data, Message, ErrorCode, ErrorKey, ErrorPayload]
+- name: SignedRequest
+  surface: galaconnect
+  fields: [signature, signerPublicKey, uniqueKey]
+  note: The mixin every write body carries.
+- name: PagingResponseDTO
+  surface: explorer
+  fields: [limit, offset, size, count]
+cross_surface_joins:
+- join: token class key
+  connects: [gateway, galaconnect, explorer, defi-backend]
+  note: The one identifier that is genuinely portable across all four APIs.
+- join: wallet address
+  connects: [gateway, galaconnect, defi-backend]
+- join: txid
+  connects: [galaconnect, explorer, defi-backend]
+gaps:
+- The five GalaChain Gateway documents define ZERO components.schemas and inline every
+  request shape, so no entity graph can be derived from them directly — the entities
+  above come from GalaConnect and the DeFi backend, which model the same objects.
+- Several DeFi backend schemas (LeaderboardSeason, IncentiveProgramPosition,
+  IncentiveProgramAnalytics, Object) are declared with no properties at all, so their
+  shape is undiscoverable from the spec.
+- GalaConnect declares TokenClassWithSupply, TokenInstance, Swap, SwappableToken,
+  AllowanceType and MintConfiguration as empty schemas — named but unmodelled.

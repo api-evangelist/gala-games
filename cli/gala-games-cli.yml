@@ -1,0 +1,91 @@
+generated: '2026-08-16'
+method: searched
+source: https://raw.githubusercontent.com/GalaChain/sdk/main/chain-cli/README.md
+docs: https://docs.galachain.com/latest/chaincode-deployment/
+name: galachain
+binary: galachain
+package: '@gala-chain/cli'
+package_url: https://www.npmjs.com/package/@gala-chain/cli
+version: 3.1.11
+repository: https://github.com/GalaChain/sdk/tree/main/chain-cli
+framework: oclif
+install:
+- method: npm
+  command: npm install -g @gala-chain/cli
+global_flags:
+- flag: --json
+  description: Emit machine-readable JSON output. Present on every command, which makes
+    the CLI scriptable end to end.
+- flag: --log-level
+  values: [debug, info, warn, error]
+- flag: --mnt
+  description: Target the mainnet/managed deployment path (deploy and info).
+commands:
+- group: project scaffolding
+  commands:
+  - name: init
+    signature: galachain init PATH
+    description: Scaffold a new GalaChain chaincode project at the given path.
+  - name: help
+    signature: galachain help [COMMAND]
+    description: Display help for galachain, or for one command.
+- group: local network
+  commands:
+  - name: 'network:up'
+    aliases: [network-up]
+    signature: galachain network-up
+    description: Bring up a local Hyperledger Fabric network for chaincode development
+      and integration testing.
+  - name: 'network:prune'
+    aliases: [network-prune]
+    signature: galachain network-prune
+    description: Tear down and clean the local Fabric network.
+  - name: logs
+    signature: galachain logs
+    description: Stream logs from the running local network / deployed chaincode.
+- group: keys and signing
+  commands:
+  - name: keygen
+    signature: galachain keygen FILE
+    description: Generate a secp256k1 key pair and write it to FILE. This is how a
+      developer produces the private key that signs DTOs and the deploy credential.
+  - name: 'dto:sign'
+    aliases: [dto-sign]
+    signature: galachain dto:sign KEY DATA
+    description: Sign a DTO with a private key, producing the `signature` property that
+      the gateway REST API requires on every write. Flags -o output path, -d derive
+      only, -s treat KEY as a raw hex string.
+  - name: 'dto:verify'
+    aliases: [dto-verify]
+    signature: galachain dto:verify KEY DATA
+    description: Verify a signed DTO against a public key.
+- group: deployment
+  commands:
+  - name: register
+    signature: galachain register [DEVELOPERPRIVATEKEY]
+    description: Register a developer identity with the GalaChain deployment service
+      before a chaincode can be submitted.
+  - name: deploy
+    signature: 'galachain deploy IMAGETAG [DEVELOPERPRIVATEKEY]'
+    description: Deploy a chaincode Docker image to GalaChain (testnet by default, mainnet
+      with --mnt). Chaincode is submitted for automated review before it runs.
+  - name: info
+    signature: galachain info [DEVELOPERPRIVATEKEY]
+    description: Report the status of the developer's deployed chaincode.
+key_flows:
+- name: zero to deployed chaincode
+  steps:
+  - galachain init ./my-project
+  - galachain network-up
+  - galachain keygen ./dev-private-key
+  - galachain register ./dev-private-key
+  - 'galachain deploy registry.image.name:latest ./dev-private-key'
+  - galachain info ./dev-private-key
+  docs: https://docs.galachain.com/latest/from-zero-to-deployment/
+- name: sign a gateway request offline
+  steps:
+  - galachain keygen ./testkey
+  - galachain dto:sign ./testkey dto.json -o=output/path
+  - galachain dto:verify ./publicKey dto.json
+  note: The signed DTO is then POSTed directly to a gateway contract endpoint such as
+    https://gateway-mainnet.galachain.com/api/asset/token-contract/TransferToken.
