@@ -37,153 +37,414 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: gala-games:galachain-token-contract
-  name: GalaChain Token Contract API
-  description: 'The GalaChain asset-channel token contract, exposed over REST by the
-    GalaChain Gateway. Covers fungible and non-fungible token classes, balances, allowances,
-    minting, burning, locking, transfers, NFT collections, on-chain token swaps and
-    cross-chain bridge-out requests. Every write is a signed DTO carrying a uniqueKey.'
+- aid: gala-games:gala-games-api-galachain-operations-api
+  name: 'Gala Games API: GalaChain Operations API'
+  description: >-
+    These operations are direct interactions with the GalaChain blockchain, with the GalaConnect API doing
+    little more than proxying your request.
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - Tokens
-  - NFT
-  - Blockchain
-  - Swaps
-  - Bridge
+  - 'API: GalaChain Operations'
   properties:
   - type: OpenAPI
-    url: openapi/gala-games-galachain-asset-token-contract-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-galachain-asset-token-contract-overlay.yaml
-- aid: gala-games:galachain-dexv3-contract
-  name: GalaChain DEX v3 Contract API
-  description: 'The GalaChain asset-channel concentrated-liquidity DEX contract (dexv3),
-    exposed over REST by the GalaChain Gateway. Covers pool data, positions, liquidity
-    estimation, tick and bitmap data, swap allowances and protocol fee configuration.'
-  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=dexv3-contract
-  baseURL: https://gateway-mainnet.galachain.com/api/asset/dexv3-contract
-  tags:
-  - DeFi
-  - Decentralized Exchange
-  - Liquidity
-  - Blockchain
-  properties:
-  - type: OpenAPI
-    url: openapi/gala-games-galachain-asset-dexv3-contract-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-galachain-asset-dexv3-contract-overlay.yaml
-- aid: gala-games:galachain-launchpad-contract
-  name: GalaChain Launchpad Contract API
-  description: 'The GalaChain asset-channel launchpad contract, exposed over REST by
-    the GalaChain Gateway. Covers bonding-curve token sales: buying and selling meme
-    tokens against the native token, sale details and launchpad fee configuration.'
-  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=launchpad-contract
-  baseURL: https://gateway-mainnet.galachain.com/api/asset/launchpad-contract
-  tags:
-  - Tokens
-  - DeFi
-  - Launchpad
-  - Blockchain
-  properties:
-  - type: OpenAPI
-    url: openapi/gala-games-galachain-asset-launchpad-contract-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-galachain-asset-launchpad-contract-overlay.yaml
-- aid: gala-games:galachain-fee-contract
-  name: GalaChain Fee Contract API
-  description: 'The GalaChain asset-channel fee contract, exposed over REST by the
-    GalaChain Gateway. Used to fetch fee authorizations that pay for cross-channel
-    operations, and to dry-run fee transactions before submitting them.'
-  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=fee-contract
-  baseURL: https://gateway-mainnet.galachain.com/api/asset/fee-contract
-  tags:
-  - Fees
-  - Blockchain
-  properties:
-  - type: OpenAPI
-    url: openapi/gala-games-galachain-asset-fee-contract-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-galachain-asset-fee-contract-overlay.yaml
-- aid: gala-games:galachain-public-key-contract
-  name: GalaChain Public Key Contract API
-  description: 'The GalaChain asset-channel public key contract, exposed over REST
-    by the GalaChain Gateway. Resolves on-chain identity: fetching registered public
-    keys and chain objects by key, plus dry-run support for signature verification.'
-  humanURL: https://gateway-mainnet.galachain.com/docs?channel=asset&contract=public-key-contract
-  baseURL: https://gateway-mainnet.galachain.com/api/asset/public-key-contract
-  tags:
-  - Identity
-  - Authentication
-  - Blockchain
-  properties:
-  - type: OpenAPI
-    url: openapi/gala-games-galachain-asset-public-key-contract-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-galachain-asset-public-key-contract-overlay.yaml
-- aid: gala-games:galaconnect
-  name: GalaConnect API
-  description: 'GalaConnect is Gala''s public programmatic surface for GalaSwap: fetching
-    and filling token swaps, creating and terminating swaps, creating headless wallets,
-    creating project tokens, authorizing cross-channel fees, and proxying GalaChain
-    token-contract calls across channels. Documented as OpenAPI 3.0 and labelled Beta.'
-  humanURL: https://connect.gala.com/info/api.html
-  baseURL: https://api-galaswap.gala.com
-  tags:
-  - Swaps
-  - Wallets
-  - Tokens
-  - DeFi
-  - Blockchain
-  properties:
-  - type: OpenAPI
-    url: openapi/gala-games-galaconnect-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-galaconnect-overlay.yaml
+    url: openapi/gala-games-api-galachain-operations-api-openapi.yml
   - type: RateLimits
     url: rate-limits/gala-games-rate-limits.yml
   - type: ErrorCatalog
     url: errors/gala-games-problem-types.yml
-- aid: gala-games:block-explorer
-  name: Gala Block Explorer API
-  description: 'Near real-time GalaChain chain data: blocks and recent blocks by channel,
-    transactions, block height, registered channels, token media, balances, allowances,
-    bridge operations and a cross-entity search endpoint.'
-  humanURL: https://explorer-api.galachain.com/docs/
-  baseURL: https://explorer-api.galachain.com
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-api-galaconnect-operations-api
+  name: 'Gala Games API: GalaConnect Operations API'
+  description: >-
+    The API: GalaConnect Operations API from Gala Games — 11 operation(s) for api: galaconnect operations.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - Block Explorer
-  - Blockchain
-  - Analytics
-  - Search
+  - 'API: GalaConnect Operations'
   properties:
   - type: OpenAPI
-    url: openapi/gala-games-block-explorer-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-block-explorer-overlay.yaml
-- aid: gala-games:defi-backend
-  name: Gala DeFi Backend API
-  description: 'The backend behind GalaSwap: trade quotes, pools and composite pools,
-    positions, add and remove liquidity, swaps, bundles, slot0 and transaction status,
-    plus explore analytics, price oracle, CoinGecko ticker feeds, pairs, incentives,
-    competitions, leaderboards and marketplace endpoints. Admin endpoints are guarded
-    by an X-Api-Key header.'
-  humanURL: https://dex-backend-prod1.defi.gala.com/docs
-  baseURL: https://dex-backend-prod1.defi.gala.com
+    url: openapi/gala-games-api-galaconnect-operations-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-coin-gecko-api
+  name: Gala Games Coin Gecko API
+  description: The coin-gecko API from Gala Games — 6 operation(s) for coin-gecko.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - DeFi
-  - Decentralized Exchange
-  - Trading
-  - Liquidity
-  - Analytics
+  - coin-gecko
   properties:
   - type: OpenAPI
-    url: openapi/gala-games-defi-backend-openapi.json
-  - type: Overlay
-    url: overlays/gala-games-defi-backend-overlay.yaml
+    url: openapi/gala-games-coin-gecko-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-competition-api
+  name: Gala Games Competition API
+  description: The competition API from Gala Games — 8 operation(s) for competition.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - competition
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-competition-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-explore-api
+  name: Gala Games Explore API
+  description: The explore API from Gala Games — 6 operation(s) for explore.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - explore
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-explore-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-explorer-api
+  name: Gala Games Explorer API
+  description: The Explorer API from Gala Games — 16 operation(s) for explorer.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - Explorer
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-explorer-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-extensionversion-api
+  name: Gala Games Extension Version API
+  description: The ExtensionVersion API from Gala Games — 1 operation(s) for extensionversion.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - ExtensionVersion
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-extensionversion-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-galaconnect-client-operations-api
+  name: Gala Games GalaConnect Client Operations API
+  description: >-
+    These are operations that you should generally do via the GalaConnect website client. Nonetheless,
+    they are documented here for completeness. These APIs are **not** likely to remain stable and you
+    should not depend on them for production use.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - GalaConnect Client Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-galaconnect-client-operations-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-health-api
+  name: Gala Games Health API
+  description: The Health API from Gala Games — 1 operation(s) for health.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-health-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-incentive-api
+  name: Gala Games Incentive API
+  description: The incentive API from Gala Games — 8 operation(s) for incentive.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - incentive
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-incentive-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-leaderboard-api
+  name: Gala Games Leaderboard API
+  description: The leaderboard API from Gala Games — 4 operation(s) for leaderboard.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - leaderboard
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-leaderboard-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-market-api
+  name: Gala Games Market API
+  description: The market API from Gala Games — 6 operation(s) for market.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - market
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-market-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-marketplace-api
+  name: Gala Games Marketplace API
+  description: The marketplace API from Gala Games — 2 operation(s) for marketplace.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-marketplace-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-methods-api
+  name: Gala Games Methods API
+  description: The Methods API from Gala Games — 71 operation(s) for methods.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - Methods
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-methods-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-onboarding-api
+  name: Gala Games Onboarding API
+  description: The onboarding API from Gala Games — 1 operation(s) for onboarding.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - onboarding
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-onboarding-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-pairs-api
+  name: Gala Games Pairs API
+  description: The pairs API from Gala Games — 2 operation(s) for pairs.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - pairs
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-pairs-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-price-oracle-api
+  name: Gala Games Price Oracle API
+  description: The price-oracle API from Gala Games — 1 operation(s) for price-oracle.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - price-oracle
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-price-oracle-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-protocol-fee-sweep-api
+  name: Gala Games Protocol Fee Sweep API
+  description: The protocol-fee-sweep API from Gala Games — 2 operation(s) for protocol-fee-sweep.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - protocol-fee-sweep
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-protocol-fee-sweep-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-token-class-api
+  name: Gala Games Token Class API
+  description: The token-class API from Gala Games — 1 operation(s) for token-class.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - token-class
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-token-class-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-token-registry-api
+  name: Gala Games Token Registry API
+  description: The token-registry API from Gala Games — 3 operation(s) for token-registry.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - token-registry
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-token-registry-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-trade-api
+  name: Gala Games Trade API
+  description: The trade API from Gala Games — 20 operation(s) for trade.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - trade
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-trade-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-user-api
+  name: Gala Games User API
+  description: The user API from Gala Games — 3 operation(s) for user.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-user-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-walletextensioncompat-api
+  name: Gala Games Wallet Extension Compat API
+  description: >-
+    The WalletExtensionCompat API from Gala Games — 52 operation(s) for walletextensioncompat.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - WalletExtensionCompat
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-walletextensioncompat-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-whatsnew-api
+  name: Gala Games Whats New API
+  description: The WhatsNew API from Gala Games — 1 operation(s) for whatsnew.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - WhatsNew
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-whatsnew-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
   - type: DataModel
     url: data-model/gala-games-data-model.yml
 common:
+- type: Overlay
+  url: overlays/gala-games-galachain-asset-token-contract-overlay.yaml
+- type: Overlay
+  url: overlays/gala-games-galachain-asset-dexv3-contract-overlay.yaml
+- type: Overlay
+  url: overlays/gala-games-galachain-asset-launchpad-contract-overlay.yaml
+- type: Overlay
+  url: overlays/gala-games-galachain-asset-fee-contract-overlay.yaml
+- type: Overlay
+  url: overlays/gala-games-galachain-asset-public-key-contract-overlay.yaml
+- type: Overlay
+  url: overlays/gala-games-galaconnect-overlay.yaml
+- type: Overlay
+  url: overlays/gala-games-block-explorer-overlay.yaml
+- type: Overlay
+  url: overlays/gala-games-defi-backend-overlay.yaml
 - type: Website
   url: https://gala.com/
 - type: DeveloperPortal
