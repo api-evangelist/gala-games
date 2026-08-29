@@ -12,6 +12,19 @@ description: 'Gala (formerly Gala Games) is a Web3 gaming and entertainment comp
   operations are authenticated by secp256k1 request signatures rather than bearer tokens,
   and every write carries a uniqueKey that GalaChain enforces as an idempotency key.'
 url: https://raw.githubusercontent.com/api-evangelist/gala-games/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 image: https://avatars.githubusercontent.com/u/135145372?v=4
 x-type: company
 x-source: harvest:secondary-market
