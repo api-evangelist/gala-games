@@ -91,6 +91,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - CoinGecko
+  tags_raw:
   - coin-gecko
   properties:
   - type: OpenAPI
@@ -107,6 +109,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Competition
+  tags_raw:
   - competition
   properties:
   - type: OpenAPI
@@ -123,6 +127,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Explore
+  tags_raw:
   - explore
   properties:
   - type: OpenAPI
@@ -222,6 +228,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Leaderboard
+  tags_raw:
   - leaderboard
   properties:
   - type: OpenAPI
@@ -238,6 +246,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Market
+  tags_raw:
   - market
   properties:
   - type: OpenAPI
@@ -254,6 +264,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Marketplace
+  tags_raw:
   - marketplace
   properties:
   - type: OpenAPI
@@ -269,7 +281,8 @@ apis:
   description: The Methods API from Gala Games — 71 operation(s) for methods.
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
-  tags:
+  tags: []
+  tags_raw:
   - Methods
   properties:
   - type: OpenAPI
@@ -286,6 +299,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Onboarding
+  tags_raw:
   - onboarding
   properties:
   - type: OpenAPI
@@ -302,6 +317,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Pairs
+  tags_raw:
   - pairs
   properties:
   - type: OpenAPI
@@ -382,6 +399,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - Trade
+  tags_raw:
   - trade
   properties:
   - type: OpenAPI
@@ -398,6 +417,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
