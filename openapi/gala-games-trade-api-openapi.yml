@@ -1,0 +1,1209 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Trade API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: trade
+  description: ''
+paths:
+  /v1/trade/quote:
+    get:
+      description: Get a quote for a potential trade.
+      operationId: TradeController_quote
+      parameters:
+      - name: tokenIn
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: tokenOut
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: amountIn
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: amountOut
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: fee
+        required: false
+        in: query
+        schema:
+          type: number
+          enum:
+          - 500
+          - 3000
+          - 10000
+      - name: onlyOneAmountCheck
+        required: false
+        in: query
+        schema:
+          default: true
+          allOf:
+          - $ref: '#/components/schemas/Object'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get a quote for a trade
+      tags:
+      - trade
+  /v1/trade/pool:
+    get:
+      description: Get detailed information about a specific liquidity pool.
+      operationId: TradeController_getPoolDetails
+      parameters:
+      - name: token0
+        required: true
+        in: query
+        description: 'First token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: token1
+        required: true
+        in: query
+        description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: fee
+        required: true
+        in: query
+        description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+        schema:
+          example: 3000
+          type: number
+          enum:
+          - 500
+          - 3000
+          - 10000
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get details of a liquidity pool
+      tags:
+      - trade
+  /v1/trade/composite-pool:
+    get:
+      description: 'Returns the raw on-chain GetCompositePool payload (pool state + full tick data map), front-cached and shared with the quote path. Concurrent requests for the same pool collapse to one chain read. Query params: token0, token1 (format: collection$category$type$additionalKey), fee (500 | 3000 | 10000).'
+      operationId: TradeController_getCompositePool
+      parameters:
+      - name: token0
+        required: true
+        in: query
+        description: 'First token (format: collection$category$type$additionalKey)'
+        schema:
+          example: GALA$Unit$none$none
+          type: string
+      - name: token1
+        required: true
+        in: query
+        description: 'Second token (format: collection$category$type$additionalKey)'
+        schema:
+          example: GUSDC$Unit$none$none
+          type: string
+      - name: fee
+        required: true
+        in: query
+        description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+        schema:
+          example: 3000
+          type: number
+          enum:
+          - 500
+          - 3000
+          - 10000
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get the composite pool (state + tick data) for a pair
+      tags:
+      - trade
+  /v1/trade/composite-pool/batch:
+    post:
+      description: 'Batch variant of GET /composite-pool. Body: { pairs: [{ token0, token1, fee }, ...] } (max 50). Returns one result envelope per input pair, in order; a missing pool yields that item its own 404 envelope without failing the batch. Duplicate pairs share a single chain read.'
+      operationId: TradeController_getCompositePoolBatch
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompositePoolBatchDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get composite pools for many pairs in one request
+      tags:
+      - trade
+  /v1/trade/composite-pool/direct:
+    post:
+      description: 'Chain-native drop-in: send the exact body you would POST to <chain>/GetCompositePool ({ token0, token1, fee } with object-form token class keys) and receive the raw GalaChainResponse ({ Status, Data }) verbatim — front-cached (shared with /quote), so switching to this URL adds caching transparently. A missing pool mirrors chain with a 404 { Status: 0, Message }.'
+      operationId: TradeController_getCompositePoolDirect
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompositePoolDirectDTO'
+      responses:
+        '200':
+          description: Raw chain GetCompositePool response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Drop-in for a direct chain GetCompositePool call
+      tags:
+      - trade
+  /v1/trade/positions:
+    get:
+      description: Get all liquidity positions for a user
+      operationId: TradeController_getUserPositions
+      parameters:
+      - name: user
+        required: true
+        in: query
+        description: 'User wallet address (format: eth|<address> or client|<id>)'
+        schema:
+          example: eth|6742903677106B3156434F61f2731c3516B1aD68
+          type: string
+      - name: limit
+        required: true
+        in: query
+        description: Maximum number of positions to return (1-10)
+        schema:
+          minimum: 1
+          maximum: 10
+          example: 10
+          type: number
+      - name: bookmark
+        required: false
+        in: query
+        description: Bookmark for pagination (from previous response)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get all positions for a user
+      tags:
+      - trade
+  /v1/trade/position:
+    get:
+      description: Get details of a specific liquidity position.
+      operationId: TradeController_getUserPosition
+      parameters:
+      - name: token0
+        required: true
+        in: query
+        description: 'First token in the position (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: token1
+        required: true
+        in: query
+        description: 'Second token in the position (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: fee
+        required: true
+        in: query
+        description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+        schema:
+          example: 3000
+          type: number
+          enum:
+          - 500
+          - 3000
+          - 10000
+      - name: tickUpper
+        required: true
+        in: query
+        description: Upper tick boundary of the position
+        schema:
+          example: 886800
+          type: number
+      - name: tickLower
+        required: true
+        in: query
+        description: Lower tick boundary of the position
+        schema:
+          example: -886800
+          type: number
+      - name: tickRangeCheck
+        required: false
+        in: query
+        schema:
+          default: true
+          type: boolean
+      - name: owner
+        required: false
+        in: query
+        description: 'Owner wallet address (format: eth|<address> or client|<id>)'
+        schema:
+          example: eth|6742903677106B3156434F61f2731c3516B1aD68
+          type: string
+      - name: positionId
+        required: false
+        in: query
+        description: Position ID (for existing positions)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get a specific position
+      tags:
+      - trade
+  /v1/trade/add-liq-estimate:
+    get:
+      description: Estimate gas and price impact for adding liquidity.
+      operationId: TradeController_addLiquidityEsimate
+      parameters:
+      - name: amount
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: tickUpper
+        required: true
+        in: query
+        schema:
+          type: number
+      - name: tickLower
+        required: true
+        in: query
+        schema:
+          type: number
+      - name: isToken0
+        required: true
+        in: query
+        schema:
+          type: boolean
+      - name: tickRangeCheck
+        required: false
+        in: query
+        schema:
+          default: true
+          type: boolean
+      - name: token0
+        required: true
+        in: query
+        description: 'First token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: token1
+        required: true
+        in: query
+        description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: fee
+        required: true
+        in: query
+        description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+        schema:
+          example: 3000
+          type: number
+          enum:
+          - 500
+          - 3000
+          - 10000
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Estimate gas and impact for adding liquidity
+      tags:
+      - trade
+  /v1/trade/remove-liq-estimate:
+    get:
+      description: 'Estimate gas and price impact for removing liquidity. Query params: token0, token1 (format: GALA$Unit$none$none), fee, tickLower, tickUpper, liquidity, owner. Example: ?token0=GALA$Unit$none$none&token1=GUSDC$Unit$none$none&fee=3000&tickLower=-886800&tickUpper=886800&liquidity=1000&owner=eth|6742903677106B3156434F61f2731c3516B1aD68'
+      operationId: TradeController_removeLiquidityEsimate
+      parameters:
+      - name: token0
+        required: true
+        in: query
+        description: 'First token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: token1
+        required: true
+        in: query
+        description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: fee
+        required: true
+        in: query
+        description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+        schema:
+          example: 3000
+          type: number
+          enum:
+          - 500
+          - 3000
+          - 10000
+      - name: tickUpper
+        required: true
+        in: query
+        schema:
+          type: number
+      - name: tickLower
+        required: true
+        in: query
+        schema:
+          type: number
+      - name: tickRangeCheck
+        required: false
+        in: query
+        schema:
+          default: true
+          type: boolean
+      - name: amount
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: owner
+        required: true
+        in: query
+        description: 'Owner wallet address (format: eth|<address> or client|<id>)'
+        schema:
+          example: eth|6742903677106B3156434F61f2731c3516B1aD68
+          type: string
+      - name: positionId
+        required: false
+        in: query
+        description: Position ID (for existing positions)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Estimate gas and impact for removing liquidity
+      tags:
+      - trade
+  /v1/trade/price:
+    get:
+      description: 'Get real-time token price information based on liquidity pool reserves from the Gala blockchain. Query param: token (format: GALA$Unit$none$none). Example: ?token=GALA$Unit$none$none'
+      operationId: TradeController_getPrice
+      parameters:
+      - name: token
+        required: true
+        in: query
+        description: 'Token to get price for (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get current price of a token
+      tags:
+      - trade
+  /v1/trade/liquidity:
+    post:
+      description: Add liquidity to a pool.
+      operationId: TradeController_addLiquidity
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddLiquidityDTO'
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Add liquidity to a pool
+      tags:
+      - trade
+    delete:
+      description: Remove liquidity from a pool
+      operationId: TradeController_removeLiquidity
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BurnDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Remove liquidity from a pool
+      tags:
+      - trade
+  /v1/trade/swap:
+    post:
+      description: Execute a token swap
+      operationId: TradeController_swap
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwapDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Execute a token swap
+      tags:
+      - trade
+  /v1/trade/create-pool:
+    post:
+      description: 'Create a new liquidity pool. Body params: token0, token1 (format: GALA$Unit$none$none), fee (500, 3000, or 10000), initialSqrtPrice, uniqueKey.'
+      operationId: TradeController_createPool
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePoolDTO'
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Create a new liquidity pool
+      tags:
+      - trade
+  /v1/trade/collect:
+    post:
+      description: Collect accrued fees from a position.
+      operationId: TradeController_collect
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Collect fees from a position
+      tags:
+      - trade
+  /v1/trade/exec:
+    post:
+      deprecated: true
+      description: 'DEPRECATED: This endpoint is no longer in use. Use the specific endpoints instead: /swap, /liquidity (POST/DELETE), /create-pool, /collect.'
+      operationId: TradeController_exec
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: '[DEPRECATED] Execute a generic transaction'
+      tags:
+      - trade
+  /v1/trade/bundle:
+    post:
+      description: 'Process a single transaction bundle. Body params: type (swap | addLiquidity | removeLiquidity | collectFee | createPool), payload, signature, user. The payload is obtained from: swap - POST /v1/trade/swap response data object, addLiquidity - POST /v1/trade/liquidity response data object, removeLiquidity - DELETE /v1/trade/liquidity response data object, collectFee - POST /v1/trade/collect response data object, createPool - POST /v1/trade/create-pool response data object.'
+      operationId: TradeController_bundle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Process a single bundle
+      tags:
+      - trade
+  /v1/trade/bundle-multiple:
+    post:
+      description: 'Process multiple transaction bundles (max 10). Request body accepts an array of bundle objects. Example: [{ "type": "swap", "payload": {}, "signature": "string", "user": "eth|..." }]. Types: swap | addLiquidity | removeLiquidity | collectFee | createPool. Payloads are obtained from respective endpoint response data objects.'
+      operationId: TradeController_bundleMultiple
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Process multiple bundles
+      tags:
+      - trade
+  /v1/trade/price-multiple:
+    post:
+      description: Get prices for multiple tokens at once.
+      operationId: TradeController_getPriceMultiple
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetPriceMultipleDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get prices for multiple tokens
+      tags:
+      - trade
+  /v1/trade/slot0:
+    get:
+      operationId: TradeController_getSlot0
+      parameters:
+      - name: token0
+        required: true
+        in: query
+        description: 'First token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: token1
+        required: true
+        in: query
+        description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+        schema:
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+      - name: fee
+        required: true
+        in: query
+        description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+        schema:
+          example: 3000
+          type: number
+          enum:
+          - 500
+          - 3000
+          - 10000
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - trade
+  /v1/trade/transaction-status:
+    get:
+      description: 'Check the status of a transaction. Query param: id (transaction ID obtained from POST /v1/trade/bundle or POST /v1/trade/bundle-multiple response).'
+      operationId: TradeController_transactionStatus
+      parameters:
+      - name: id
+        required: true
+        in: query
+        description: Transaction ID (obtained from /v1/trade/bundle or /v1/trade/bundle-multiple response)
+        schema:
+          example: txn_abc123def456
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponseDto'
+        '400':
+          description: Bad Request
+      summary: Get status of a transaction
+      tags:
+      - trade
+components:
+  schemas:
+    Object:
+      type: object
+      properties: {}
+    GetPriceMultipleDTO:
+      type: object
+      properties:
+        tokens:
+          description: 'Array of tokens to get prices for (format: collection$category$type$additionalKey)'
+          example:
+          - collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          - collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenDTO'
+      required:
+      - tokens
+    CompositePoolQueryDTO:
+      type: object
+      properties:
+        token0:
+          type: string
+          description: 'First token (format: collection$category$type$additionalKey)'
+          example: GALA$Unit$none$none
+        token1:
+          type: string
+          description: 'Second token (format: collection$category$type$additionalKey)'
+          example: GUSDC$Unit$none$none
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+      required:
+      - token0
+      - token1
+      - fee
+    BurnDTO:
+      type: object
+      properties:
+        token0:
+          description: 'First token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        tickUpper:
+          type: number
+        tickLower:
+          type: number
+        tickRangeCheck:
+          type: boolean
+          default: true
+        amount:
+          type: string
+        amount0Min:
+          type: string
+        amount1Min:
+          type: string
+        positionId:
+          type: string
+          description: Position ID (for existing positions)
+      required:
+      - token0
+      - token1
+      - fee
+      - tickUpper
+      - tickLower
+      - amount
+      - amount0Min
+      - amount1Min
+    SwapDTO:
+      type: object
+      properties:
+        tokenIn:
+          description: 'Input token (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        tokenOut:
+          description: 'Output token (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        sqrtPriceLimit:
+          type: string
+        amountInMaximum:
+          type: string
+        amountOutMinimum:
+          type: string
+        amountIn:
+          type: string
+        amountOut:
+          type: string
+      required:
+      - tokenIn
+      - tokenOut
+      - fee
+      - sqrtPriceLimit
+      - amountInMaximum
+      - amountOutMinimum
+    CreatePoolDTO:
+      type: object
+      properties:
+        token0:
+          description: 'First token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        initialSqrtPrice:
+          type: string
+      required:
+      - token0
+      - token1
+      - fee
+      - initialSqrtPrice
+    TokenDTO:
+      type: object
+      properties:
+        collection:
+          type: string
+        category:
+          type: string
+        type:
+          type: string
+        additionalKey:
+          type: string
+      required:
+      - collection
+      - category
+      - type
+      - additionalKey
+    CompositePoolBatchDTO:
+      type: object
+      properties:
+        pairs:
+          minItems: 1
+          maxItems: 50
+          description: Pools to read (1-50).
+          type: array
+          items:
+            $ref: '#/components/schemas/CompositePoolQueryDTO'
+      required:
+      - pairs
+    CompositePoolDirectDTO:
+      type: object
+      properties:
+        token0:
+          description: First token (TokenClassKey object)
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: Second token (TokenClassKey object)
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+      required:
+      - token0
+      - token1
+      - fee
+    BundleDTO:
+      type: object
+      properties:
+        type:
+          enum:
+          - swap
+          - collectFee
+          - addLiquidity
+          - removeLiquidity
+          - createPool
+          - collect
+          type: string
+        payload:
+          type: object
+        signature:
+          type: string
+        user:
+          type: string
+      required:
+      - type
+      - payload
+      - signature
+      - user
+    BaseResponseDto:
+      type: object
+      properties:
+        status:
+          type: number
+        message:
+          type: string
+        error:
+          type: object
+        data:
+          type: object
+      required:
+      - status
+      - message
+      - error
+      - data
+    ExecuteDTO:
+      type: object
+      properties:
+        type:
+          enum:
+          - swap
+          - collectFee
+          - addLiquidity
+          - removeLiquidity
+          - createPool
+          - collect
+          type: string
+        payload:
+          type: object
+        signature:
+          type: string
+      required:
+      - type
+      - payload
+      - signature
+    CollectDTO:
+      type: object
+      properties:
+        token0:
+          description: 'First token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        tickUpper:
+          type: number
+        tickLower:
+          type: number
+        tickRangeCheck:
+          type: boolean
+          default: true
+        amount0Requested:
+          type: string
+        amount1Requested:
+          type: string
+        positionId:
+          type: string
+          description: Position ID (for existing positions)
+        amountCheck:
+          type: boolean
+          default: true
+      required:
+      - token0
+      - token1
+      - fee
+      - tickUpper
+      - tickLower
+      - amount0Requested
+      - amount1Requested
+    AddLiquidityDTO:
+      type: object
+      properties:
+        token0:
+          description: 'First token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        tickUpper:
+          type: number
+        tickLower:
+          type: number
+        tickRangeCheck:
+          type: boolean
+          default: true
+        amount1Desired:
+          type: string
+        amount0Min:
+          type: string
+        amount1Min:
+          type: string
+        positionId:
+          type: string
+        amount0Desired:
+          type: string
+      required:
+      - token0
+      - token1
+      - fee
+      - tickUpper
+      - tickLower
+      - amount1Desired
+      - amount0Min
+      - amount1Min
+      - amount0Desired
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Market API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: market
+paths:
+  /market/token-series:
+    get:
+      operationId: MarketController_tokenSeries
+      parameters:
+      - name: timeframe
+        required: true
+        in: query
+        description: Chart timeframe
+        schema:
+          enum:
+          - 1D
+          - 1W
+          - 1M
+          - 1Y
+          - ALL
+          type: string
+      - name: token
+        required: true
+        in: query
+        description: Token symbol or $-composite tokenClassKey
+        schema:
+          example: GALA
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Normalized USD OHLCV + current price for a token at a timeframe
+      tags:
+      - market
+  /market/price:
+    get:
+      operationId: MarketController_price
+      parameters:
+      - name: assetIds
+        required: true
+        in: query
+        description: Comma-separated asset ids
+        schema:
+          example: GALA$Unit$none$none
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Normalized { price, change24h } per asset id, keyed by symbol
+      tags:
+      - market
+  /market/price-series:
+    get:
+      operationId: MarketController_priceSeries
+      parameters:
+      - name: timeframe
+        required: true
+        in: query
+        description: Chart timeframe
+        schema:
+          enum:
+          - 1D
+          - 1W
+          - 1M
+          - 1Y
+          - ALL
+          type: string
+      - name: token
+        required: true
+        in: query
+        description: Token symbol or $-composite tokenClassKey
+        schema:
+          example: GETH
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Dense USD price line for a token (pair-ratio denominator)
+      tags:
+      - market
+  /market/sparkline:
+    get:
+      operationId: MarketController_sparkline
+      parameters:
+      - name: token
+        required: true
+        in: query
+        description: Token symbol or $-composite tokenClassKey
+        schema:
+          example: GALA
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: number
+      summary: 7-day mini sparkline (in-house daily close prices)
+      tags:
+      - market
+  /market/images:
+    get:
+      operationId: MarketController_images
+      parameters:
+      - name: tokens
+        required: true
+        in: query
+        description: Comma-separated token symbols
+        schema:
+          example: GALA,GETH
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Token logo URLs keyed by symbol (CoinGecko coins/markets)
+      tags:
+      - market
+  /market/wallet-transactions:
+    get:
+      operationId: MarketController_walletTransactions
+      parameters:
+      - name: size
+        required: false
+        in: query
+        description: Page size (max 100)
+        schema:
+          example: 50
+      - name: page
+        required: false
+        in: query
+        description: Zero-based page
+        schema:
+          example: 0
+      - name: address
+        required: true
+        in: query
+        description: Wallet address, e.g. eth|<hex> or client|<id>
+        schema: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      summary: ChainMeter wallet transaction history (raw get_wallet_txs rows)
+      tags:
+      - market
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

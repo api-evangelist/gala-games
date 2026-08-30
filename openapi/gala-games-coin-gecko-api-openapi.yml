@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Coin Gecko API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: coin-gecko
+  description: ''
+paths:
+  /coin-gecko/tickers:
+    get:
+      description: Get ticker data for CoinGecko integration.
+      operationId: CoinGeckoController_getTickerData
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      summary: Get ticker data for CoinGecko
+      tags:
+      - coin-gecko
+  /coin-gecko/terminal/latest-block:
+    get:
+      description: Get the latest block number from the Gala blockchain.
+      operationId: TerminalController_getLatestBlock
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestBlockResponseDto'
+      summary: Get the latest block
+      tags:
+      - coin-gecko
+  /coin-gecko/terminal/asset:
+    get:
+      description: Get details of a specific asset.
+      operationId: TerminalController_getAsset
+      parameters:
+      - name: id
+        required: true
+        in: query
+        description: The ID of the asset to retrieve (Base58-encoded TokenClassKey)
+        schema:
+          example: E3bVbsc7viP1A8tn3ayChk3BAt
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetResponseDto'
+      summary: Get asset details
+      tags:
+      - coin-gecko
+  /coin-gecko/terminal/pair:
+    get:
+      description: Get details of a specific trading pair. The pair ID can be obtained from GET /coin-gecko/terminal/events response.
+      operationId: TerminalController_getPair
+      parameters:
+      - name: id
+        required: true
+        in: query
+        description: The pair ID (64-character hexadecimal hash)
+        schema:
+          example: 5c0e402911c2c9151656e440d15ee96ceb0501d6af90a5e3cbdb04a2a51d4de3
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPairResponseDto'
+      summary: Get pair details
+      tags:
+      - coin-gecko
+  /coin-gecko/terminal/events:
+    get:
+      description: Get events within a specified block range.
+      operationId: TerminalController_getEvents
+      parameters:
+      - name: fromBlock
+        required: true
+        in: query
+        description: The starting block number (inclusive)
+        schema:
+          example: 100
+          type: number
+      - name: toBlock
+        required: true
+        in: query
+        description: The ending block number (inclusive)
+        schema:
+          example: 200
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventsResponseDto'
+      summary: Get events within a block range
+      tags:
+      - coin-gecko
+  /coin-gecko/terminal/liquidity-operations:
+    get:
+      description: Get liquidity operations for a specific position.
+      operationId: TerminalController_getLiquidityOperations
+      parameters:
+      - name: positionId
+        required: true
+        in: query
+        description: The unique identifier for a liquidity position (assigned when liquidity is first added to a pool)
+        schema:
+          example: '1'
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      summary: Get liquidity operations for a position
+      tags:
+      - coin-gecko
+components:
+  schemas:
+    GetPairResponseDto:
+      type: object
+      properties:
+        pair:
+          $ref: '#/components/schemas/PairDto'
+      required:
+      - pair
+    LatestBlockResponseDto:
+      type: object
+      properties:
+        block:
+          $ref: '#/components/schemas/BlockDto'
+      required:
+      - block
+    PairDto:
+      type: object
+      properties:
+        id:
+          type: string
+        dexKey:
+          type: string
+        asset0Id:
+          type: string
+        asset1Id:
+          type: string
+        createdAtBlockNumber:
+          type: number
+        createdAtBlockTimestamp:
+          type: number
+        createdAtTxnId:
+          type: string
+        creator:
+          type: string
+        feeBps:
+          type: number
+        pool:
+          $ref: '#/components/schemas/PoolDto'
+        metadata:
+          type: object
+      required:
+      - id
+      - dexKey
+      - asset0Id
+      - asset1Id
+    GetEventsResponseDto:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+      required:
+      - events
+    PoolDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        assetIds:
+          type: array
+          items:
+            type: string
+        pairIds:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+      required:
+      - id
+      - name
+      - assetIds
+      - pairIds
+    BlockDto:
+      type: object
+      properties:
+        blockNumber:
+          type: number
+        blockTimestamp:
+          type: number
+        metadata:
+          type: object
+      required:
+      - blockNumber
+      - blockTimestamp
+    GetAssetResponseDto:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/AssetDto'
+      required:
+      - asset
+    AssetDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        symbol:
+          type: string
+        decimals:
+          type: number
+        totalSupply:
+          type: number
+        circulatingSupply:
+          type: number
+        coinGeckoId:
+          type: string
+        metadata:
+          type: object
+      required:
+      - id
+      - name
+      - symbol
+      - decimals
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

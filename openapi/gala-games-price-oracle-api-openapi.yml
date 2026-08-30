@@ -1,0 +1,87 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Price Oracle API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: price-oracle
+  description: ''
+paths:
+  /price-oracle/fetch-price:
+    get:
+      description: Fetch the current price of a token from the oracle.
+      operationId: PriceOracleController_fetchPrice
+      parameters:
+      - name: token
+        required: true
+        in: query
+        description: Token symbol to fetch the price for
+        schema:
+          pattern: .*
+          example: GALA$Unit$none$none
+          type: string
+      - name: at
+        required: false
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: from
+        required: false
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: to
+        required: false
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: page
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          maximum: 50
+          type: number
+      - name: order
+        required: false
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: checkMutualExclusion
+        required: true
+        in: query
+        schema:
+          default: true
+          allOf:
+          - $ref: '#/components/schemas/Object'
+      responses:
+        '200':
+          description: ''
+      summary: Fetch price from oracle
+      tags:
+      - price-oracle
+components:
+  schemas:
+    Object:
+      type: object
+      properties: {}
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

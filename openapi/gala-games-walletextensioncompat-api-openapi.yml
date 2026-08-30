@@ -1,0 +1,4589 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Wallet Extension Compat API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: WalletExtensionCompat
+paths:
+  /api/v1/wallet/compat/health:
+    get:
+      operationId: WalletExtensionCompatController_health
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/fetchbalances:
+    post:
+      operationId: WalletExtensionCompatController_fetchBalances
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/registered:
+    post:
+      operationId: WalletExtensionCompatController_registered
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/connect/{path}:
+    search:
+      operationId: WalletExtensionCompatController_connectProxy_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_connectProxy_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_connectProxy_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_connectProxy_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_connectProxy_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_connectProxy_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_connectProxy_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_connectProxy_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/transactions:
+    get:
+      operationId: WalletExtensionCompatController_walletTransactions
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+  /api/v1/onramper/signUrl:
+    post:
+      operationId: WalletExtensionCompatController_signOnramperUrl
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - WalletExtensionCompat
+  /api/v1/auth/authorisation:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/notification/list:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/get_wallet_name:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/search:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/logout:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/addLockPeriod:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/addLockPeriod_v1:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/getLockPeriod:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/getLockTimes:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/successUnlock:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/successUnlock_v1:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/user/gettimestamp:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/addtoken:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/portfolio:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/portfolioallassets:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/toggleCoinList:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/activeinactive:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/transaction/list:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/transaction/listv2:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/order/update:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/search:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/updateWatchlist:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/getWatchlist:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/currencyfiatlist:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/allBalances:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/updateBalance:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/updateWalletBalance:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/getNftChannelList:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/getModList:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/uploadCsv:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/portfolio_total:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/demo/{address}:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/demo1/{address}:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/get_nft_list:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/nft/from_moalis:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/get_dapp_list:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/wallet/get_dex_list:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/galachain/{coin}/saveTrnx:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/galachain/{coin}/send:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/galachain/{coin}/send_v1:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/galachain/onramper/webhook:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/galachain/swap:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/galachain/quote:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/priceAlert/getList:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/priceAlert/addNew:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+  /api/v1/priceAlert/delete:
+    search:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_search
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    get:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    post:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    put:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    delete:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    patch:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    options:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+    head:
+      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WalletExtensionCompat
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

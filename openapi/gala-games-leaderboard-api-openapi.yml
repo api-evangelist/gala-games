@@ -1,0 +1,118 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Leaderboard API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: leaderboard
+paths:
+  /leaderboard:
+    get:
+      description: Get the leaderboard for a specific season.
+      operationId: LeaderboardController_getLeaderboard
+      parameters:
+      - name: seasonId
+        required: true
+        in: query
+        description: The unique identifier for the leaderboard season
+        schema:
+          minimum: 1
+          example: 1
+          type: number
+      responses:
+        '200':
+          description: ''
+      summary: Get leaderboard for a season
+      tags:
+      - leaderboard
+  /leaderboard/seasons:
+    get:
+      description: Get a list of all available leaderboard seasons.
+      operationId: LeaderboardController_getLeaderboardSeasons
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeaderboardSeason'
+      summary: Get all leaderboard seasons
+      tags:
+      - leaderboard
+  /leaderboard/{wallet}/position/{seasonId}:
+    get:
+      description: Get the rank and position of a user in a specific season.
+      operationId: LeaderboardController_getUserPosition
+      parameters:
+      - name: wallet
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: seasonId
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Get user position in leaderboard
+      tags:
+      - leaderboard
+  /leaderboard/{wallet}/breakdown/{seasonId}:
+    get:
+      description: Get a detailed breakdown of a user's score in a specific season.
+      operationId: LeaderboardController_getUserBreakdown
+      parameters:
+      - name: wallet
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: seasonId
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: page
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: number
+      responses:
+        '200':
+          description: ''
+      summary: Get user breakdown in leaderboard
+      tags:
+      - leaderboard
+components:
+  schemas:
+    LeaderboardSeason:
+      type: object
+      properties: {}
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

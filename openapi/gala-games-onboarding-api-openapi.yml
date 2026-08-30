@@ -1,0 +1,36 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Onboarding API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: onboarding
+paths:
+  /onboarding/is-registered:
+    get:
+      description: Check if a user is registered in the system.
+      operationId: OnboardingController_getUser
+      parameters:
+      - name: address
+        required: true
+        in: query
+        description: Wallet address (eth|... or client|...)
+        schema:
+          pattern: .*
+          example: eth|0xabc123... or client|1234567890abcdef12345678
+          type: string
+      responses:
+        '200':
+          description: ''
+      summary: Check if user is registered
+      tags:
+      - onboarding
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

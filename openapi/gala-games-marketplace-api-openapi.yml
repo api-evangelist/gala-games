@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Marketplace API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: marketplace
+  description: ''
+paths:
+  /v1/marketplace/listings:
+    get:
+      description: Merges the asset-channel feed with the cross-channel (brokered) one, so game inventory such as VOX, Mirandus and Node appears alongside asset-channel items. Filtering, sorting and pagination are applied server-side over the merged set.
+      operationId: MarketplaceController_getListings
+      parameters:
+      - name: seller
+        required: false
+        in: query
+        description: Comma-separated seller aliases; a listing matching ANY of them is returned. Send both the `eth|…` and `client|…` forms of a wallet — upstream records sellers under either, so a single form silently returns nothing.
+        schema:
+          example: client|61b7d20150874774e060edf9,eth|B48d99a6e64aD1766Eb111c807DbD210FdE3b4Ab
+      - name: search
+        required: false
+        in: query
+        description: Free-text match over name, collection and class key, e.g. `birdhouse`.
+        schema: {}
+      - name: collection
+        required: false
+        in: query
+        description: Collection name, e.g. `TownStar`.
+        schema: {}
+      - name: sort
+        required: false
+        in: query
+        schema:
+          enum:
+          - recent
+          - price_asc
+          - price_desc
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Page size (max 50).
+        schema:
+          example: 24
+      - name: page
+        required: false
+        in: query
+        description: 1-based page number.
+        schema:
+          example: 1
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Browse active marketplace listings
+      tags:
+      - marketplace
+  /v1/marketplace/listings/{id}:
+    get:
+      operationId: MarketplaceController_getListing
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The listing's URL-safe handle.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: A single marketplace listing by id
+      tags:
+      - marketplace
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

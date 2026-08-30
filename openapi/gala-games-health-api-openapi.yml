@@ -1,0 +1,23 @@
+openapi: 3.2.0
+info:
+  title: Gala Block Explorer Health API
+  description: ''
+  version: 3.0.8
+  contact: {}
+servers: []
+tags:
+- name: Health
+paths:
+  /health:
+    get:
+      operationId: AppController_getHealth
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Health

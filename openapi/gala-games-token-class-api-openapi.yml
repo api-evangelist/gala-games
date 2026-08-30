@@ -1,0 +1,35 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Token Class API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: token-class
+paths:
+  /api/v1/token-class/supply:
+    get:
+      operationId: TokenSupplyController_supply
+      parameters:
+      - name: tokens
+        required: false
+        in: query
+        schema: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Fetch token-class supply data by base58 token id
+      tags:
+      - token-class
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

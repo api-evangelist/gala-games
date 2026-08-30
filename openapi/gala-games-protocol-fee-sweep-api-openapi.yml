@@ -1,0 +1,49 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Protocol Fee Sweep API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: protocol-fee-sweep
+paths:
+  /v1/protocol-fee-sweep/run:
+    post:
+      operationId: ProtocolFeeSweepController_run
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api-key: []
+      tags:
+      - protocol-fee-sweep
+  /v1/protocol-fee-sweep/reports:
+    get:
+      operationId: ProtocolFeeSweepController_reports
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+      - api-key: []
+      tags:
+      - protocol-fee-sweep
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

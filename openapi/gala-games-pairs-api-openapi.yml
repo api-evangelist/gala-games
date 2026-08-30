@@ -1,0 +1,60 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Pairs API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: pairs
+paths:
+  /dex/pairs:
+    get:
+      description: Get a list of all trading pairs.
+      operationId: PairsController_getPairs
+      parameters:
+      - name: date
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get all pairs
+      tags:
+      - pairs
+  /dex/pairs/volume-fees:
+    get:
+      description: Get volume and fee statistics for a specific pair.
+      operationId: PairsController_getVolumeAndFees
+      parameters:
+      - name: date
+        required: true
+        in: query
+        description: The date for which to retrieve volume and fees (ISO 8601 format)
+        schema:
+          example: '2026-01-21'
+          type: string
+      - name: pairId
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Get volume and fees for a pair
+      tags:
+      - pairs
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

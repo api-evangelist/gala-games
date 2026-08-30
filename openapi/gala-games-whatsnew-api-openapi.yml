@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Whats New API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: WhatsNew
+paths:
+  /v1/whats-new:
+    get:
+      operationId: WhatsNewController_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - WhatsNew
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

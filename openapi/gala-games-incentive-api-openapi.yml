@@ -1,0 +1,295 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Incentive API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: incentive
+  description: ''
+paths:
+  /incentive/programs:
+    get:
+      operationId: IncentiveController_getActivePrograms
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActiveIncentiveProgramResponse'
+      tags:
+      - incentive
+  /incentive/program/pool/{poolHash}:
+    get:
+      operationId: IncentiveController_getProgramByPool
+      parameters:
+      - name: poolHash
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - incentive
+  /incentive/reward/{walletAddress}/{poolHash}:
+    get:
+      operationId: IncentiveController_getUserReward
+      parameters:
+      - name: walletAddress
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: poolHash
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: positionId
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: minTick
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: maxTick
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - incentive
+  /incentive/reward/query:
+    post:
+      operationId: IncentiveController_getUserRewardPost
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - incentive
+  /incentive/wallet/{walletAddress}:
+    get:
+      operationId: IncentiveController_getWalletPositions
+      parameters:
+      - name: walletAddress
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IncentiveRewardResponse'
+      tags:
+      - incentive
+  /incentive/enroll:
+    post:
+      operationId: IncentiveController_enrollPosition
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollPositionDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncentiveProgramPosition'
+      tags:
+      - incentive
+  /incentive/analytics/{programId}:
+    get:
+      operationId: IncentiveController_getProgramAnalytics
+      parameters:
+      - name: programId
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IncentiveProgramAnalytics'
+      tags:
+      - incentive
+  /incentive/debug/position/{positionId}:
+    get:
+      operationId: IncentiveController_debugPosition
+      parameters:
+      - name: positionId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - incentive
+components:
+  schemas:
+    IncentiveRewardResponse:
+      type: object
+      properties:
+        programId:
+          type: number
+        programName:
+          type: string
+        status:
+          enum:
+          - ACTIVE
+          - COMPLETED
+          - DISQUALIFIED
+          - CALCULATING
+          type: string
+        bonusTokenSymbol:
+          type: string
+        bonusTokenReward:
+          type: string
+        sharePercentage:
+          type: string
+        isQualified:
+          type: boolean
+        disqualificationReason:
+          type: string
+        timeRemainingSeconds:
+          type: number
+        distributionTxHash:
+          type: string
+        programStartTime:
+          format: date-time
+          type: string
+        programEndTime:
+          format: date-time
+          type: string
+      required:
+      - programId
+      - programName
+      - status
+      - bonusTokenSymbol
+      - bonusTokenReward
+      - sharePercentage
+      - isQualified
+      - programStartTime
+      - programEndTime
+    IncentiveProgramPosition:
+      type: object
+      properties: {}
+    EnrollPositionDto:
+      type: object
+      properties:
+        programId:
+          type: number
+        walletAddress:
+          type: string
+        positionId:
+          type: string
+        minTick:
+          type: number
+        maxTick:
+          type: number
+        liquidityAmount:
+          type: string
+        termsAcceptedTxHash:
+          type: string
+      required:
+      - programId
+      - walletAddress
+      - positionId
+      - minTick
+      - maxTick
+      - liquidityAmount
+    ActiveIncentiveProgramResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        poolHash:
+          type: string
+        bonusToken:
+          type: string
+        bonusPoolAmount:
+          type: string
+        status:
+          type: string
+        startTime:
+          format: date-time
+          type: string
+        endTime:
+          format: date-time
+          type: string
+        requiresFullRange:
+          type: boolean
+        minPositionValueUsd:
+          type: number
+        termsUrl:
+          type: string
+        totalTvl:
+          type: string
+        participantCount:
+          type: number
+      required:
+      - id
+      - name
+      - poolHash
+      - bonusToken
+      - bonusPoolAmount
+      - status
+      - startTime
+      - endTime
+      - requiresFullRange
+    IncentiveProgramAnalytics:
+      type: object
+      properties: {}
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

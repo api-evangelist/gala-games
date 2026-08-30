@@ -1,0 +1,137 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend User API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: user
+  description: ''
+paths:
+  /user/token-list:
+    get:
+      description: Returns all supported tokens + the user's balance for each (even if 0).
+      operationId: UserController_fetchTokens
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: Search term for filtering tokens
+        schema:
+          example: GALA
+          type: string
+      - name: tokenName
+        required: false
+        in: query
+        description: Filter by specific token name
+        schema:
+          example: GALA
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Page number for pagination (starts at 1)
+        schema:
+          minimum: 1
+          example: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Maximum number of items per page; omit to return all
+        schema:
+          minimum: 1
+          maximum: 1000
+          example: 10
+          type: number
+      - name: address
+        required: false
+        in: query
+        description: User wallet address
+        schema:
+          pattern: ^(eth\|[a-fA-F0-9]{40}|client\|[a-fA-F0-9]{24})$
+          example: eth|6742903677106B3156434F61f2731c3516B1aD68
+          type: string
+      responses:
+        '200':
+          description: ''
+      summary: Fetch user token balances
+      tags:
+      - user
+  /user/fetch-gala-balance:
+    get:
+      description: Fetches the GALA token balance for a user.
+      operationId: UserController_fetchGalaBalance
+      parameters:
+      - name: userAddress
+        required: false
+        in: query
+        description: User wallet address
+        schema:
+          pattern: ^(eth\|[a-fA-F0-9]{40}|client\|[a-fA-F0-9]{24})$
+          example: eth|6742903677106B3156434F61f2731c3516B1aD68
+          type: string
+      responses:
+        '200':
+          description: ''
+      summary: Fetch user GALA balance
+      tags:
+      - user
+  /user/assets:
+    get:
+      description: Returns ONLY the tokens where the user has a positive balance (quantity > 0).
+      operationId: UserController_fetchAssets
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: Search term for filtering tokens
+        schema:
+          example: GALA
+          type: string
+      - name: tokenName
+        required: false
+        in: query
+        description: Filter by specific token name
+        schema:
+          example: GALA
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Page number for pagination (starts at 1)
+        schema:
+          minimum: 1
+          example: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Maximum number of items per page; omit to return all
+        schema:
+          minimum: 1
+          maximum: 1000
+          example: 10
+          type: number
+      - name: address
+        required: true
+        in: query
+        description: User wallet address
+        schema:
+          pattern: ^(eth\|[a-fA-F0-9]{40}|client\|[a-fA-F0-9]{24})$
+          example: eth|6742903677106B3156434F61f2731c3516B1aD68
+          type: string
+      responses:
+        '200':
+          description: ''
+      summary: Fetch user assets
+      tags:
+      - user
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

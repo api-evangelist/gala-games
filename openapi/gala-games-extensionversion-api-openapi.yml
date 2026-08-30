@@ -1,0 +1,34 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Extension Version API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: ExtensionVersion
+paths:
+  /api/v1/version-check:
+    get:
+      operationId: ExtensionVersionController_check
+      parameters:
+      - name: version
+        required: false
+        in: query
+        schema: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - ExtensionVersion
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

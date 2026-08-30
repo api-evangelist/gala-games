@@ -1,0 +1,48 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Token Registry API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: token-registry
+paths:
+  /tokens/mapping:
+    get:
+      operationId: TokenRegistryController_getTokenNameMapping
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - token-registry
+  /tokens/blacklist.json:
+    get:
+      operationId: TokenRegistryController_getTokenBlacklist
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - token-registry
+  /tokens/ungraduated.json:
+    get:
+      operationId: TokenRegistryController_getUngraduatedLaunchpad
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - token-registry
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.

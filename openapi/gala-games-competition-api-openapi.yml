@@ -1,0 +1,204 @@
+openapi: 3.2.0
+info:
+  title: Gala DeFi Backend Competition API
+  description: OpenAPI reference for DeFi backend endpoints.
+  version: 0.0.1
+  contact: {}
+servers: []
+tags:
+- name: competition
+  description: ''
+paths:
+  /competition/active:
+    get:
+      operationId: CompetitionController_getActiveCompetition
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+  /competition/{id}:
+    get:
+      operationId: CompetitionController_getCompetition
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+  /competition/{id}/stats:
+    get:
+      operationId: CompetitionController_getCompetitionStats
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+  /competition/{id}/participant/{wallet}:
+    get:
+      operationId: CompetitionController_getParticipant
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: wallet
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+  /competition/{id}/leaderboard:
+    get:
+      operationId: CompetitionController_getLeaderboard
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: wallet
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+  /competition/{id}/inventory/{wallet}:
+    get:
+      operationId: CompetitionController_getInventory
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: wallet
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+  /competition/{id}/enroll:
+    post:
+      operationId: CompetitionController_enroll
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+  /competition/{id}/open-chest:
+    post:
+      operationId: CompetitionController_openChest
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenChestDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - competition
+components:
+  schemas:
+    EnrollDto:
+      type: object
+      properties:
+        walletAddress:
+          type: string
+      required:
+      - walletAddress
+    OpenChestDto:
+      type: object
+      properties:
+        walletAddress:
+          type: string
+        tierNumber:
+          type: number
+          minimum: 1
+          maximum: 10
+      required:
+      - walletAddress
+      - tierNumber
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Required for admin endpoints protected by ApiKeyGuard.
