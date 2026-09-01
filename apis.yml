@@ -463,6 +463,9 @@ apis:
   - type: DataModel
     url: data-model/gala-games-data-model.yml
 common:
+- type: License
+  name: Apache-2.0
+  url: https://github.com/GalaChain/sdk/blob/main/LICENSE
 - type: Overlay
   url: overlays/gala-games-galachain-asset-token-contract-overlay.yaml
 - type: Overlay
