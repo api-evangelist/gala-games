@@ -460,16 +460,16 @@ apis:
     url: errors/gala-games-problem-types.yml
   - type: DataModel
     url: data-model/gala-games-data-model.yml
-- aid: gala-games:gala-games-whatsnew-api
+- aid: gala-games:gala-games-whats-new-api
   name: Gala Games Whats New API
-  description: The WhatsNew API from Gala Games — 1 operation(s) for whatsnew.
+  description: The Whats New API from Gala Games — 1 operation(s) for whats new.
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - WhatsNew
+  - Whats New
   properties:
   - type: OpenAPI
-    url: openapi/gala-games-whatsnew-api-openapi.yml
+    url: openapi/gala-games-whats-new-api-openapi.yml
   - type: RateLimits
     url: rate-limits/gala-games-rate-limits.yml
   - type: ErrorCatalog
