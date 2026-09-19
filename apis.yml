@@ -123,7 +123,7 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - Competition
+  - Competitions
   tags_raw:
   - competition
   properties:
@@ -242,7 +242,7 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - Leaderboard
+  - Leaderboards
   tags_raw:
   - leaderboard
   properties:
@@ -260,7 +260,7 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - Market
+  - Markets
   tags_raw:
   - market
   properties:
@@ -466,6 +466,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - WhatsNew
+  tags_raw:
   - Whats New
   properties:
   - type: OpenAPI
