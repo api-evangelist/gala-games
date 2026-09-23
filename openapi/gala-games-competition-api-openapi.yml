@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: competition
+- name: Competition
   description: ''
 paths:
   /competition/active:
@@ -21,7 +21,9 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller get active competition
+      x-summary-source: derived
   /competition/{id}:
     get:
       operationId: CompetitionController_getCompetition
@@ -39,7 +41,9 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller get competition
+      x-summary-source: derived
   /competition/{id}/stats:
     get:
       operationId: CompetitionController_getCompetitionStats
@@ -57,7 +61,9 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller get competition stats
+      x-summary-source: derived
   /competition/{id}/participant/{wallet}:
     get:
       operationId: CompetitionController_getParticipant
@@ -80,7 +86,9 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller get participant
+      x-summary-source: derived
   /competition/{id}/leaderboard:
     get:
       operationId: CompetitionController_getLeaderboard
@@ -103,7 +111,9 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller get leaderboard
+      x-summary-source: derived
   /competition/{id}/inventory/{wallet}:
     get:
       operationId: CompetitionController_getInventory
@@ -126,7 +136,9 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller get inventory
+      x-summary-source: derived
   /competition/{id}/enroll:
     post:
       operationId: CompetitionController_enroll
@@ -150,7 +162,9 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller enroll
+      x-summary-source: derived
   /competition/{id}/open-chest:
     post:
       operationId: CompetitionController_openChest
@@ -174,16 +188,11 @@ paths:
               schema:
                 type: object
       tags:
-      - competition
+      - Competition
+      summary: Competition controller open chest
+      x-summary-source: derived
 components:
   schemas:
-    EnrollDto:
-      type: object
-      properties:
-        walletAddress:
-          type: string
-      required:
-      - walletAddress
     OpenChestDto:
       type: object
       properties:
@@ -196,6 +205,13 @@ components:
       required:
       - walletAddress
       - tierNumber
+    EnrollDto:
+      type: object
+      properties:
+        walletAddress:
+          type: string
+      required:
+      - walletAddress
   securitySchemes:
     api-key:
       type: apiKey

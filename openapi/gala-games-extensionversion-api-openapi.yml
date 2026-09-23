@@ -25,6 +25,8 @@ paths:
                 type: object
       tags:
       - ExtensionVersion
+      summary: Extension version controller check
+      x-summary-source: derived
 components:
   securitySchemes:
     api-key:

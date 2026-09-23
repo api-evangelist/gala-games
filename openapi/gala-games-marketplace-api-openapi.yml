@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: marketplace
+- name: Marketplace
   description: ''
 paths:
   /v1/marketplace/listings:
@@ -60,7 +60,7 @@ paths:
                 type: object
       summary: Browse active marketplace listings
       tags:
-      - marketplace
+      - Marketplace
   /v1/marketplace/listings/{id}:
     get:
       operationId: MarketplaceController_getListing
@@ -80,7 +80,7 @@ paths:
                 type: object
       summary: A single marketplace listing by id
       tags:
-      - marketplace
+      - Marketplace
 components:
   securitySchemes:
     api-key:

@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: leaderboard
+- name: Leaderboard
 paths:
   /leaderboard:
     get:
@@ -26,7 +26,7 @@ paths:
           description: ''
       summary: Get leaderboard for a season
       tags:
-      - leaderboard
+      - Leaderboard
   /leaderboard/seasons:
     get:
       description: Get a list of all available leaderboard seasons.
@@ -43,7 +43,7 @@ paths:
                   $ref: '#/components/schemas/LeaderboardSeason'
       summary: Get all leaderboard seasons
       tags:
-      - leaderboard
+      - Leaderboard
   /leaderboard/{wallet}/position/{seasonId}:
     get:
       description: Get the rank and position of a user in a specific season.
@@ -68,7 +68,7 @@ paths:
                 type: object
       summary: Get user position in leaderboard
       tags:
-      - leaderboard
+      - Leaderboard
   /leaderboard/{wallet}/breakdown/{seasonId}:
     get:
       description: Get a detailed breakdown of a user's score in a specific season.
@@ -104,7 +104,7 @@ paths:
           description: ''
       summary: Get user breakdown in leaderboard
       tags:
-      - leaderboard
+      - Leaderboard
 components:
   schemas:
     LeaderboardSeason:

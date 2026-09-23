@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: coin-gecko
+- name: coin gecko
   description: ''
 paths:
   /coin-gecko/tickers:
@@ -25,7 +25,7 @@ paths:
                   type: object
       summary: Get ticker data for CoinGecko
       tags:
-      - coin-gecko
+      - coin gecko
   /coin-gecko/terminal/latest-block:
     get:
       description: Get the latest block number from the Gala blockchain.
@@ -40,7 +40,7 @@ paths:
                 $ref: '#/components/schemas/LatestBlockResponseDto'
       summary: Get the latest block
       tags:
-      - coin-gecko
+      - coin gecko
   /coin-gecko/terminal/asset:
     get:
       description: Get details of a specific asset.
@@ -62,7 +62,7 @@ paths:
                 $ref: '#/components/schemas/GetAssetResponseDto'
       summary: Get asset details
       tags:
-      - coin-gecko
+      - coin gecko
   /coin-gecko/terminal/pair:
     get:
       description: Get details of a specific trading pair. The pair ID can be obtained from GET /coin-gecko/terminal/events response.
@@ -84,7 +84,7 @@ paths:
                 $ref: '#/components/schemas/GetPairResponseDto'
       summary: Get pair details
       tags:
-      - coin-gecko
+      - coin gecko
   /coin-gecko/terminal/events:
     get:
       description: Get events within a specified block range.
@@ -113,7 +113,7 @@ paths:
                 $ref: '#/components/schemas/GetEventsResponseDto'
       summary: Get events within a block range
       tags:
-      - coin-gecko
+      - coin gecko
   /coin-gecko/terminal/liquidity-operations:
     get:
       description: Get liquidity operations for a specific position.
@@ -137,62 +137,9 @@ paths:
                   type: object
       summary: Get liquidity operations for a position
       tags:
-      - coin-gecko
+      - coin gecko
 components:
   schemas:
-    GetPairResponseDto:
-      type: object
-      properties:
-        pair:
-          $ref: '#/components/schemas/PairDto'
-      required:
-      - pair
-    LatestBlockResponseDto:
-      type: object
-      properties:
-        block:
-          $ref: '#/components/schemas/BlockDto'
-      required:
-      - block
-    PairDto:
-      type: object
-      properties:
-        id:
-          type: string
-        dexKey:
-          type: string
-        asset0Id:
-          type: string
-        asset1Id:
-          type: string
-        createdAtBlockNumber:
-          type: number
-        createdAtBlockTimestamp:
-          type: number
-        createdAtTxnId:
-          type: string
-        creator:
-          type: string
-        feeBps:
-          type: number
-        pool:
-          $ref: '#/components/schemas/PoolDto'
-        metadata:
-          type: object
-      required:
-      - id
-      - dexKey
-      - asset0Id
-      - asset1Id
-    GetEventsResponseDto:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            type: object
-      required:
-      - events
     PoolDto:
       type: object
       properties:
@@ -227,13 +174,22 @@ components:
       required:
       - blockNumber
       - blockTimestamp
-    GetAssetResponseDto:
+    GetEventsResponseDto:
       type: object
       properties:
-        asset:
-          $ref: '#/components/schemas/AssetDto'
+        events:
+          type: array
+          items:
+            type: object
       required:
-      - asset
+      - events
+    GetPairResponseDto:
+      type: object
+      properties:
+        pair:
+          $ref: '#/components/schemas/PairDto'
+      required:
+      - pair
     AssetDto:
       type: object
       properties:
@@ -258,6 +214,50 @@ components:
       - name
       - symbol
       - decimals
+    LatestBlockResponseDto:
+      type: object
+      properties:
+        block:
+          $ref: '#/components/schemas/BlockDto'
+      required:
+      - block
+    GetAssetResponseDto:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/AssetDto'
+      required:
+      - asset
+    PairDto:
+      type: object
+      properties:
+        id:
+          type: string
+        dexKey:
+          type: string
+        asset0Id:
+          type: string
+        asset1Id:
+          type: string
+        createdAtBlockNumber:
+          type: number
+        createdAtBlockTimestamp:
+          type: number
+        createdAtTxnId:
+          type: string
+        creator:
+          type: string
+        feeBps:
+          type: number
+        pool:
+          $ref: '#/components/schemas/PoolDto'
+        metadata:
+          type: object
+      required:
+      - id
+      - dexKey
+      - asset0Id
+      - asset1Id
   securitySchemes:
     api-key:
       type: apiKey

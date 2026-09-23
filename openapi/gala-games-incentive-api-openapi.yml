@@ -24,6 +24,8 @@ paths:
                   $ref: '#/components/schemas/ActiveIncentiveProgramResponse'
       tags:
       - incentive
+      summary: Incentive controller get active programs
+      x-summary-source: derived
   /incentive/program/pool/{poolHash}:
     get:
       operationId: IncentiveController_getProgramByPool
@@ -42,6 +44,8 @@ paths:
                 type: object
       tags:
       - incentive
+      summary: Incentive controller get program by pool
+      x-summary-source: derived
   /incentive/reward/{walletAddress}/{poolHash}:
     get:
       operationId: IncentiveController_getUserReward
@@ -80,6 +84,8 @@ paths:
                 type: object
       tags:
       - incentive
+      summary: Incentive controller get user reward
+      x-summary-source: derived
   /incentive/reward/query:
     post:
       operationId: IncentiveController_getUserRewardPost
@@ -93,6 +99,8 @@ paths:
                 type: object
       tags:
       - incentive
+      summary: Incentive controller get user reward post
+      x-summary-source: derived
   /incentive/wallet/{walletAddress}:
     get:
       operationId: IncentiveController_getWalletPositions
@@ -113,6 +121,8 @@ paths:
                   $ref: '#/components/schemas/IncentiveRewardResponse'
       tags:
       - incentive
+      summary: Incentive controller get wallet positions
+      x-summary-source: derived
   /incentive/enroll:
     post:
       operationId: IncentiveController_enrollPosition
@@ -132,6 +142,8 @@ paths:
                 $ref: '#/components/schemas/IncentiveProgramPosition'
       tags:
       - incentive
+      summary: Incentive controller enroll position
+      x-summary-source: derived
   /incentive/analytics/{programId}:
     get:
       operationId: IncentiveController_getProgramAnalytics
@@ -152,6 +164,8 @@ paths:
                   $ref: '#/components/schemas/IncentiveProgramAnalytics'
       tags:
       - incentive
+      summary: Incentive controller get program analytics
+      x-summary-source: derived
   /incentive/debug/position/{positionId}:
     get:
       operationId: IncentiveController_debugPosition
@@ -170,8 +184,37 @@ paths:
                 type: object
       tags:
       - incentive
+      summary: Incentive controller debug position
+      x-summary-source: derived
 components:
   schemas:
+    EnrollPositionDto:
+      type: object
+      properties:
+        programId:
+          type: number
+        walletAddress:
+          type: string
+        positionId:
+          type: string
+        minTick:
+          type: number
+        maxTick:
+          type: number
+        liquidityAmount:
+          type: string
+        termsAcceptedTxHash:
+          type: string
+      required:
+      - programId
+      - walletAddress
+      - positionId
+      - minTick
+      - maxTick
+      - liquidityAmount
+    IncentiveProgramPosition:
+      type: object
+      properties: {}
     IncentiveRewardResponse:
       type: object
       properties:
@@ -216,33 +259,6 @@ components:
       - isQualified
       - programStartTime
       - programEndTime
-    IncentiveProgramPosition:
-      type: object
-      properties: {}
-    EnrollPositionDto:
-      type: object
-      properties:
-        programId:
-          type: number
-        walletAddress:
-          type: string
-        positionId:
-          type: string
-        minTick:
-          type: number
-        maxTick:
-          type: number
-        liquidityAmount:
-          type: string
-        termsAcceptedTxHash:
-          type: string
-      required:
-      - programId
-      - walletAddress
-      - positionId
-      - minTick
-      - maxTick
-      - liquidityAmount
     ActiveIncentiveProgramResponse:
       type: object
       properties:

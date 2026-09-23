@@ -23,6 +23,8 @@ paths:
       - api-key: []
       tags:
       - protocol-fee-sweep
+      summary: Protocol fee sweep controller run
+      x-summary-source: derived
   /v1/protocol-fee-sweep/reports:
     get:
       operationId: ProtocolFeeSweepController_reports
@@ -40,6 +42,8 @@ paths:
       - api-key: []
       tags:
       - protocol-fee-sweep
+      summary: Protocol fee sweep controller reports
+      x-summary-source: derived
 components:
   securitySchemes:
     api-key:

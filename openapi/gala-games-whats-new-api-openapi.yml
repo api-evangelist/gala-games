@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: WhatsNew
+- name: Whats New
 paths:
   /v1/whats-new:
     get:
@@ -20,7 +20,9 @@ paths:
               schema:
                 type: object
       tags:
-      - WhatsNew
+      - Whats New
+      summary: Whats new controller get
+      x-summary-source: derived
 components:
   securitySchemes:
     api-key:

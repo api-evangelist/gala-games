@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: pairs
+- name: Pairs
 paths:
   /dex/pairs:
     get:
@@ -23,7 +23,7 @@ paths:
           description: ''
       summary: Get all pairs
       tags:
-      - pairs
+      - Pairs
   /dex/pairs/volume-fees:
     get:
       description: Get volume and fee statistics for a specific pair.
@@ -50,7 +50,7 @@ paths:
                 type: object
       summary: Get volume and fees for a pair
       tags:
-      - pairs
+      - Pairs
 components:
   securitySchemes:
     api-key:

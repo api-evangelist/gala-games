@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: trade
+- name: Trade
   description: ''
 paths:
   /v1/trade/quote:
@@ -61,7 +61,7 @@ paths:
           description: Bad Request
       summary: Get a quote for a trade
       tags:
-      - trade
+      - Trade
   /v1/trade/pool:
     get:
       description: Get detailed information about a specific liquidity pool.
@@ -113,7 +113,7 @@ paths:
           description: Bad Request
       summary: Get details of a liquidity pool
       tags:
-      - trade
+      - Trade
   /v1/trade/composite-pool:
     get:
       description: 'Returns the raw on-chain GetCompositePool payload (pool state + full tick data map), front-cached and shared with the quote path. Concurrent requests for the same pool collapse to one chain read. Query params: token0, token1 (format: collection$category$type$additionalKey), fee (500 | 3000 | 10000).'
@@ -155,7 +155,7 @@ paths:
           description: Bad Request
       summary: Get the composite pool (state + tick data) for a pair
       tags:
-      - trade
+      - Trade
   /v1/trade/composite-pool/batch:
     post:
       description: 'Batch variant of GET /composite-pool. Body: { pairs: [{ token0, token1, fee }, ...] } (max 50). Returns one result envelope per input pair, in order; a missing pool yields that item its own 404 envelope without failing the batch. Duplicate pairs share a single chain read.'
@@ -178,10 +178,10 @@ paths:
           description: Bad Request
       summary: Get composite pools for many pairs in one request
       tags:
-      - trade
+      - Trade
   /v1/trade/composite-pool/direct:
     post:
-      description: 'Chain-native drop-in: send the exact body you would POST to <chain>/GetCompositePool ({ token0, token1, fee } with object-form token class keys) and receive the raw GalaChainResponse ({ Status, Data }) verbatim — front-cached (shared with /quote), so switching to this URL adds caching transparently. A missing pool mirrors chain with a 404 { Status: 0, Message }.'
+      description: 'Chain-native drop-in: send the exact body you would POST to /GetCompositePool ({ token0, token1, fee } with object-form token class keys) and receive the raw GalaChainResponse ({ Status, Data }) verbatim — front-cached (shared with /quote), so switching to this URL adds caching transparently. A missing pool mirrors chain with a 404 { Status: 0, Message }.'
       operationId: TradeController_getCompositePoolDirect
       parameters: []
       requestBody:
@@ -201,7 +201,7 @@ paths:
           description: Bad Request
       summary: Drop-in for a direct chain GetCompositePool call
       tags:
-      - trade
+      - Trade
   /v1/trade/positions:
     get:
       description: Get all liquidity positions for a user
@@ -240,7 +240,7 @@ paths:
           description: Bad Request
       summary: Get all positions for a user
       tags:
-      - trade
+      - Trade
   /v1/trade/position:
     get:
       description: Get details of a specific liquidity position.
@@ -325,7 +325,7 @@ paths:
           description: Bad Request
       summary: Get a specific position
       tags:
-      - trade
+      - Trade
   /v1/trade/add-liq-estimate:
     get:
       description: Estimate gas and price impact for adding liquidity.
@@ -403,7 +403,7 @@ paths:
           description: Bad Request
       summary: Estimate gas and impact for adding liquidity
       tags:
-      - trade
+      - Trade
   /v1/trade/remove-liq-estimate:
     get:
       description: 'Estimate gas and price impact for removing liquidity. Query params: token0, token1 (format: GALA$Unit$none$none), fee, tickLower, tickUpper, liquidity, owner. Example: ?token0=GALA$Unit$none$none&token1=GUSDC$Unit$none$none&fee=3000&tickLower=-886800&tickUpper=886800&liquidity=1000&owner=eth|6742903677106B3156434F61f2731c3516B1aD68'
@@ -489,7 +489,7 @@ paths:
           description: Bad Request
       summary: Estimate gas and impact for removing liquidity
       tags:
-      - trade
+      - Trade
   /v1/trade/price:
     get:
       description: 'Get real-time token price information based on liquidity pool reserves from the Gala blockchain. Query param: token (format: GALA$Unit$none$none). Example: ?token=GALA$Unit$none$none'
@@ -518,7 +518,7 @@ paths:
           description: Bad Request
       summary: Get current price of a token
       tags:
-      - trade
+      - Trade
   /v1/trade/liquidity:
     post:
       description: Add liquidity to a pool.
@@ -541,9 +541,8 @@ paths:
           description: Bad Request
       summary: Add liquidity to a pool
       tags:
-      - trade
+      - Trade
     delete:
-      description: Remove liquidity from a pool
       operationId: TradeController_removeLiquidity
       parameters: []
       requestBody:
@@ -563,10 +562,9 @@ paths:
           description: Bad Request
       summary: Remove liquidity from a pool
       tags:
-      - trade
+      - Trade
   /v1/trade/swap:
     post:
-      description: Execute a token swap
       operationId: TradeController_swap
       parameters: []
       requestBody:
@@ -586,7 +584,7 @@ paths:
           description: Bad Request
       summary: Execute a token swap
       tags:
-      - trade
+      - Trade
   /v1/trade/create-pool:
     post:
       description: 'Create a new liquidity pool. Body params: token0, token1 (format: GALA$Unit$none$none), fee (500, 3000, or 10000), initialSqrtPrice, uniqueKey.'
@@ -609,7 +607,7 @@ paths:
           description: Bad Request
       summary: Create a new liquidity pool
       tags:
-      - trade
+      - Trade
   /v1/trade/collect:
     post:
       description: Collect accrued fees from a position.
@@ -632,7 +630,7 @@ paths:
           description: Bad Request
       summary: Collect fees from a position
       tags:
-      - trade
+      - Trade
   /v1/trade/exec:
     post:
       deprecated: true
@@ -656,7 +654,7 @@ paths:
           description: Bad Request
       summary: '[DEPRECATED] Execute a generic transaction'
       tags:
-      - trade
+      - Trade
   /v1/trade/bundle:
     post:
       description: 'Process a single transaction bundle. Body params: type (swap | addLiquidity | removeLiquidity | collectFee | createPool), payload, signature, user. The payload is obtained from: swap - POST /v1/trade/swap response data object, addLiquidity - POST /v1/trade/liquidity response data object, removeLiquidity - DELETE /v1/trade/liquidity response data object, collectFee - POST /v1/trade/collect response data object, createPool - POST /v1/trade/create-pool response data object.'
@@ -679,7 +677,7 @@ paths:
           description: Bad Request
       summary: Process a single bundle
       tags:
-      - trade
+      - Trade
   /v1/trade/bundle-multiple:
     post:
       description: 'Process multiple transaction bundles (max 10). Request body accepts an array of bundle objects. Example: [{ "type": "swap", "payload": {}, "signature": "string", "user": "eth|..." }]. Types: swap | addLiquidity | removeLiquidity | collectFee | createPool. Payloads are obtained from respective endpoint response data objects.'
@@ -704,7 +702,7 @@ paths:
           description: Bad Request
       summary: Process multiple bundles
       tags:
-      - trade
+      - Trade
   /v1/trade/price-multiple:
     post:
       description: Get prices for multiple tokens at once.
@@ -727,7 +725,7 @@ paths:
           description: Bad Request
       summary: Get prices for multiple tokens
       tags:
-      - trade
+      - Trade
   /v1/trade/slot0:
     get:
       operationId: TradeController_getSlot0
@@ -775,7 +773,9 @@ paths:
               schema:
                 type: object
       tags:
-      - trade
+      - Trade
+      summary: Trade controller get slot0
+      x-summary-source: derived
   /v1/trade/transaction-status:
     get:
       description: 'Check the status of a transaction. Query param: id (transaction ID obtained from POST /v1/trade/bundle or POST /v1/trade/bundle-multiple response).'
@@ -799,12 +799,9 @@ paths:
           description: Bad Request
       summary: Get status of a transaction
       tags:
-      - trade
+      - Trade
 components:
   schemas:
-    Object:
-      type: object
-      properties: {}
     GetPriceMultipleDTO:
       type: object
       properties:
@@ -824,30 +821,7 @@ components:
             $ref: '#/components/schemas/TokenDTO'
       required:
       - tokens
-    CompositePoolQueryDTO:
-      type: object
-      properties:
-        token0:
-          type: string
-          description: 'First token (format: collection$category$type$additionalKey)'
-          example: GALA$Unit$none$none
-        token1:
-          type: string
-          description: 'Second token (format: collection$category$type$additionalKey)'
-          example: GUSDC$Unit$none$none
-        fee:
-          enum:
-          - 500
-          - 3000
-          - 10000
-          type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-      required:
-      - token0
-      - token1
-      - fee
-    BurnDTO:
+    CreatePoolDTO:
       type: object
       properties:
         token0:
@@ -869,34 +843,20 @@ components:
           allOf:
           - $ref: '#/components/schemas/TokenDTO'
         fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
           type: number
           description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
           example: 3000
-        tickUpper:
-          type: number
-        tickLower:
-          type: number
-        tickRangeCheck:
-          type: boolean
-          default: true
-        amount:
+        initialSqrtPrice:
           type: string
-        amount0Min:
-          type: string
-        amount1Min:
-          type: string
-        positionId:
-          type: string
-          description: Position ID (for existing positions)
       required:
       - token0
       - token1
       - fee
-      - tickUpper
-      - tickLower
-      - amount
-      - amount0Min
-      - amount1Min
+      - initialSqrtPrice
     SwapDTO:
       type: object
       properties:
@@ -939,42 +899,25 @@ components:
       - sqrtPriceLimit
       - amountInMaximum
       - amountOutMinimum
-    CreatePoolDTO:
+    Object:
+      type: object
+      properties: {}
+    BaseResponseDto:
       type: object
       properties:
-        token0:
-          description: 'First token in the pool (format: collection$category$type$additionalKey)'
-          example:
-            collection: GALA
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        token1:
-          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
-          example:
-            collection: GUSDC
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        fee:
-          enum:
-          - 500
-          - 3000
-          - 10000
+        status:
           type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-        initialSqrtPrice:
+        message:
           type: string
+        error:
+          type: object
+        data:
+          type: object
       required:
-      - token0
-      - token1
-      - fee
-      - initialSqrtPrice
+      - status
+      - message
+      - error
+      - data
     TokenDTO:
       type: object
       properties:
@@ -991,51 +934,6 @@ components:
       - category
       - type
       - additionalKey
-    CompositePoolBatchDTO:
-      type: object
-      properties:
-        pairs:
-          minItems: 1
-          maxItems: 50
-          description: Pools to read (1-50).
-          type: array
-          items:
-            $ref: '#/components/schemas/CompositePoolQueryDTO'
-      required:
-      - pairs
-    CompositePoolDirectDTO:
-      type: object
-      properties:
-        token0:
-          description: First token (TokenClassKey object)
-          example:
-            collection: GALA
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        token1:
-          description: Second token (TokenClassKey object)
-          example:
-            collection: GUSDC
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        fee:
-          enum:
-          - 500
-          - 3000
-          - 10000
-          type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-      required:
-      - token0
-      - token1
-      - fee
     BundleDTO:
       type: object
       properties:
@@ -1059,22 +957,6 @@ components:
       - payload
       - signature
       - user
-    BaseResponseDto:
-      type: object
-      properties:
-        status:
-          type: number
-        message:
-          type: string
-        error:
-          type: object
-        data:
-          type: object
-      required:
-      - status
-      - message
-      - error
-      - data
     ExecuteDTO:
       type: object
       properties:
@@ -1149,6 +1031,68 @@ components:
       - tickLower
       - amount0Requested
       - amount1Requested
+    CompositePoolBatchDTO:
+      type: object
+      properties:
+        pairs:
+          minItems: 1
+          maxItems: 50
+          description: Pools to read (1-50).
+          type: array
+          items:
+            $ref: '#/components/schemas/CompositePoolQueryDTO'
+      required:
+      - pairs
+    BurnDTO:
+      type: object
+      properties:
+        token0:
+          description: 'First token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        tickUpper:
+          type: number
+        tickLower:
+          type: number
+        tickRangeCheck:
+          type: boolean
+          default: true
+        amount:
+          type: string
+        amount0Min:
+          type: string
+        amount1Min:
+          type: string
+        positionId:
+          type: string
+          description: Position ID (for existing positions)
+      required:
+      - token0
+      - token1
+      - fee
+      - tickUpper
+      - tickLower
+      - amount
+      - amount0Min
+      - amount1Min
     AddLiquidityDTO:
       type: object
       properties:
@@ -1201,6 +1145,62 @@ components:
       - amount0Min
       - amount1Min
       - amount0Desired
+    CompositePoolDirectDTO:
+      type: object
+      properties:
+        token0:
+          description: First token (TokenClassKey object)
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: Second token (TokenClassKey object)
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+      required:
+      - token0
+      - token1
+      - fee
+    CompositePoolQueryDTO:
+      type: object
+      properties:
+        token0:
+          type: string
+          description: 'First token (format: collection$category$type$additionalKey)'
+          example: GALA$Unit$none$none
+        token1:
+          type: string
+          description: 'Second token (format: collection$category$type$additionalKey)'
+          example: GUSDC$Unit$none$none
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+      required:
+      - token0
+      - token1
+      - fee
   securitySchemes:
     api-key:
       type: apiKey

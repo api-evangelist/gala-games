@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: market
+- name: Market
 paths:
   /market/token-series:
     get:
@@ -39,7 +39,7 @@ paths:
                 type: object
       summary: Normalized USD OHLCV + current price for a token at a timeframe
       tags:
-      - market
+      - Market
   /market/price:
     get:
       operationId: MarketController_price
@@ -59,7 +59,7 @@ paths:
                 type: object
       summary: Normalized { price, change24h } per asset id, keyed by symbol
       tags:
-      - market
+      - Market
   /market/price-series:
     get:
       operationId: MarketController_priceSeries
@@ -91,7 +91,7 @@ paths:
                 type: object
       summary: Dense USD price line for a token (pair-ratio denominator)
       tags:
-      - market
+      - Market
   /market/sparkline:
     get:
       operationId: MarketController_sparkline
@@ -113,7 +113,7 @@ paths:
                   type: number
       summary: 7-day mini sparkline (in-house daily close prices)
       tags:
-      - market
+      - Market
   /market/images:
     get:
       operationId: MarketController_images
@@ -133,7 +133,7 @@ paths:
                 type: object
       summary: Token logo URLs keyed by symbol (CoinGecko coins/markets)
       tags:
-      - market
+      - Market
   /market/wallet-transactions:
     get:
       operationId: MarketController_walletTransactions
@@ -166,7 +166,7 @@ paths:
                   type: object
       summary: ChainMeter wallet transaction history (raw get_wallet_txs rows)
       tags:
-      - market
+      - Market
 components:
   securitySchemes:
     api-key:

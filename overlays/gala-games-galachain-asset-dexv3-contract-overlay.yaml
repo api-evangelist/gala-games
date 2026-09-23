@@ -3,9 +3,9 @@ info:
   title: API Evangelist enhancements for GalaChain DEX v3 Contract API
   version: 1.0.0
 extends: openapi/gala-games-galachain-asset-dexv3-contract-openapi.json
-generated: '2026-08-16'
-method: generated
-source: openapi/gala-games-galachain-asset-dexv3-contract-openapi.json
+x-generated: '2026-08-16'
+x-method: generated
+x-source: openapi/gala-games-galachain-asset-dexv3-contract-openapi.json
 x-note: >-
   Captures API Evangelist enhancements without mutating the harvested specification.
   The spec under openapi/ is stored exactly as Gala serves it, so any correction we

@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: onboarding
+- name: Onboarding
 paths:
   /onboarding/is-registered:
     get:
@@ -26,7 +26,7 @@ paths:
           description: ''
       summary: Check if user is registered
       tags:
-      - onboarding
+      - Onboarding
 components:
   securitySchemes:
     api-key:

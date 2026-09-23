@@ -37,6 +37,8 @@ paths:
           description: ''
       tags:
       - Explorer
+      summary: Explorer controller get balances
+      x-summary-source: derived
   /v1/explorer/all-allowances:
     get:
       operationId: ExplorerController_getAllowances
@@ -66,6 +68,8 @@ paths:
           description: ''
       tags:
       - Explorer
+      summary: Explorer controller get allowances
+      x-summary-source: derived
   /v1/explorer/bridge-ops:
     get:
       operationId: ExplorerController_getBridgeOps
@@ -79,6 +83,8 @@ paths:
           description: ''
       tags:
       - Explorer
+      summary: Explorer controller get bridge ops
+      x-summary-source: derived
   /v1/explorer/blocks:
     get:
       operationId: CachedExplorerController_getBlocks
@@ -104,6 +110,8 @@ paths:
                 $ref: '#/components/schemas/BlocksResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get blocks
+      x-summary-source: derived
   /v1/explorer/blocks/latest:
     get:
       operationId: CachedExplorerController_getRecentBlocks
@@ -123,6 +131,8 @@ paths:
                 $ref: '#/components/schemas/BlindBlocksResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get recent blocks
+      x-summary-source: derived
   /v1/explorer/blocks/{channel}:
     get:
       operationId: CachedExplorerController_getBlocksByChannel
@@ -153,6 +163,8 @@ paths:
                 $ref: '#/components/schemas/BlocksResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get blocks by channel
+      x-summary-source: derived
   /v1/explorer/blocks/{channel}/latest:
     get:
       operationId: CachedExplorerController_getRecentBlocksByChannel
@@ -177,6 +189,8 @@ paths:
                 $ref: '#/components/schemas/BlindBlocksResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get recent blocks by channel
+      x-summary-source: derived
   /v1/explorer/blocks/{channel}/{number}:
     get:
       operationId: CachedExplorerController_getBlockByNumber
@@ -203,6 +217,8 @@ paths:
                   type: object
       tags:
       - Explorer
+      summary: Cached explorer controller get block by number
+      x-summary-source: derived
   /v1/explorer/height/{channel}:
     get:
       operationId: CachedExplorerController_getBlockHeightOnChannel
@@ -221,6 +237,8 @@ paths:
                 $ref: '#/components/schemas/ChannelHeightResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get block height on channel
+      x-summary-source: derived
   /v1/explorer/transactions:
     get:
       operationId: CachedExplorerController_getTransactions
@@ -246,6 +264,8 @@ paths:
                 $ref: '#/components/schemas/TransactionsPagingResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get transactions
+      x-summary-source: derived
   /v1/explorer/transactions/latest:
     get:
       operationId: CachedExplorerController_getRecentTransactions
@@ -265,6 +285,8 @@ paths:
                 $ref: '#/components/schemas/TransactionsResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get recent transactions
+      x-summary-source: derived
   /v1/explorer/transactions/{channel}:
     get:
       operationId: CachedExplorerController_getTransactionsByChannel
@@ -295,6 +317,8 @@ paths:
                 $ref: '#/components/schemas/TransactionsPagingResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get transactions by channel
+      x-summary-source: derived
   /v1/explorer/transactions/{channel}/latest:
     get:
       operationId: CachedExplorerController_getRecentTransactionsByChannel
@@ -319,6 +343,8 @@ paths:
                 $ref: '#/components/schemas/TransactionsResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get recent transactions by channel
+      x-summary-source: derived
   /v1/explorer/token-media:
     post:
       operationId: CachedExplorerController_getTokenMedia
@@ -340,6 +366,8 @@ paths:
                   $ref: '#/components/schemas/TokenClassImageDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller get token media
+      x-summary-source: derived
   /v1/explorer/channels:
     get:
       operationId: CachedExplorerController_getRegisteredChannels
@@ -355,6 +383,8 @@ paths:
                   type: string
       tags:
       - Explorer
+      summary: Cached explorer controller get registered channels
+      x-summary-source: derived
   /v1/explorer/search:
     post:
       operationId: CachedExplorerController_search
@@ -374,8 +404,25 @@ paths:
                 $ref: '#/components/schemas/SearchResponseDTO'
       tags:
       - Explorer
+      summary: Cached explorer controller search
+      x-summary-source: derived
 components:
   schemas:
+    SearchResponseDTO:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDetailsDTO'
+        search:
+          type: object
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+      required:
+      - blocks
+      - search
+      - paging
     SearchRequestDTO:
       type: object
       properties:
@@ -392,75 +439,15 @@ components:
           type: string
       required:
       - search
-    TokenMediaRequestDTO:
+    TransactionsResponseDTO:
       type: object
       properties:
-        collection:
-          type: string
-        category:
-          type: string
-        type:
-          type: string
-        additionalKey:
-          type: string
-      required:
-      - collection
-      - category
-      - type
-      - additionalKey
-    PagingResponseDTO:
-      type: object
-      properties:
-        limit:
-          type: number
-        offset:
-          type: number
-        size:
-          type: number
-        count:
-          type: string
-      required:
-      - limit
-      - size
-      - count
-    SearchResponseDTO:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
-        search:
-          type: object
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-      required:
-      - blocks
-      - search
-      - paging
-    TransactionsPagingResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
         transactions:
           type: array
           items:
             type: object
       required:
-      - paging
       - transactions
-    BlocksResponseDTO:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-      required:
-      - blocks
     TokenListDTO:
       type: object
       properties:
@@ -498,6 +485,67 @@ components:
       - category
       - type
       - additionalKey
+    BlocksResponseDTO:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDetailsDTO'
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+      required:
+      - blocks
+    PagingResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: number
+        offset:
+          type: number
+        size:
+          type: number
+        count:
+          type: string
+      required:
+      - limit
+      - size
+      - count
+    TransactionsPagingResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+        transactions:
+          type: array
+          items:
+            type: object
+      required:
+      - paging
+      - transactions
+    TokenMediaRequestDTO:
+      type: object
+      properties:
+        collection:
+          type: string
+        category:
+          type: string
+        type:
+          type: string
+        additionalKey:
+          type: string
+      required:
+      - collection
+      - category
+      - type
+      - additionalKey
+    ChannelHeightResponseDTO:
+      type: object
+      properties:
+        height:
+          type: string
+      required:
+      - height
     BlockDetailsDTO:
       type: object
       properties:
@@ -514,19 +562,3 @@ components:
       - channel
       - number
       - parsedBlock
-    TransactionsResponseDTO:
-      type: object
-      properties:
-        transactions:
-          type: array
-          items:
-            type: object
-      required:
-      - transactions
-    ChannelHeightResponseDTO:
-      type: object
-      properties:
-        height:
-          type: string
-      required:
-      - height

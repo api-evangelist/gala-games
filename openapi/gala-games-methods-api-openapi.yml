@@ -170,9 +170,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract batch submit
+      x-summary-source: derived
   /api/asset/dexv3-contract/CollectProtocolFees:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
       operationId: asset_dexv3-contract_CollectProtocolFees
       parameters: []
       requestBody:
@@ -412,9 +414,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract collect protocol fees
+      x-summary-source: derived
   /api/asset/dexv3-contract/ConfigureDexFeeAddress:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
       operationId: asset_dexv3-contract_ConfigureDexFeeAddress
       parameters: []
       requestBody:
@@ -504,9 +508,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract configure dex fee address
+      x-summary-source: derived
   /api/asset/dexv3-contract/DeleteSwapAllowances:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_dexv3-contract_DeleteSwapAllowances
       parameters: []
       requestBody:
@@ -603,9 +609,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract delete swap allowances
+      x-summary-source: derived
   /api/asset/dexv3-contract/DryRun:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_DryRun
       parameters: []
       requestBody:
@@ -719,9 +727,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract dry run
+      x-summary-source: derived
   /api/asset/dexv3-contract/FetchSwapAllowances:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_FetchSwapAllowances
       parameters: []
       requestBody:
@@ -827,9 +837,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract fetch swap allowances
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetAddLiquidityEstimation:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetAddLiquidityEstimation
       parameters: []
       requestBody:
@@ -1086,9 +1098,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get add liquidity estimation
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetBalanceDelta:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetBalanceDelta
       parameters: []
       requestBody:
@@ -1323,9 +1337,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get balance delta
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetBitMapChanges:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetBitMapChanges
       parameters: []
       requestBody:
@@ -1515,9 +1531,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get bit map changes
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetCompositePool:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetCompositePool
       parameters: []
       requestBody:
@@ -2107,9 +2125,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get composite pool
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetLiquidity:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetLiquidity
       parameters: []
       requestBody:
@@ -2340,9 +2360,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get liquidity
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetPoolData:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetPoolData
       parameters: []
       requestBody:
@@ -2717,9 +2739,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get pool data
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetPositions:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetPositions
       parameters: []
       requestBody:
@@ -3085,9 +3109,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get positions
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetRemoveLiquidityEstimation:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetRemoveLiquidityEstimation
       parameters: []
       requestBody:
@@ -3341,9 +3367,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get remove liquidity estimation
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetSlot0:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetSlot0
       parameters: []
       requestBody:
@@ -3586,9 +3614,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get slot0
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetTickData:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetTickData
       parameters: []
       requestBody:
@@ -3695,9 +3725,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get tick data
+      x-summary-source: derived
   /api/asset/dexv3-contract/GetUserPositions:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_dexv3-contract_GetUserPositions
       parameters: []
       requestBody:
@@ -3823,9 +3855,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract get user positions
+      x-summary-source: derived
   /api/asset/dexv3-contract/GrantBulkSwapAllowance:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_dexv3-contract_GrantBulkSwapAllowance
       parameters: []
       requestBody:
@@ -3970,9 +4004,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract grant bulk swap allowance
+      x-summary-source: derived
   /api/asset/dexv3-contract/GrantSwapAllowance:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_dexv3-contract_GrantSwapAllowance
       parameters: []
       requestBody:
@@ -4117,9 +4153,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract grant swap allowance
+      x-summary-source: derived
   /api/asset/dexv3-contract/SetProtocolFee:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
       operationId: asset_dexv3-contract_SetProtocolFee
       parameters: []
       requestBody:
@@ -4232,9 +4270,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract set protocol fee
+      x-summary-source: derived
   /api/asset/dexv3-contract/TransferDexPosition:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_dexv3-contract_TransferDexPosition
       parameters: []
       requestBody:
@@ -4450,9 +4490,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset dexv3 contract transfer dex position
+      x-summary-source: derived
   /api/asset/fee-contract/DryRun:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_fee-contract_DryRun
       parameters: []
       requestBody:
@@ -4566,9 +4608,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset fee contract dry run
+      x-summary-source: derived
   /api/asset/fee-contract/FetchFeeAuthorizations:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_fee-contract_FetchFeeAuthorizations
       parameters: []
       requestBody:
@@ -4749,6 +4793,8 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset fee contract fetch fee authorizations
+      x-summary-source: derived
   /api/asset/launchpad-contract/BatchSubmit:
     post:
       description: 'Submit a batch of transactions Transaction updates the chain (submit). Allowed roles: SUBMIT.'
@@ -4913,9 +4959,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract batch submit
+      x-summary-source: derived
   /api/asset/launchpad-contract/CallMemeTokenIn:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_launchpad-contract_CallMemeTokenIn
       parameters: []
       requestBody:
@@ -5029,9 +5077,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract call meme token in
+      x-summary-source: derived
   /api/asset/launchpad-contract/CallMemeTokenOut:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_launchpad-contract_CallMemeTokenOut
       parameters: []
       requestBody:
@@ -5145,9 +5195,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract call meme token out
+      x-summary-source: derived
   /api/asset/launchpad-contract/CallNativeTokenIn:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_launchpad-contract_CallNativeTokenIn
       parameters: []
       requestBody:
@@ -5259,9 +5311,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract call native token in
+      x-summary-source: derived
   /api/asset/launchpad-contract/CallNativeTokenOut:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_launchpad-contract_CallNativeTokenOut
       parameters: []
       requestBody:
@@ -5373,9 +5427,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract call native token out
+      x-summary-source: derived
   /api/asset/launchpad-contract/FetchLaunchpadFeeAmount:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_launchpad-contract_FetchLaunchpadFeeAmount
       parameters: []
       requestBody:
@@ -5448,9 +5504,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract fetch launchpad fee amount
+      x-summary-source: derived
   /api/asset/launchpad-contract/FetchLaunchpadFeeConfig:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE. Allowed orgs: CuratorOrg.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE. Allowed orgs: CuratorOrg.'
       operationId: asset_launchpad-contract_FetchLaunchpadFeeConfig
       parameters: []
       requestBody:
@@ -5539,9 +5597,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract fetch launchpad fee config
+      x-summary-source: derived
   /api/asset/launchpad-contract/FetchSaleDetails:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_launchpad-contract_FetchSaleDetails
       parameters: []
       requestBody:
@@ -5801,9 +5861,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset launchpad contract fetch sale details
+      x-summary-source: derived
   /api/asset/public-key-contract/DryRun:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_public-key-contract_DryRun
       parameters: []
       requestBody:
@@ -5917,9 +5979,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset public key contract dry run
+      x-summary-source: derived
   /api/asset/public-key-contract/GetObjectByKey:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_public-key-contract_GetObjectByKey
       parameters: []
       requestBody:
@@ -5992,9 +6056,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset public key contract get object by key
+      x-summary-source: derived
   /api/asset/token-contract/BatchFillTokenSwap:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_BatchFillTokenSwap
       parameters: []
       requestBody:
@@ -6408,9 +6474,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract batch fill token swap
+      x-summary-source: derived
   /api/asset/token-contract/BatchMintToken:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_BatchMintToken
       parameters: []
       requestBody:
@@ -6650,9 +6718,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract batch mint token
+      x-summary-source: derived
   /api/asset/token-contract/BatchRequestTokenBridgeOut:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg, GalaUsersOrg, UsersOrg1.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg, GalaUsersOrg, UsersOrg1.'
       operationId: asset_token-contract_BatchRequestTokenBridgeOut
       parameters: []
       requestBody:
@@ -6875,9 +6945,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract batch request token bridge out
+      x-summary-source: derived
   /api/asset/token-contract/BridgeTokenOut:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
       operationId: asset_token-contract_BridgeTokenOut
       parameters: []
       requestBody:
@@ -7043,9 +7115,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract bridge token out
+      x-summary-source: derived
   /api/asset/token-contract/BurnTokens:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_BurnTokens
       parameters: []
       requestBody:
@@ -7232,9 +7306,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract burn tokens
+      x-summary-source: derived
   /api/asset/token-contract/CreateNftCollection:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_CreateNftCollection
       parameters: []
       requestBody:
@@ -7417,9 +7493,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract create nft collection
+      x-summary-source: derived
   /api/asset/token-contract/DryRun:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_DryRun
       parameters: []
       requestBody:
@@ -7533,10 +7611,12 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract dry run
+      x-summary-source: derived
   /api/asset/token-contract/FetchAllowances:
     post:
       deprecated: true
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchAllowances
       parameters: []
       requestBody:
@@ -7719,9 +7799,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch allowances
+      x-summary-source: derived
   /api/asset/token-contract/FetchAllowancesWithPagination:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchAllowancesWithPagination
       parameters: []
       requestBody:
@@ -7952,9 +8034,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch allowances with pagination
+      x-summary-source: derived
   /api/asset/token-contract/FetchBalances:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchBalances
       parameters: []
       requestBody:
@@ -8111,9 +8195,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch balances
+      x-summary-source: derived
   /api/asset/token-contract/FetchBalancesWithTokenMetadata:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchBalancesWithTokenMetadata
       parameters: []
       requestBody:
@@ -8367,9 +8453,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch balances with token metadata
+      x-summary-source: derived
   /api/asset/token-contract/FetchBurns:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchBurns
       parameters: []
       requestBody:
@@ -8506,9 +8594,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch burns
+      x-summary-source: derived
   /api/asset/token-contract/FetchNftCollectionAuthorizationsWithPagination:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchNftCollectionAuthorizationsWithPagination
       parameters: []
       requestBody:
@@ -8629,9 +8719,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch nft collection authorizations with pagination
+      x-summary-source: derived
   /api/asset/token-contract/FetchProposedFee:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchProposedFee
       parameters: []
       requestBody:
@@ -8709,9 +8801,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch proposed fee
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenBridgeStatus:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenBridgeStatus
       parameters: []
       requestBody:
@@ -8824,9 +8918,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token bridge status
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenClasses:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenClasses
       parameters: []
       requestBody:
@@ -9051,9 +9147,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token classes
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenClassesWithPagination:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenClassesWithPagination
       parameters: []
       requestBody:
@@ -9286,9 +9384,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token classes with pagination
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenClassesWithSupply:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenClassesWithSupply
       parameters: []
       requestBody:
@@ -9513,9 +9613,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token classes with supply
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenSwapByRequestId:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenSwapByRequestId
       parameters: []
       requestBody:
@@ -9851,9 +9953,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token swap by request id
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenSwaps:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenSwaps
       parameters: []
       requestBody:
@@ -10189,9 +10293,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token swaps
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenSwapsByInstanceOffered:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenSwapsByInstanceOffered
       parameters: []
       requestBody:
@@ -10594,9 +10700,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token swaps by instance offered
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenSwapsByInstanceWanted:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenSwapsByInstanceWanted
       parameters: []
       requestBody:
@@ -10999,9 +11107,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token swaps by instance wanted
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenSwapsOfferedByUser:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenSwapsOfferedByUser
       parameters: []
       requestBody:
@@ -11387,9 +11497,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token swaps offered by user
+      x-summary-source: derived
   /api/asset/token-contract/FetchTokenSwapsOfferedToUser:
     post:
-      description: ' Transaction is read only (evaluate). Allowed roles: EVALUATE.'
+      description: 'Transaction is read only (evaluate). Allowed roles: EVALUATE.'
       operationId: asset_token-contract_FetchTokenSwapsOfferedToUser
       parameters: []
       requestBody:
@@ -11775,9 +11887,11 @@ paths:
               description: Transaction ID of evaluated transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fetch token swaps offered to user
+      x-summary-source: derived
   /api/asset/token-contract/FillTokenSwap:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_FillTokenSwap
       parameters: []
       requestBody:
@@ -12144,9 +12258,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract fill token swap
+      x-summary-source: derived
   /api/asset/token-contract/GrantAllowance:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_GrantAllowance
       parameters: []
       requestBody:
@@ -12376,9 +12492,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract grant allowance
+      x-summary-source: derived
   /api/asset/token-contract/GrantNftCollectionAuthorization:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_GrantNftCollectionAuthorization
       parameters: []
       requestBody:
@@ -12471,9 +12589,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract grant nft collection authorization
+      x-summary-source: derived
   /api/asset/token-contract/LockTokens:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_LockTokens
       parameters: []
       requestBody:
@@ -12702,9 +12822,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract lock tokens
+      x-summary-source: derived
   /api/asset/token-contract/MintToken:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_MintToken
       parameters: []
       requestBody:
@@ -12899,9 +13021,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract mint token
+      x-summary-source: derived
   /api/asset/token-contract/MintTokenWithAllowance:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_MintTokenWithAllowance
       parameters: []
       requestBody:
@@ -13101,9 +13225,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract mint token with allowance
+      x-summary-source: derived
   /api/asset/token-contract/RefreshAllowances:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_RefreshAllowances
       parameters: []
       requestBody:
@@ -13300,9 +13426,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract refresh allowances
+      x-summary-source: derived
   /api/asset/token-contract/RequestTokenBridgeOut:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg, GalaUsersOrg, UsersOrg1.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg, GalaUsersOrg, UsersOrg1.'
       operationId: asset_token-contract_RequestTokenBridgeOut
       parameters: []
       requestBody:
@@ -14349,9 +14477,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract request token bridge out
+      x-summary-source: derived
   /api/asset/token-contract/RequestTokenSwap:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_RequestTokenSwap
       parameters: []
       requestBody:
@@ -14926,9 +15056,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract request token swap
+      x-summary-source: derived
   /api/asset/token-contract/RevokeNftCollectionAuthorization:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT. Allowed orgs: CuratorOrg.'
       operationId: asset_token-contract_RevokeNftCollectionAuthorization
       parameters: []
       requestBody:
@@ -15021,9 +15153,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract revoke nft collection authorization
+      x-summary-source: derived
   /api/asset/token-contract/TerminateTokenSwap:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_TerminateTokenSwap
       parameters: []
       requestBody:
@@ -15359,9 +15493,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract terminate token swap
+      x-summary-source: derived
   /api/asset/token-contract/TransferToken:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_TransferToken
       parameters: []
       requestBody:
@@ -15576,9 +15712,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract transfer token
+      x-summary-source: derived
   /api/asset/token-contract/UnlockTokens:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_UnlockTokens
       parameters: []
       requestBody:
@@ -15800,9 +15938,11 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract unlock tokens
+      x-summary-source: derived
   /api/asset/token-contract/UpdateTokenClass:
     post:
-      description: ' Transaction updates the chain (submit). Allowed roles: SUBMIT.'
+      description: 'Transaction updates the chain (submit). Allowed roles: SUBMIT.'
       operationId: asset_token-contract_UpdateTokenClass
       parameters: []
       requestBody:
@@ -16014,6 +16154,8 @@ paths:
               description: Transaction ID of submitted transaction on the chain
       tags:
       - Methods
+      summary: Asset token contract update token class
+      x-summary-source: derived
 x-refined-from:
 - gala-games-galachain-asset-dexv3-contract-openapi.json
 - gala-games-galachain-asset-fee-contract-openapi.json

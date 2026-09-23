@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: explore
+- name: Explore
   description: ''
 paths:
   /explore/volume:
@@ -19,7 +19,7 @@ paths:
           description: ''
       summary: Get volume details
       tags:
-      - explore
+      - Explore
   /explore/pools:
     get:
       description: Get details of all liquidity pools.
@@ -76,7 +76,7 @@ paths:
           description: ''
       summary: Get pools details
       tags:
-      - explore
+      - Explore
   /explore/opportunities:
     get:
       description: 'Authoritative "best opportunities" feed: pools carrying a distinguishing bot-ready signal, ranked by composite opportunityScore (desc), plus any campaign-boosted pools. Top-N only — no pagination.'
@@ -96,7 +96,7 @@ paths:
           description: ''
       summary: Get ranked opportunity pools
       tags:
-      - explore
+      - Explore
   /explore/pool:
     get:
       description: Get details of a specific pool by its hash.
@@ -117,7 +117,7 @@ paths:
           description: ''
       summary: Get pool details by hash
       tags:
-      - explore
+      - Explore
   /explore/transactions:
     get:
       description: Get a list of transactions.
@@ -154,7 +154,7 @@ paths:
           description: ''
       summary: Get transactions details
       tags:
-      - explore
+      - Explore
   /explore/graph-data:
     get:
       description: Get graph data for a specific period.
@@ -193,7 +193,7 @@ paths:
           description: ''
       summary: Get graph data for a period
       tags:
-      - explore
+      - Explore
 components:
   securitySchemes:
     api-key:

@@ -6,7 +6,7 @@ info:
   contact: {}
 servers: []
 tags:
-- name: user
+- name: User
   description: ''
 paths:
   /user/token-list:
@@ -58,7 +58,7 @@ paths:
           description: ''
       summary: Fetch user token balances
       tags:
-      - user
+      - User
   /user/fetch-gala-balance:
     get:
       description: Fetches the GALA token balance for a user.
@@ -77,7 +77,7 @@ paths:
           description: ''
       summary: Fetch user GALA balance
       tags:
-      - user
+      - User
   /user/assets:
     get:
       description: Returns ONLY the tokens where the user has a positive balance (quantity > 0).
@@ -127,7 +127,7 @@ paths:
           description: ''
       summary: Fetch user assets
       tags:
-      - user
+      - User
 components:
   securitySchemes:
     api-key:

@@ -21,6 +21,8 @@ paths:
                 type: object
       tags:
       - token-registry
+      summary: Token registry controller get token name mapping
+      x-summary-source: derived
   /tokens/blacklist.json:
     get:
       operationId: TokenRegistryController_getTokenBlacklist
@@ -30,6 +32,8 @@ paths:
           description: ''
       tags:
       - token-registry
+      summary: Token registry controller get token blacklist
+      x-summary-source: derived
   /tokens/ungraduated.json:
     get:
       operationId: TokenRegistryController_getUngraduatedLaunchpad
@@ -39,6 +43,8 @@ paths:
           description: ''
       tags:
       - token-registry
+      summary: Token registry controller get ungraduated launchpad
+      x-summary-source: derived
 components:
   securitySchemes:
     api-key:
