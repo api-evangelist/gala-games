@@ -867,6 +867,51 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    MintConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/TokenClass'
+      - type: object
+        properties:
+          additionalFee:
+            required:
+            - flatFee
+            properties:
+              flatFee:
+                type: number
+                example: 100
+          postMintBurn:
+            required:
+            - burnPercentage
+            properties:
+              burnPercentage:
+                type: number
+                example: 0.1
+          postMintLock:
+            required:
+            - expirationModifier
+            - lockAuthority
+            - lockName
+            - lockPercentage
+            properties:
+              expirationModifier:
+                type: number
+                example: 86400000
+              lockAuthority:
+                type: string
+                example: client|123456789abcdef012345678
+              lockName:
+                type: string
+                example: post-mint-lock
+              lockPercentage:
+                type: number
+                example: 0.1
+          preMintBurn:
+            required:
+            - burnPercentage
+            properties:
+              burnPercentage:
+                type: number
+                example: 0.1
     Swap:
       allOf:
       - $ref: '#/components/schemas/NewSwap'
@@ -898,44 +943,6 @@ components:
             type: string
             example: '0'
             description: The number of uses of the swap that have been spent.
-    TokenInstance:
-      allOf:
-      - $ref: '#/components/schemas/TokenClass'
-      - type: object
-        required:
-        - instance
-        properties:
-          instance:
-            type: string
-            example: '0'
-            description: The instance of the token (always "0" for fungible tokens)
-    SwapOffered:
-      type: object
-      required:
-      - quantity
-      - tokenInstance
-      properties:
-        quantity:
-          type: string
-          example: '10'
-          description: The quantity of token offered.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
-    SignedRequest:
-      required:
-      - signature
-      - signerPublicKey
-      - uniqueKey
-      properties:
-        signature:
-          type: string
-          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
-        signerPublicKey:
-          type: string
-          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
-        uniqueKey:
-          type: string
-          example: galaconnect-operation-0123456789
     TokenClassWithSupply:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
@@ -967,36 +974,6 @@ components:
           totalSupply:
             type: string
             example: '1000000'
-    SwapWanted:
-      type: object
-      required:
-      - quantity
-      - tokenInstance
-      properties:
-        quantity:
-          type: string
-          example: '10'
-          description: The quantity of token wanted.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
-    NewSwap:
-      type: object
-      required:
-      - offered
-      - wanted
-      - uses
-      properties:
-        offered:
-          type: array
-          items:
-            $ref: '#/components/schemas/SwapOffered'
-        wanted:
-          type: array
-          items:
-            $ref: '#/components/schemas/SwapWanted'
-        uses:
-          type: string
-          example: '1'
     TokenClass:
       type: object
       required:
@@ -1017,6 +994,21 @@ components:
         additionalKey:
           type: string
           example: none
+    SignedRequest:
+      required:
+      - signature
+      - signerPublicKey
+      - uniqueKey
+      properties:
+        signature:
+          type: string
+          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
+        signerPublicKey:
+          type: string
+          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
+        uniqueKey:
+          type: string
+          example: galaconnect-operation-0123456789
     Allowance:
       type: object
       required:
@@ -1107,48 +1099,56 @@ components:
       - title: Burn
         const: 6
         description: An allowance to burn another wallet's tokens.
-    MintConfiguration:
+    TokenInstance:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
       - type: object
+        required:
+        - instance
         properties:
-          additionalFee:
-            required:
-            - flatFee
-            properties:
-              flatFee:
-                type: number
-                example: 100
-          postMintBurn:
-            required:
-            - burnPercentage
-            properties:
-              burnPercentage:
-                type: number
-                example: 0.1
-          postMintLock:
-            required:
-            - expirationModifier
-            - lockAuthority
-            - lockName
-            - lockPercentage
-            properties:
-              expirationModifier:
-                type: number
-                example: 86400000
-              lockAuthority:
-                type: string
-                example: client|123456789abcdef012345678
-              lockName:
-                type: string
-                example: post-mint-lock
-              lockPercentage:
-                type: number
-                example: 0.1
-          preMintBurn:
-            required:
-            - burnPercentage
-            properties:
-              burnPercentage:
-                type: number
-                example: 0.1
+          instance:
+            type: string
+            example: '0'
+            description: The instance of the token (always "0" for fungible tokens)
+    NewSwap:
+      type: object
+      required:
+      - offered
+      - wanted
+      - uses
+      properties:
+        offered:
+          type: array
+          items:
+            $ref: '#/components/schemas/SwapOffered'
+        wanted:
+          type: array
+          items:
+            $ref: '#/components/schemas/SwapWanted'
+        uses:
+          type: string
+          example: '1'
+    SwapOffered:
+      type: object
+      required:
+      - quantity
+      - tokenInstance
+      properties:
+        quantity:
+          type: string
+          example: '10'
+          description: The quantity of token offered.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'
+    SwapWanted:
+      type: object
+      required:
+      - quantity
+      - tokenInstance
+      properties:
+        quantity:
+          type: string
+          example: '10'
+          description: The quantity of token wanted.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'

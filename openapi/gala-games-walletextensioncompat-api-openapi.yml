@@ -267,7 +267,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserNotificationList
       parameters: []
       responses:
         '200':
@@ -280,8 +280,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserNotificationList
       parameters: []
       responses:
         '200':
@@ -294,8 +296,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserNotificationList
       parameters: []
       responses:
         '200':
@@ -308,8 +312,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserNotificationList
       parameters: []
       responses:
         '200':
@@ -322,8 +328,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserNotificationList
       parameters: []
       responses:
         '200':
@@ -336,8 +344,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserNotificationList
       parameters: []
       responses:
         '200':
@@ -350,8 +360,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserNotificationList
       parameters: []
       responses:
         '200':
@@ -364,6 +376,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/get_wallet_name:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -378,7 +392,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserGetWalletName
       parameters: []
       responses:
         '200':
@@ -391,8 +405,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserGetWalletName
       parameters: []
       responses:
         '200':
@@ -405,8 +421,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserGetWalletName
       parameters: []
       responses:
         '200':
@@ -419,8 +437,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserGetWalletName
       parameters: []
       responses:
         '200':
@@ -433,8 +453,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserGetWalletName
       parameters: []
       responses:
         '200':
@@ -447,8 +469,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserGetWalletName
       parameters: []
       responses:
         '200':
@@ -461,8 +485,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserGetWalletName
       parameters: []
       responses:
         '200':
@@ -475,6 +501,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/search:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -489,7 +517,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserSearch
       parameters: []
       responses:
         '200':
@@ -502,8 +530,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserSearch
       parameters: []
       responses:
         '200':
@@ -516,8 +546,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserSearch
       parameters: []
       responses:
         '200':
@@ -530,8 +562,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserSearch
       parameters: []
       responses:
         '200':
@@ -544,8 +578,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserSearch
       parameters: []
       responses:
         '200':
@@ -558,8 +594,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserSearch
       parameters: []
       responses:
         '200':
@@ -572,8 +610,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserSearch
       parameters: []
       responses:
         '200':
@@ -586,6 +626,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/logout:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -600,7 +642,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserLogout
       parameters: []
       responses:
         '200':
@@ -613,8 +655,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserLogout
       parameters: []
       responses:
         '200':
@@ -627,8 +671,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserLogout
       parameters: []
       responses:
         '200':
@@ -641,8 +687,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserLogout
       parameters: []
       responses:
         '200':
@@ -655,8 +703,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserLogout
       parameters: []
       responses:
         '200':
@@ -669,8 +719,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserLogout
       parameters: []
       responses:
         '200':
@@ -683,8 +735,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserLogout
       parameters: []
       responses:
         '200':
@@ -697,6 +751,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/addLockPeriod:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -711,7 +767,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserAddLockPeriod
       parameters: []
       responses:
         '200':
@@ -724,8 +780,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserAddLockPeriod
       parameters: []
       responses:
         '200':
@@ -738,8 +796,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserAddLockPeriod
       parameters: []
       responses:
         '200':
@@ -752,8 +812,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserAddLockPeriod
       parameters: []
       responses:
         '200':
@@ -766,8 +828,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserAddLockPeriod
       parameters: []
       responses:
         '200':
@@ -780,8 +844,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserAddLockPeriod
       parameters: []
       responses:
         '200':
@@ -794,8 +860,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserAddLockPeriod
       parameters: []
       responses:
         '200':
@@ -808,6 +876,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/addLockPeriod_v1:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -822,7 +892,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserAddLockPeriodV1
       parameters: []
       responses:
         '200':
@@ -835,8 +905,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserAddLockPeriodV1
       parameters: []
       responses:
         '200':
@@ -849,8 +921,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserAddLockPeriodV1
       parameters: []
       responses:
         '200':
@@ -863,8 +937,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserAddLockPeriodV1
       parameters: []
       responses:
         '200':
@@ -877,8 +953,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserAddLockPeriodV1
       parameters: []
       responses:
         '200':
@@ -891,8 +969,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserAddLockPeriodV1
       parameters: []
       responses:
         '200':
@@ -905,8 +985,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserAddLockPeriodV1
       parameters: []
       responses:
         '200':
@@ -919,6 +1001,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/getLockPeriod:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -933,7 +1017,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserGetLockPeriod
       parameters: []
       responses:
         '200':
@@ -946,8 +1030,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserGetLockPeriod
       parameters: []
       responses:
         '200':
@@ -960,8 +1046,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserGetLockPeriod
       parameters: []
       responses:
         '200':
@@ -974,8 +1062,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserGetLockPeriod
       parameters: []
       responses:
         '200':
@@ -988,8 +1078,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserGetLockPeriod
       parameters: []
       responses:
         '200':
@@ -1002,8 +1094,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserGetLockPeriod
       parameters: []
       responses:
         '200':
@@ -1016,8 +1110,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserGetLockPeriod
       parameters: []
       responses:
         '200':
@@ -1030,6 +1126,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/getLockTimes:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1044,7 +1142,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserGetLockTimes
       parameters: []
       responses:
         '200':
@@ -1057,8 +1155,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserGetLockTimes
       parameters: []
       responses:
         '200':
@@ -1071,8 +1171,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserGetLockTimes
       parameters: []
       responses:
         '200':
@@ -1085,8 +1187,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserGetLockTimes
       parameters: []
       responses:
         '200':
@@ -1099,8 +1203,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserGetLockTimes
       parameters: []
       responses:
         '200':
@@ -1113,8 +1219,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserGetLockTimes
       parameters: []
       responses:
         '200':
@@ -1127,8 +1235,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserGetLockTimes
       parameters: []
       responses:
         '200':
@@ -1141,6 +1251,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/successUnlock:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1155,7 +1267,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserSuccessUnlock
       parameters: []
       responses:
         '200':
@@ -1168,8 +1280,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserSuccessUnlock
       parameters: []
       responses:
         '200':
@@ -1182,8 +1296,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserSuccessUnlock
       parameters: []
       responses:
         '200':
@@ -1196,8 +1312,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserSuccessUnlock
       parameters: []
       responses:
         '200':
@@ -1210,8 +1328,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserSuccessUnlock
       parameters: []
       responses:
         '200':
@@ -1224,8 +1344,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserSuccessUnlock
       parameters: []
       responses:
         '200':
@@ -1238,8 +1360,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserSuccessUnlock
       parameters: []
       responses:
         '200':
@@ -1252,6 +1376,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/successUnlock_v1:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1266,7 +1392,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserSuccessUnlockV1
       parameters: []
       responses:
         '200':
@@ -1279,8 +1405,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserSuccessUnlockV1
       parameters: []
       responses:
         '200':
@@ -1293,8 +1421,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserSuccessUnlockV1
       parameters: []
       responses:
         '200':
@@ -1307,8 +1437,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserSuccessUnlockV1
       parameters: []
       responses:
         '200':
@@ -1321,8 +1453,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserSuccessUnlockV1
       parameters: []
       responses:
         '200':
@@ -1335,8 +1469,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserSuccessUnlockV1
       parameters: []
       responses:
         '200':
@@ -1349,8 +1485,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserSuccessUnlockV1
       parameters: []
       responses:
         '200':
@@ -1363,6 +1501,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/user/gettimestamp:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1377,7 +1517,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1UserGettimestamp
       parameters: []
       responses:
         '200':
@@ -1390,8 +1530,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1UserGettimestamp
       parameters: []
       responses:
         '200':
@@ -1404,8 +1546,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1UserGettimestamp
       parameters: []
       responses:
         '200':
@@ -1418,8 +1562,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1UserGettimestamp
       parameters: []
       responses:
         '200':
@@ -1432,8 +1578,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1UserGettimestamp
       parameters: []
       responses:
         '200':
@@ -1446,8 +1594,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1UserGettimestamp
       parameters: []
       responses:
         '200':
@@ -1460,8 +1610,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1UserGettimestamp
       parameters: []
       responses:
         '200':
@@ -1474,6 +1626,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/addtoken:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1488,7 +1642,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletAddtoken
       parameters: []
       responses:
         '200':
@@ -1501,8 +1655,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletAddtoken
       parameters: []
       responses:
         '200':
@@ -1515,8 +1671,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletAddtoken
       parameters: []
       responses:
         '200':
@@ -1529,8 +1687,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletAddtoken
       parameters: []
       responses:
         '200':
@@ -1543,8 +1703,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletAddtoken
       parameters: []
       responses:
         '200':
@@ -1557,8 +1719,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletAddtoken
       parameters: []
       responses:
         '200':
@@ -1571,8 +1735,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletAddtoken
       parameters: []
       responses:
         '200':
@@ -1585,6 +1751,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/portfolio:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1599,7 +1767,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletPortfolio
       parameters: []
       responses:
         '200':
@@ -1612,8 +1780,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletPortfolio
       parameters: []
       responses:
         '200':
@@ -1626,8 +1796,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletPortfolio
       parameters: []
       responses:
         '200':
@@ -1640,8 +1812,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletPortfolio
       parameters: []
       responses:
         '200':
@@ -1654,8 +1828,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletPortfolio
       parameters: []
       responses:
         '200':
@@ -1668,8 +1844,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletPortfolio
       parameters: []
       responses:
         '200':
@@ -1682,8 +1860,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletPortfolio
       parameters: []
       responses:
         '200':
@@ -1696,6 +1876,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/portfolioallassets:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1710,7 +1892,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletPortfolioallassets
       parameters: []
       responses:
         '200':
@@ -1723,8 +1905,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletPortfolioallassets
       parameters: []
       responses:
         '200':
@@ -1737,8 +1921,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletPortfolioallassets
       parameters: []
       responses:
         '200':
@@ -1751,8 +1937,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletPortfolioallassets
       parameters: []
       responses:
         '200':
@@ -1765,8 +1953,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletPortfolioallassets
       parameters: []
       responses:
         '200':
@@ -1779,8 +1969,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletPortfolioallassets
       parameters: []
       responses:
         '200':
@@ -1793,8 +1985,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletPortfolioallassets
       parameters: []
       responses:
         '200':
@@ -1807,6 +2001,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/toggleCoinList:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1821,7 +2017,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletToggleCoinList
       parameters: []
       responses:
         '200':
@@ -1834,8 +2030,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletToggleCoinList
       parameters: []
       responses:
         '200':
@@ -1848,8 +2046,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletToggleCoinList
       parameters: []
       responses:
         '200':
@@ -1862,8 +2062,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletToggleCoinList
       parameters: []
       responses:
         '200':
@@ -1876,8 +2078,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletToggleCoinList
       parameters: []
       responses:
         '200':
@@ -1890,8 +2094,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletToggleCoinList
       parameters: []
       responses:
         '200':
@@ -1904,8 +2110,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletToggleCoinList
       parameters: []
       responses:
         '200':
@@ -1918,6 +2126,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/activeinactive:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -1932,7 +2142,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletActiveinactive
       parameters: []
       responses:
         '200':
@@ -1945,8 +2155,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletActiveinactive
       parameters: []
       responses:
         '200':
@@ -1959,8 +2171,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletActiveinactive
       parameters: []
       responses:
         '200':
@@ -1973,8 +2187,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletActiveinactive
       parameters: []
       responses:
         '200':
@@ -1987,8 +2203,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletActiveinactive
       parameters: []
       responses:
         '200':
@@ -2001,8 +2219,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletActiveinactive
       parameters: []
       responses:
         '200':
@@ -2015,8 +2235,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletActiveinactive
       parameters: []
       responses:
         '200':
@@ -2029,6 +2251,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/transaction/list:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2043,7 +2267,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletTransactionList
       parameters: []
       responses:
         '200':
@@ -2056,8 +2280,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletTransactionList
       parameters: []
       responses:
         '200':
@@ -2070,8 +2296,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletTransactionList
       parameters: []
       responses:
         '200':
@@ -2084,8 +2312,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletTransactionList
       parameters: []
       responses:
         '200':
@@ -2098,8 +2328,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletTransactionList
       parameters: []
       responses:
         '200':
@@ -2112,8 +2344,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletTransactionList
       parameters: []
       responses:
         '200':
@@ -2126,8 +2360,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletTransactionList
       parameters: []
       responses:
         '200':
@@ -2140,6 +2376,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/transaction/listv2:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2154,7 +2392,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletTransactionListv2
       parameters: []
       responses:
         '200':
@@ -2167,8 +2405,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletTransactionListv2
       parameters: []
       responses:
         '200':
@@ -2181,8 +2421,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletTransactionListv2
       parameters: []
       responses:
         '200':
@@ -2195,8 +2437,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletTransactionListv2
       parameters: []
       responses:
         '200':
@@ -2209,8 +2453,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletTransactionListv2
       parameters: []
       responses:
         '200':
@@ -2223,8 +2469,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletTransactionListv2
       parameters: []
       responses:
         '200':
@@ -2237,8 +2485,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletTransactionListv2
       parameters: []
       responses:
         '200':
@@ -2251,6 +2501,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/order/update:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2265,7 +2517,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletOrderUpdate
       parameters: []
       responses:
         '200':
@@ -2278,8 +2530,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletOrderUpdate
       parameters: []
       responses:
         '200':
@@ -2292,8 +2546,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletOrderUpdate
       parameters: []
       responses:
         '200':
@@ -2306,8 +2562,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletOrderUpdate
       parameters: []
       responses:
         '200':
@@ -2320,8 +2578,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletOrderUpdate
       parameters: []
       responses:
         '200':
@@ -2334,8 +2594,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletOrderUpdate
       parameters: []
       responses:
         '200':
@@ -2348,8 +2610,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletOrderUpdate
       parameters: []
       responses:
         '200':
@@ -2362,6 +2626,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/search:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2376,7 +2642,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletSearch
       parameters: []
       responses:
         '200':
@@ -2389,8 +2655,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletSearch
       parameters: []
       responses:
         '200':
@@ -2403,8 +2671,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletSearch
       parameters: []
       responses:
         '200':
@@ -2417,8 +2687,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletSearch
       parameters: []
       responses:
         '200':
@@ -2431,8 +2703,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletSearch
       parameters: []
       responses:
         '200':
@@ -2445,8 +2719,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletSearch
       parameters: []
       responses:
         '200':
@@ -2459,8 +2735,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletSearch
       parameters: []
       responses:
         '200':
@@ -2473,6 +2751,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/updateWatchlist:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2487,7 +2767,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletUpdateWatchlist
       parameters: []
       responses:
         '200':
@@ -2500,8 +2780,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletUpdateWatchlist
       parameters: []
       responses:
         '200':
@@ -2514,8 +2796,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletUpdateWatchlist
       parameters: []
       responses:
         '200':
@@ -2528,8 +2812,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletUpdateWatchlist
       parameters: []
       responses:
         '200':
@@ -2542,8 +2828,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletUpdateWatchlist
       parameters: []
       responses:
         '200':
@@ -2556,8 +2844,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletUpdateWatchlist
       parameters: []
       responses:
         '200':
@@ -2570,8 +2860,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletUpdateWatchlist
       parameters: []
       responses:
         '200':
@@ -2584,6 +2876,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/getWatchlist:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2598,7 +2892,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletGetWatchlist
       parameters: []
       responses:
         '200':
@@ -2611,8 +2905,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletGetWatchlist
       parameters: []
       responses:
         '200':
@@ -2625,8 +2921,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletGetWatchlist
       parameters: []
       responses:
         '200':
@@ -2639,8 +2937,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletGetWatchlist
       parameters: []
       responses:
         '200':
@@ -2653,8 +2953,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletGetWatchlist
       parameters: []
       responses:
         '200':
@@ -2667,8 +2969,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletGetWatchlist
       parameters: []
       responses:
         '200':
@@ -2681,8 +2985,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletGetWatchlist
       parameters: []
       responses:
         '200':
@@ -2695,6 +3001,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/currencyfiatlist:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2709,7 +3017,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletCurrencyfiatlist
       parameters: []
       responses:
         '200':
@@ -2722,8 +3030,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletCurrencyfiatlist
       parameters: []
       responses:
         '200':
@@ -2736,8 +3046,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletCurrencyfiatlist
       parameters: []
       responses:
         '200':
@@ -2750,8 +3062,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletCurrencyfiatlist
       parameters: []
       responses:
         '200':
@@ -2764,8 +3078,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletCurrencyfiatlist
       parameters: []
       responses:
         '200':
@@ -2778,8 +3094,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletCurrencyfiatlist
       parameters: []
       responses:
         '200':
@@ -2792,8 +3110,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletCurrencyfiatlist
       parameters: []
       responses:
         '200':
@@ -2806,6 +3126,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/allBalances:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2820,7 +3142,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletAllBalances
       parameters: []
       responses:
         '200':
@@ -2833,8 +3155,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletAllBalances
       parameters: []
       responses:
         '200':
@@ -2847,8 +3171,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletAllBalances
       parameters: []
       responses:
         '200':
@@ -2861,8 +3187,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletAllBalances
       parameters: []
       responses:
         '200':
@@ -2875,8 +3203,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletAllBalances
       parameters: []
       responses:
         '200':
@@ -2889,8 +3219,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletAllBalances
       parameters: []
       responses:
         '200':
@@ -2903,8 +3235,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletAllBalances
       parameters: []
       responses:
         '200':
@@ -2917,6 +3251,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/updateBalance:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -2931,7 +3267,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletUpdateBalance
       parameters: []
       responses:
         '200':
@@ -2944,8 +3280,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletUpdateBalance
       parameters: []
       responses:
         '200':
@@ -2958,8 +3296,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletUpdateBalance
       parameters: []
       responses:
         '200':
@@ -2972,8 +3312,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletUpdateBalance
       parameters: []
       responses:
         '200':
@@ -2986,8 +3328,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletUpdateBalance
       parameters: []
       responses:
         '200':
@@ -3000,8 +3344,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletUpdateBalance
       parameters: []
       responses:
         '200':
@@ -3014,8 +3360,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletUpdateBalance
       parameters: []
       responses:
         '200':
@@ -3028,6 +3376,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/updateWalletBalance:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3042,7 +3392,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletUpdateWalletBalance
       parameters: []
       responses:
         '200':
@@ -3055,8 +3405,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletUpdateWalletBalance
       parameters: []
       responses:
         '200':
@@ -3069,8 +3421,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletUpdateWalletBalance
       parameters: []
       responses:
         '200':
@@ -3083,8 +3437,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletUpdateWalletBalance
       parameters: []
       responses:
         '200':
@@ -3097,8 +3453,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletUpdateWalletBalance
       parameters: []
       responses:
         '200':
@@ -3111,8 +3469,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletUpdateWalletBalance
       parameters: []
       responses:
         '200':
@@ -3125,8 +3485,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletUpdateWalletBalance
       parameters: []
       responses:
         '200':
@@ -3139,6 +3501,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/getNftChannelList:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3153,7 +3517,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletGetNftChannelList
       parameters: []
       responses:
         '200':
@@ -3166,8 +3530,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletGetNftChannelList
       parameters: []
       responses:
         '200':
@@ -3180,8 +3546,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletGetNftChannelList
       parameters: []
       responses:
         '200':
@@ -3194,8 +3562,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletGetNftChannelList
       parameters: []
       responses:
         '200':
@@ -3208,8 +3578,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletGetNftChannelList
       parameters: []
       responses:
         '200':
@@ -3222,8 +3594,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletGetNftChannelList
       parameters: []
       responses:
         '200':
@@ -3236,8 +3610,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletGetNftChannelList
       parameters: []
       responses:
         '200':
@@ -3250,6 +3626,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/getModList:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3264,7 +3642,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletGetModList
       parameters: []
       responses:
         '200':
@@ -3277,8 +3655,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletGetModList
       parameters: []
       responses:
         '200':
@@ -3291,8 +3671,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletGetModList
       parameters: []
       responses:
         '200':
@@ -3305,8 +3687,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletGetModList
       parameters: []
       responses:
         '200':
@@ -3319,8 +3703,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletGetModList
       parameters: []
       responses:
         '200':
@@ -3333,8 +3719,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletGetModList
       parameters: []
       responses:
         '200':
@@ -3347,8 +3735,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletGetModList
       parameters: []
       responses:
         '200':
@@ -3361,6 +3751,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/uploadCsv:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3375,7 +3767,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletUploadCsv
       parameters: []
       responses:
         '200':
@@ -3388,8 +3780,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletUploadCsv
       parameters: []
       responses:
         '200':
@@ -3402,8 +3796,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletUploadCsv
       parameters: []
       responses:
         '200':
@@ -3416,8 +3812,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletUploadCsv
       parameters: []
       responses:
         '200':
@@ -3430,8 +3828,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletUploadCsv
       parameters: []
       responses:
         '200':
@@ -3444,8 +3844,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletUploadCsv
       parameters: []
       responses:
         '200':
@@ -3458,8 +3860,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletUploadCsv
       parameters: []
       responses:
         '200':
@@ -3472,6 +3876,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/portfolio_total:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3486,7 +3892,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletPortfolioTotal
       parameters: []
       responses:
         '200':
@@ -3499,8 +3905,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletPortfolioTotal
       parameters: []
       responses:
         '200':
@@ -3513,8 +3921,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletPortfolioTotal
       parameters: []
       responses:
         '200':
@@ -3527,8 +3937,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletPortfolioTotal
       parameters: []
       responses:
         '200':
@@ -3541,8 +3953,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletPortfolioTotal
       parameters: []
       responses:
         '200':
@@ -3555,8 +3969,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletPortfolioTotal
       parameters: []
       responses:
         '200':
@@ -3569,8 +3985,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletPortfolioTotal
       parameters: []
       responses:
         '200':
@@ -3583,6 +4001,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/demo/{address}:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3597,7 +4017,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletDemoByAddress
       parameters: []
       responses:
         '200':
@@ -3610,8 +4030,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletDemoByAddress
       parameters: []
       responses:
         '200':
@@ -3624,8 +4046,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletDemoByAddress
       parameters: []
       responses:
         '200':
@@ -3638,8 +4062,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletDemoByAddress
       parameters: []
       responses:
         '200':
@@ -3652,8 +4078,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletDemoByAddress
       parameters: []
       responses:
         '200':
@@ -3666,8 +4094,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletDemoByAddress
       parameters: []
       responses:
         '200':
@@ -3680,8 +4110,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletDemoByAddress
       parameters: []
       responses:
         '200':
@@ -3694,6 +4126,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/demo1/{address}:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3708,7 +4142,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletDemo1ByAddress
       parameters: []
       responses:
         '200':
@@ -3721,8 +4155,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletDemo1ByAddress
       parameters: []
       responses:
         '200':
@@ -3735,8 +4171,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletDemo1ByAddress
       parameters: []
       responses:
         '200':
@@ -3749,8 +4187,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletDemo1ByAddress
       parameters: []
       responses:
         '200':
@@ -3763,8 +4203,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletDemo1ByAddress
       parameters: []
       responses:
         '200':
@@ -3777,8 +4219,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletDemo1ByAddress
       parameters: []
       responses:
         '200':
@@ -3791,8 +4235,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletDemo1ByAddress
       parameters: []
       responses:
         '200':
@@ -3805,6 +4251,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/get_nft_list:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3819,7 +4267,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletGetNftList
       parameters: []
       responses:
         '200':
@@ -3832,8 +4280,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletGetNftList
       parameters: []
       responses:
         '200':
@@ -3846,8 +4296,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletGetNftList
       parameters: []
       responses:
         '200':
@@ -3860,8 +4312,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletGetNftList
       parameters: []
       responses:
         '200':
@@ -3874,8 +4328,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletGetNftList
       parameters: []
       responses:
         '200':
@@ -3888,8 +4344,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletGetNftList
       parameters: []
       responses:
         '200':
@@ -3902,8 +4360,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletGetNftList
       parameters: []
       responses:
         '200':
@@ -3916,6 +4376,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/nft/from_moalis:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -3930,7 +4392,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletNftFromMoalis
       parameters: []
       responses:
         '200':
@@ -3943,8 +4405,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletNftFromMoalis
       parameters: []
       responses:
         '200':
@@ -3957,8 +4421,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletNftFromMoalis
       parameters: []
       responses:
         '200':
@@ -3971,8 +4437,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletNftFromMoalis
       parameters: []
       responses:
         '200':
@@ -3985,8 +4453,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletNftFromMoalis
       parameters: []
       responses:
         '200':
@@ -3999,8 +4469,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletNftFromMoalis
       parameters: []
       responses:
         '200':
@@ -4013,8 +4485,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletNftFromMoalis
       parameters: []
       responses:
         '200':
@@ -4027,6 +4501,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/get_dapp_list:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4041,7 +4517,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletGetDappList
       parameters: []
       responses:
         '200':
@@ -4054,8 +4530,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletGetDappList
       parameters: []
       responses:
         '200':
@@ -4068,8 +4546,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletGetDappList
       parameters: []
       responses:
         '200':
@@ -4082,8 +4562,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletGetDappList
       parameters: []
       responses:
         '200':
@@ -4096,8 +4578,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletGetDappList
       parameters: []
       responses:
         '200':
@@ -4110,8 +4594,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletGetDappList
       parameters: []
       responses:
         '200':
@@ -4124,8 +4610,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletGetDappList
       parameters: []
       responses:
         '200':
@@ -4138,6 +4626,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/wallet/get_dex_list:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4152,7 +4642,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1WalletGetDexList
       parameters: []
       responses:
         '200':
@@ -4165,8 +4655,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1WalletGetDexList
       parameters: []
       responses:
         '200':
@@ -4179,8 +4671,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1WalletGetDexList
       parameters: []
       responses:
         '200':
@@ -4193,8 +4687,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1WalletGetDexList
       parameters: []
       responses:
         '200':
@@ -4207,8 +4703,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1WalletGetDexList
       parameters: []
       responses:
         '200':
@@ -4221,8 +4719,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1WalletGetDexList
       parameters: []
       responses:
         '200':
@@ -4235,8 +4735,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1WalletGetDexList
       parameters: []
       responses:
         '200':
@@ -4249,6 +4751,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/galachain/{coin}/saveTrnx:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4263,7 +4767,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1GalachainByCoinSaveTrnx
       parameters: []
       responses:
         '200':
@@ -4276,8 +4780,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1GalachainByCoinSaveTrnx
       parameters: []
       responses:
         '200':
@@ -4290,8 +4796,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1GalachainByCoinSaveTrnx
       parameters: []
       responses:
         '200':
@@ -4304,8 +4812,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1GalachainByCoinSaveTrnx
       parameters: []
       responses:
         '200':
@@ -4318,8 +4828,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1GalachainByCoinSaveTrnx
       parameters: []
       responses:
         '200':
@@ -4332,8 +4844,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1GalachainByCoinSaveTrnx
       parameters: []
       responses:
         '200':
@@ -4346,8 +4860,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1GalachainByCoinSaveTrnx
       parameters: []
       responses:
         '200':
@@ -4360,6 +4876,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/galachain/{coin}/send:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4374,7 +4892,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1GalachainByCoinSend
       parameters: []
       responses:
         '200':
@@ -4387,8 +4905,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1GalachainByCoinSend
       parameters: []
       responses:
         '200':
@@ -4401,8 +4921,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1GalachainByCoinSend
       parameters: []
       responses:
         '200':
@@ -4415,8 +4937,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1GalachainByCoinSend
       parameters: []
       responses:
         '200':
@@ -4429,8 +4953,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1GalachainByCoinSend
       parameters: []
       responses:
         '200':
@@ -4443,8 +4969,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1GalachainByCoinSend
       parameters: []
       responses:
         '200':
@@ -4457,8 +4985,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1GalachainByCoinSend
       parameters: []
       responses:
         '200':
@@ -4471,6 +5001,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/galachain/{coin}/send_v1:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4485,7 +5017,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1GalachainByCoinSendV1
       parameters: []
       responses:
         '200':
@@ -4498,8 +5030,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1GalachainByCoinSendV1
       parameters: []
       responses:
         '200':
@@ -4512,8 +5046,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1GalachainByCoinSendV1
       parameters: []
       responses:
         '200':
@@ -4526,8 +5062,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1GalachainByCoinSendV1
       parameters: []
       responses:
         '200':
@@ -4540,8 +5078,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1GalachainByCoinSendV1
       parameters: []
       responses:
         '200':
@@ -4554,8 +5094,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1GalachainByCoinSendV1
       parameters: []
       responses:
         '200':
@@ -4568,8 +5110,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1GalachainByCoinSendV1
       parameters: []
       responses:
         '200':
@@ -4582,6 +5126,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/galachain/onramper/webhook:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4596,7 +5142,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1GalachainOnramperWebhook
       parameters: []
       responses:
         '200':
@@ -4609,8 +5155,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1GalachainOnramperWebhook
       parameters: []
       responses:
         '200':
@@ -4623,8 +5171,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1GalachainOnramperWebhook
       parameters: []
       responses:
         '200':
@@ -4637,8 +5187,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1GalachainOnramperWebhook
       parameters: []
       responses:
         '200':
@@ -4651,8 +5203,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1GalachainOnramperWebhook
       parameters: []
       responses:
         '200':
@@ -4665,8 +5219,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1GalachainOnramperWebhook
       parameters: []
       responses:
         '200':
@@ -4679,8 +5235,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1GalachainOnramperWebhook
       parameters: []
       responses:
         '200':
@@ -4693,6 +5251,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/galachain/swap:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4707,7 +5267,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1GalachainSwap
       parameters: []
       responses:
         '200':
@@ -4720,8 +5280,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1GalachainSwap
       parameters: []
       responses:
         '200':
@@ -4734,8 +5296,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1GalachainSwap
       parameters: []
       responses:
         '200':
@@ -4748,8 +5312,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1GalachainSwap
       parameters: []
       responses:
         '200':
@@ -4762,8 +5328,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1GalachainSwap
       parameters: []
       responses:
         '200':
@@ -4776,8 +5344,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1GalachainSwap
       parameters: []
       responses:
         '200':
@@ -4790,8 +5360,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1GalachainSwap
       parameters: []
       responses:
         '200':
@@ -4804,6 +5376,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/galachain/quote:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4818,7 +5392,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1GalachainQuote
       parameters: []
       responses:
         '200':
@@ -4831,8 +5405,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1GalachainQuote
       parameters: []
       responses:
         '200':
@@ -4845,8 +5421,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1GalachainQuote
       parameters: []
       responses:
         '200':
@@ -4859,8 +5437,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1GalachainQuote
       parameters: []
       responses:
         '200':
@@ -4873,8 +5453,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1GalachainQuote
       parameters: []
       responses:
         '200':
@@ -4887,8 +5469,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1GalachainQuote
       parameters: []
       responses:
         '200':
@@ -4901,8 +5485,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1GalachainQuote
       parameters: []
       responses:
         '200':
@@ -4915,6 +5501,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/priceAlert/getList:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -4929,7 +5517,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1PriceAlertGetList
       parameters: []
       responses:
         '200':
@@ -4942,8 +5530,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1PriceAlertGetList
       parameters: []
       responses:
         '200':
@@ -4956,8 +5546,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1PriceAlertGetList
       parameters: []
       responses:
         '200':
@@ -4970,8 +5562,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1PriceAlertGetList
       parameters: []
       responses:
         '200':
@@ -4984,8 +5578,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1PriceAlertGetList
       parameters: []
       responses:
         '200':
@@ -4998,8 +5594,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1PriceAlertGetList
       parameters: []
       responses:
         '200':
@@ -5012,8 +5610,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1PriceAlertGetList
       parameters: []
       responses:
         '200':
@@ -5026,6 +5626,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/priceAlert/addNew:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -5040,7 +5642,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1PriceAlertAddNew
       parameters: []
       responses:
         '200':
@@ -5053,8 +5655,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1PriceAlertAddNew
       parameters: []
       responses:
         '200':
@@ -5067,8 +5671,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1PriceAlertAddNew
       parameters: []
       responses:
         '200':
@@ -5081,8 +5687,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1PriceAlertAddNew
       parameters: []
       responses:
         '200':
@@ -5095,8 +5703,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1PriceAlertAddNew
       parameters: []
       responses:
         '200':
@@ -5109,8 +5719,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1PriceAlertAddNew
       parameters: []
       responses:
         '200':
@@ -5123,8 +5735,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1PriceAlertAddNew
       parameters: []
       responses:
         '200':
@@ -5137,6 +5751,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
   /api/v1/priceAlert/delete:
     search:
       operationId: WalletExtensionCompatController_handleLegacyRoute_search
@@ -5151,7 +5767,7 @@ paths:
       tags:
       - WalletExtensionCompat
     get:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_get
+      operationId: getApiV1PriceAlertDelete
       parameters: []
       responses:
         '200':
@@ -5164,8 +5780,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route get
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_get
     post:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_post
+      operationId: postApiV1PriceAlertDelete
       parameters: []
       responses:
         '200':
@@ -5178,8 +5796,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route post
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_post
     put:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_put
+      operationId: putApiV1PriceAlertDelete
       parameters: []
       responses:
         '200':
@@ -5192,8 +5812,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route put
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_put
     delete:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_delete
+      operationId: deleteApiV1PriceAlertDelete
       parameters: []
       responses:
         '200':
@@ -5206,8 +5828,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route delete
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_delete
     patch:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_patch
+      operationId: patchApiV1PriceAlertDelete
       parameters: []
       responses:
         '200':
@@ -5220,8 +5844,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route patch
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_patch
     options:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_options
+      operationId: optionsApiV1PriceAlertDelete
       parameters: []
       responses:
         '200':
@@ -5234,8 +5860,10 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route options
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_options
     head:
-      operationId: WalletExtensionCompatController_handleLegacyRoute_head
+      operationId: headApiV1PriceAlertDelete
       parameters: []
       responses:
         '200':
@@ -5248,6 +5876,8 @@ paths:
       - WalletExtensionCompat
       summary: Wallet extension compat controller handle legacy route head
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: WalletExtensionCompatController_handleLegacyRoute_head
 components:
   securitySchemes:
     api-key:

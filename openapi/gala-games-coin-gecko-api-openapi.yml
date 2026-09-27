@@ -140,28 +140,6 @@ paths:
       - coin gecko
 components:
   schemas:
-    PoolDto:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        assetIds:
-          type: array
-          items:
-            type: string
-        pairIds:
-          type: array
-          items:
-            type: string
-        metadata:
-          type: object
-      required:
-      - id
-      - name
-      - assetIds
-      - pairIds
     BlockDto:
       type: object
       properties:
@@ -174,22 +152,6 @@ components:
       required:
       - blockNumber
       - blockTimestamp
-    GetEventsResponseDto:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            type: object
-      required:
-      - events
-    GetPairResponseDto:
-      type: object
-      properties:
-        pair:
-          $ref: '#/components/schemas/PairDto'
-      required:
-      - pair
     AssetDto:
       type: object
       properties:
@@ -214,6 +176,44 @@ components:
       - name
       - symbol
       - decimals
+    GetEventsResponseDto:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+      required:
+      - events
+    GetPairResponseDto:
+      type: object
+      properties:
+        pair:
+          $ref: '#/components/schemas/PairDto'
+      required:
+      - pair
+    PoolDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        assetIds:
+          type: array
+          items:
+            type: string
+        pairIds:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+      required:
+      - id
+      - name
+      - assetIds
+      - pairIds
     LatestBlockResponseDto:
       type: object
       properties:
@@ -221,13 +221,6 @@ components:
           $ref: '#/components/schemas/BlockDto'
       required:
       - block
-    GetAssetResponseDto:
-      type: object
-      properties:
-        asset:
-          $ref: '#/components/schemas/AssetDto'
-      required:
-      - asset
     PairDto:
       type: object
       properties:
@@ -258,6 +251,13 @@ components:
       - dexKey
       - asset0Id
       - asset1Id
+    GetAssetResponseDto:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/AssetDto'
+      required:
+      - asset
   securitySchemes:
     api-key:
       type: apiKey

@@ -408,46 +408,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SearchResponseDTO:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
-        search:
-          type: object
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-      required:
-      - blocks
-      - search
-      - paging
-    SearchRequestDTO:
-      type: object
-      properties:
-        limit:
-          type: object
-          default: 20
-        offset:
-          type: object
-          default: 0
-        deepSearch:
-          type: object
-          default: false
-        search:
-          type: string
-      required:
-      - search
-    TransactionsResponseDTO:
-      type: object
-      properties:
-        transactions:
-          type: array
-          items:
-            type: object
-      required:
-      - transactions
     TokenListDTO:
       type: object
       properties:
@@ -485,44 +445,6 @@ components:
       - category
       - type
       - additionalKey
-    BlocksResponseDTO:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-      required:
-      - blocks
-    PagingResponseDTO:
-      type: object
-      properties:
-        limit:
-          type: number
-        offset:
-          type: number
-        size:
-          type: number
-        count:
-          type: string
-      required:
-      - limit
-      - size
-      - count
-    TransactionsPagingResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-        transactions:
-          type: array
-          items:
-            type: object
-      required:
-      - paging
-      - transactions
     TokenMediaRequestDTO:
       type: object
       properties:
@@ -539,13 +461,15 @@ components:
       - category
       - type
       - additionalKey
-    ChannelHeightResponseDTO:
+    TransactionsResponseDTO:
       type: object
       properties:
-        height:
-          type: string
+        transactions:
+          type: array
+          items:
+            type: object
       required:
-      - height
+      - transactions
     BlockDetailsDTO:
       type: object
       properties:
@@ -562,3 +486,79 @@ components:
       - channel
       - number
       - parsedBlock
+    BlocksResponseDTO:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDetailsDTO'
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+      required:
+      - blocks
+    ChannelHeightResponseDTO:
+      type: object
+      properties:
+        height:
+          type: string
+      required:
+      - height
+    SearchResponseDTO:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDetailsDTO'
+        search:
+          type: object
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+      required:
+      - blocks
+      - search
+      - paging
+    TransactionsPagingResponseDTO:
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+        transactions:
+          type: array
+          items:
+            type: object
+      required:
+      - paging
+      - transactions
+    SearchRequestDTO:
+      type: object
+      properties:
+        limit:
+          type: object
+          default: 20
+        offset:
+          type: object
+          default: 0
+        deepSearch:
+          type: object
+          default: false
+        search:
+          type: string
+      required:
+      - search
+    PagingResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: number
+        offset:
+          type: number
+        size:
+          type: number
+        count:
+          type: string
+      required:
+      - limit
+      - size
+      - count

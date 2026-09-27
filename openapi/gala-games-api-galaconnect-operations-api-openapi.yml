@@ -921,45 +921,26 @@ components:
             type: string
             example: '0'
             description: The number of uses of the swap that have been spent.
-    SwapOffered:
+    TokenClass:
       type: object
       required:
-      - quantity
-      - tokenInstance
+      - collection
+      - category
+      - type
+      - additionalKey
       properties:
-        quantity:
+        collection:
           type: string
-          example: '10'
-          description: The quantity of token offered.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
-    SignedRequest:
-      required:
-      - signature
-      - signerPublicKey
-      - uniqueKey
-      properties:
-        signature:
+          example: GALA
+        category:
           type: string
-          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
-        signerPublicKey:
+          example: Unit
+        type:
           type: string
-          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
-        uniqueKey:
+          example: none
+        additionalKey:
           type: string
-          example: galaconnect-operation-0123456789
-    SwapWanted:
-      type: object
-      required:
-      - quantity
-      - tokenInstance
-      properties:
-        quantity:
-          type: string
-          example: '10'
-          description: The quantity of token wanted.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
+          example: none
     SwappableToken:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
@@ -1005,6 +986,33 @@ components:
                 type: number
                 example: -6.421877021583615
                 description: The amount the price has changed in the last 24 hours. This property may be if this information is not available.
+    SignedRequest:
+      required:
+      - signature
+      - signerPublicKey
+      - uniqueKey
+      properties:
+        signature:
+          type: string
+          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
+        signerPublicKey:
+          type: string
+          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
+        uniqueKey:
+          type: string
+          example: galaconnect-operation-0123456789
+    SwapOffered:
+      type: object
+      required:
+      - quantity
+      - tokenInstance
+      properties:
+        quantity:
+          type: string
+          example: '10'
+          description: The quantity of token offered.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'
     NewSwap:
       type: object
       required:
@@ -1023,26 +1031,6 @@ components:
         uses:
           type: string
           example: '1'
-    TokenClass:
-      type: object
-      required:
-      - collection
-      - category
-      - type
-      - additionalKey
-      properties:
-        collection:
-          type: string
-          example: GALA
-        category:
-          type: string
-          example: Unit
-        type:
-          type: string
-          example: none
-        additionalKey:
-          type: string
-          example: none
     TokenInstance:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
@@ -1054,3 +1042,15 @@ components:
             type: string
             example: '0'
             description: The instance of the token (always "0" for fungible tokens)
+    SwapWanted:
+      type: object
+      required:
+      - quantity
+      - tokenInstance
+      properties:
+        quantity:
+          type: string
+          example: '10'
+          description: The quantity of token wanted.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'
