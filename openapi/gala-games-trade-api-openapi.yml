@@ -838,27 +838,17 @@ components:
       - token1
       - fee
       - initialSqrtPrice
-    CompositePoolDirectDTO:
+    CompositePoolQueryDTO:
       type: object
       properties:
         token0:
-          description: First token (TokenClassKey object)
-          example:
-            collection: GALA
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
+          type: string
+          description: 'First token (format: collection$category$type$additionalKey)'
+          example: GALA$Unit$none$none
         token1:
-          description: Second token (TokenClassKey object)
-          example:
-            collection: GUSDC
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
+          type: string
+          description: 'Second token (format: collection$category$type$additionalKey)'
+          example: GUSDC$Unit$none$none
         fee:
           enum:
           - 500
@@ -887,49 +877,6 @@ components:
       - category
       - type
       - additionalKey
-    CompositePoolQueryDTO:
-      type: object
-      properties:
-        token0:
-          type: string
-          description: 'First token (format: collection$category$type$additionalKey)'
-          example: GALA$Unit$none$none
-        token1:
-          type: string
-          description: 'Second token (format: collection$category$type$additionalKey)'
-          example: GUSDC$Unit$none$none
-        fee:
-          enum:
-          - 500
-          - 3000
-          - 10000
-          type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-      required:
-      - token0
-      - token1
-      - fee
-    ExecuteDTO:
-      type: object
-      properties:
-        type:
-          enum:
-          - swap
-          - collectFee
-          - addLiquidity
-          - removeLiquidity
-          - createPool
-          - collect
-          type: string
-        payload:
-          type: object
-        signature:
-          type: string
-      required:
-      - type
-      - payload
-      - signature
     AddLiquidityDTO:
       type: object
       properties:
@@ -982,25 +929,65 @@ components:
       - amount0Min
       - amount1Min
       - amount0Desired
-    GetPriceMultipleDTO:
+    CompositePoolDirectDTO:
       type: object
       properties:
-        tokens:
-          description: 'Array of tokens to get prices for (format: collection$category$type$additionalKey)'
+        token0:
+          description: First token (TokenClassKey object)
           example:
-          - collection: GALA
+            collection: GALA
             category: Unit
             type: none
             additionalKey: none
-          - collection: GUSDC
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: Second token (TokenClassKey object)
+          example:
+            collection: GUSDC
             category: Unit
             type: none
             additionalKey: none
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenDTO'
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
       required:
-      - tokens
+      - token0
+      - token1
+      - fee
+    BundleDTO:
+      type: object
+      properties:
+        type:
+          enum:
+          - swap
+          - collectFee
+          - addLiquidity
+          - removeLiquidity
+          - createPool
+          - collect
+          type: string
+        payload:
+          type: object
+        signature:
+          type: string
+        user:
+          type: string
+      required:
+      - type
+      - payload
+      - signature
+      - user
+    Object:
+      type: object
+      properties: {}
     CollectDTO:
       type: object
       properties:
@@ -1055,7 +1042,7 @@ components:
       - tickLower
       - amount0Requested
       - amount1Requested
-    BundleDTO:
+    ExecuteDTO:
       type: object
       properties:
         type:
@@ -1071,13 +1058,87 @@ components:
           type: object
         signature:
           type: string
-        user:
-          type: string
       required:
       - type
       - payload
       - signature
-      - user
+    BaseResponseDto:
+      type: object
+      properties:
+        status:
+          type: number
+        message:
+          type: string
+        error:
+          type: object
+        data:
+          type: object
+      required:
+      - status
+      - message
+      - error
+      - data
+    GetPriceMultipleDTO:
+      type: object
+      properties:
+        tokens:
+          description: 'Array of tokens to get prices for (format: collection$category$type$additionalKey)'
+          example:
+          - collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          - collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenDTO'
+      required:
+      - tokens
+    SwapDTO:
+      type: object
+      properties:
+        tokenIn:
+          description: 'Input token (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        tokenOut:
+          description: 'Output token (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        sqrtPriceLimit:
+          type: string
+        amountInMaximum:
+          type: string
+        amountOutMinimum:
+          type: string
+        amountIn:
+          type: string
+        amountOut:
+          type: string
+      required:
+      - tokenIn
+      - tokenOut
+      - fee
+      - sqrtPriceLimit
+      - amountInMaximum
+      - amountOutMinimum
     CompositePoolBatchDTO:
       type: object
       properties:
@@ -1140,67 +1201,6 @@ components:
       - amount
       - amount0Min
       - amount1Min
-    SwapDTO:
-      type: object
-      properties:
-        tokenIn:
-          description: 'Input token (format: collection$category$type$additionalKey)'
-          example:
-            collection: GALA
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        tokenOut:
-          description: 'Output token (format: collection$category$type$additionalKey)'
-          example:
-            collection: GUSDC
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        fee:
-          type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-        sqrtPriceLimit:
-          type: string
-        amountInMaximum:
-          type: string
-        amountOutMinimum:
-          type: string
-        amountIn:
-          type: string
-        amountOut:
-          type: string
-      required:
-      - tokenIn
-      - tokenOut
-      - fee
-      - sqrtPriceLimit
-      - amountInMaximum
-      - amountOutMinimum
-    Object:
-      type: object
-      properties: {}
-    BaseResponseDto:
-      type: object
-      properties:
-        status:
-          type: number
-        message:
-          type: string
-        error:
-          type: object
-        data:
-          type: object
-      required:
-      - status
-      - message
-      - error
-      - data
   securitySchemes:
     api-key:
       type: apiKey

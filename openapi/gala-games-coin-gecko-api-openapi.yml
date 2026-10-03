@@ -176,15 +176,13 @@ components:
       - name
       - symbol
       - decimals
-    GetEventsResponseDto:
+    GetAssetResponseDto:
       type: object
       properties:
-        events:
-          type: array
-          items:
-            type: object
+        asset:
+          $ref: '#/components/schemas/AssetDto'
       required:
-      - events
+      - asset
     GetPairResponseDto:
       type: object
       properties:
@@ -214,13 +212,6 @@ components:
       - name
       - assetIds
       - pairIds
-    LatestBlockResponseDto:
-      type: object
-      properties:
-        block:
-          $ref: '#/components/schemas/BlockDto'
-      required:
-      - block
     PairDto:
       type: object
       properties:
@@ -251,13 +242,22 @@ components:
       - dexKey
       - asset0Id
       - asset1Id
-    GetAssetResponseDto:
+    GetEventsResponseDto:
       type: object
       properties:
-        asset:
-          $ref: '#/components/schemas/AssetDto'
+        events:
+          type: array
+          items:
+            type: object
       required:
-      - asset
+      - events
+    LatestBlockResponseDto:
+      type: object
+      properties:
+        block:
+          $ref: '#/components/schemas/BlockDto'
+      required:
+      - block
   securitySchemes:
     api-key:
       type: apiKey

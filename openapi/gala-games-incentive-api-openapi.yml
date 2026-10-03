@@ -188,50 +188,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    IncentiveProgramAnalytics:
-      type: object
-      properties: {}
-    ActiveIncentiveProgramResponse:
+    EnrollPositionDto:
       type: object
       properties:
-        id:
+        programId:
           type: number
-        name:
+        walletAddress:
           type: string
-        poolHash:
+        positionId:
           type: string
-        bonusToken:
-          type: string
-        bonusPoolAmount:
-          type: string
-        status:
-          type: string
-        startTime:
-          format: date-time
-          type: string
-        endTime:
-          format: date-time
-          type: string
-        requiresFullRange:
-          type: boolean
-        minPositionValueUsd:
+        minTick:
           type: number
-        termsUrl:
-          type: string
-        totalTvl:
-          type: string
-        participantCount:
+        maxTick:
           type: number
+        liquidityAmount:
+          type: string
+        termsAcceptedTxHash:
+          type: string
       required:
-      - id
-      - name
-      - poolHash
-      - bonusToken
-      - bonusPoolAmount
-      - status
-      - startTime
-      - endTime
-      - requiresFullRange
+      - programId
+      - walletAddress
+      - positionId
+      - minTick
+      - maxTick
+      - liquidityAmount
     IncentiveRewardResponse:
       type: object
       properties:
@@ -276,30 +256,50 @@ components:
       - isQualified
       - programStartTime
       - programEndTime
-    EnrollPositionDto:
+    ActiveIncentiveProgramResponse:
       type: object
       properties:
-        programId:
+        id:
           type: number
-        walletAddress:
+        name:
           type: string
-        positionId:
+        poolHash:
           type: string
-        minTick:
+        bonusToken:
+          type: string
+        bonusPoolAmount:
+          type: string
+        status:
+          type: string
+        startTime:
+          format: date-time
+          type: string
+        endTime:
+          format: date-time
+          type: string
+        requiresFullRange:
+          type: boolean
+        minPositionValueUsd:
           type: number
-        maxTick:
+        termsUrl:
+          type: string
+        totalTvl:
+          type: string
+        participantCount:
           type: number
-        liquidityAmount:
-          type: string
-        termsAcceptedTxHash:
-          type: string
       required:
-      - programId
-      - walletAddress
-      - positionId
-      - minTick
-      - maxTick
-      - liquidityAmount
+      - id
+      - name
+      - poolHash
+      - bonusToken
+      - bonusPoolAmount
+      - status
+      - startTime
+      - endTime
+      - requiresFullRange
+    IncentiveProgramAnalytics:
+      type: object
+      properties: {}
     IncentiveProgramPosition:
       type: object
       properties: {}
