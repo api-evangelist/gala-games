@@ -349,6 +349,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - PriceOracle
+  tags_raw:
   - price-oracle
   properties:
   - type: OpenAPI
@@ -466,6 +468,8 @@ apis:
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
+  - WhatsNew
+  tags_raw:
   - Whats New
   properties:
   - type: OpenAPI
