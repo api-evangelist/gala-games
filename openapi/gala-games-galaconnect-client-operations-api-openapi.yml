@@ -192,26 +192,32 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    TokenClass:
-      type: object
+    TokenInstance:
+      allOf:
+      - $ref: '#/components/schemas/TokenClass'
+      - type: object
+        required:
+        - instance
+        properties:
+          instance:
+            type: string
+            example: '0'
+            description: The instance of the token (always "0" for fungible tokens)
+    SignedRequest:
       required:
-      - collection
-      - category
-      - type
-      - additionalKey
+      - signature
+      - signerPublicKey
+      - uniqueKey
       properties:
-        collection:
+        signature:
           type: string
-          example: GALA
-        category:
+          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
+        signerPublicKey:
           type: string
-          example: Unit
-        type:
+          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
+        uniqueKey:
           type: string
-          example: none
-        additionalKey:
-          type: string
-          example: none
+          example: galaconnect-operation-0123456789
     NewProjectTokenDetails:
       required:
       - decimals
@@ -272,29 +278,23 @@ components:
           type: string
           example: https://example.com/image.png
           description: 'A URL to an image that represents your token. This should be an icon 256x256 pixels in size, and it will be shown for your token on GalaConnect. For reference, see the $GALA icon: https://static.gala.games/images/icons/units/gala.png'
-    TokenInstance:
-      allOf:
-      - $ref: '#/components/schemas/TokenClass'
-      - type: object
-        required:
-        - instance
-        properties:
-          instance:
-            type: string
-            example: '0'
-            description: The instance of the token (always "0" for fungible tokens)
-    SignedRequest:
+    TokenClass:
+      type: object
       required:
-      - signature
-      - signerPublicKey
-      - uniqueKey
+      - collection
+      - category
+      - type
+      - additionalKey
       properties:
-        signature:
+        collection:
           type: string
-          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
-        signerPublicKey:
+          example: GALA
+        category:
           type: string
-          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
-        uniqueKey:
+          example: Unit
+        type:
           type: string
-          example: galaconnect-operation-0123456789
+          example: none
+        additionalKey:
+          type: string
+          example: none

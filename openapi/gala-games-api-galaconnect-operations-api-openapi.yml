@@ -901,21 +901,26 @@ components:
             type: string
             example: '0'
             description: The instance of the token (always "0" for fungible tokens)
-    SignedRequest:
+    TokenClass:
+      type: object
       required:
-      - signature
-      - signerPublicKey
-      - uniqueKey
+      - collection
+      - category
+      - type
+      - additionalKey
       properties:
-        signature:
+        collection:
           type: string
-          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
-        signerPublicKey:
+          example: GALA
+        category:
           type: string
-          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
-        uniqueKey:
+          example: Unit
+        type:
           type: string
-          example: galaconnect-operation-0123456789
+          example: none
+        additionalKey:
+          type: string
+          example: none
     NewSwap:
       type: object
       required:
@@ -934,6 +939,18 @@ components:
         uses:
           type: string
           example: '1'
+    SwapWanted:
+      type: object
+      required:
+      - quantity
+      - tokenInstance
+      properties:
+        quantity:
+          type: string
+          example: '10'
+          description: The quantity of token wanted.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'
     SwapOffered:
       type: object
       required:
@@ -946,6 +963,37 @@ components:
           description: The quantity of token offered.
         tokenInstance:
           $ref: '#/components/schemas/TokenInstance'
+    Swap:
+      allOf:
+      - $ref: '#/components/schemas/NewSwap'
+      - type: object
+        required:
+        - created
+        - expires
+        - offeredBy
+        - swapRequestId
+        - usesSpent
+        properties:
+          created:
+            type: integer
+            example: 1711982017548
+            description: The date and time the swap was created in milliseconds since the Unix epoch.
+          expires:
+            type: integer
+            example: 0
+            description: The date and time the swap expires. Normally this will be zero, indicating no expiration.
+          offeredBy:
+            type: string
+            example: client|123456789abcdef012345678
+            description: The wallet address of the user who created the swap.
+          swapRequestId:
+            type: string
+            example: GCTSR17063182605809b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2
+            description: The unique identifier of the swap.
+          usesSpent:
+            type: string
+            example: '0'
+            description: The number of uses of the swap that have been spent.
     SwappableToken:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
@@ -991,66 +1039,18 @@ components:
                 type: number
                 example: -6.421877021583615
                 description: The amount the price has changed in the last 24 hours. This property may be if this information is not available.
-    SwapWanted:
-      type: object
+    SignedRequest:
       required:
-      - quantity
-      - tokenInstance
+      - signature
+      - signerPublicKey
+      - uniqueKey
       properties:
-        quantity:
+        signature:
           type: string
-          example: '10'
-          description: The quantity of token wanted.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
-    TokenClass:
-      type: object
-      required:
-      - collection
-      - category
-      - type
-      - additionalKey
-      properties:
-        collection:
+          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
+        signerPublicKey:
           type: string
-          example: GALA
-        category:
+          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
+        uniqueKey:
           type: string
-          example: Unit
-        type:
-          type: string
-          example: none
-        additionalKey:
-          type: string
-          example: none
-    Swap:
-      allOf:
-      - $ref: '#/components/schemas/NewSwap'
-      - type: object
-        required:
-        - created
-        - expires
-        - offeredBy
-        - swapRequestId
-        - usesSpent
-        properties:
-          created:
-            type: integer
-            example: 1711982017548
-            description: The date and time the swap was created in milliseconds since the Unix epoch.
-          expires:
-            type: integer
-            example: 0
-            description: The date and time the swap expires. Normally this will be zero, indicating no expiration.
-          offeredBy:
-            type: string
-            example: client|123456789abcdef012345678
-            description: The wallet address of the user who created the swap.
-          swapRequestId:
-            type: string
-            example: GCTSR17063182605809b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2
-            description: The unique identifier of the swap.
-          usesSpent:
-            type: string
-            example: '0'
-            description: The number of uses of the swap that have been spent.
+          example: galaconnect-operation-0123456789

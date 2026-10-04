@@ -140,6 +140,44 @@ paths:
       - coin gecko
 components:
   schemas:
+    LatestBlockResponseDto:
+      type: object
+      properties:
+        block:
+          $ref: '#/components/schemas/BlockDto'
+      required:
+      - block
+    GetEventsResponseDto:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+      required:
+      - events
+    PoolDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        assetIds:
+          type: array
+          items:
+            type: string
+        pairIds:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+      required:
+      - id
+      - name
+      - assetIds
+      - pairIds
     BlockDto:
       type: object
       properties:
@@ -176,42 +214,6 @@ components:
       - name
       - symbol
       - decimals
-    GetAssetResponseDto:
-      type: object
-      properties:
-        asset:
-          $ref: '#/components/schemas/AssetDto'
-      required:
-      - asset
-    GetPairResponseDto:
-      type: object
-      properties:
-        pair:
-          $ref: '#/components/schemas/PairDto'
-      required:
-      - pair
-    PoolDto:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        assetIds:
-          type: array
-          items:
-            type: string
-        pairIds:
-          type: array
-          items:
-            type: string
-        metadata:
-          type: object
-      required:
-      - id
-      - name
-      - assetIds
-      - pairIds
     PairDto:
       type: object
       properties:
@@ -242,22 +244,20 @@ components:
       - dexKey
       - asset0Id
       - asset1Id
-    GetEventsResponseDto:
+    GetAssetResponseDto:
       type: object
       properties:
-        events:
-          type: array
-          items:
-            type: object
+        asset:
+          $ref: '#/components/schemas/AssetDto'
       required:
-      - events
-    LatestBlockResponseDto:
+      - asset
+    GetPairResponseDto:
       type: object
       properties:
-        block:
-          $ref: '#/components/schemas/BlockDto'
+        pair:
+          $ref: '#/components/schemas/PairDto'
       required:
-      - block
+      - pair
   securitySchemes:
     api-key:
       type: apiKey

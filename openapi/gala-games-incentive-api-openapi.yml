@@ -188,6 +188,47 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ActiveIncentiveProgramResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        poolHash:
+          type: string
+        bonusToken:
+          type: string
+        bonusPoolAmount:
+          type: string
+        status:
+          type: string
+        startTime:
+          format: date-time
+          type: string
+        endTime:
+          format: date-time
+          type: string
+        requiresFullRange:
+          type: boolean
+        minPositionValueUsd:
+          type: number
+        termsUrl:
+          type: string
+        totalTvl:
+          type: string
+        participantCount:
+          type: number
+      required:
+      - id
+      - name
+      - poolHash
+      - bonusToken
+      - bonusPoolAmount
+      - status
+      - startTime
+      - endTime
+      - requiresFullRange
     EnrollPositionDto:
       type: object
       properties:
@@ -212,6 +253,12 @@ components:
       - minTick
       - maxTick
       - liquidityAmount
+    IncentiveProgramPosition:
+      type: object
+      properties: {}
+    IncentiveProgramAnalytics:
+      type: object
+      properties: {}
     IncentiveRewardResponse:
       type: object
       properties:
@@ -256,53 +303,6 @@ components:
       - isQualified
       - programStartTime
       - programEndTime
-    ActiveIncentiveProgramResponse:
-      type: object
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-        poolHash:
-          type: string
-        bonusToken:
-          type: string
-        bonusPoolAmount:
-          type: string
-        status:
-          type: string
-        startTime:
-          format: date-time
-          type: string
-        endTime:
-          format: date-time
-          type: string
-        requiresFullRange:
-          type: boolean
-        minPositionValueUsd:
-          type: number
-        termsUrl:
-          type: string
-        totalTvl:
-          type: string
-        participantCount:
-          type: number
-      required:
-      - id
-      - name
-      - poolHash
-      - bonusToken
-      - bonusPoolAmount
-      - status
-      - startTime
-      - endTime
-      - requiresFullRange
-    IncentiveProgramAnalytics:
-      type: object
-      properties: {}
-    IncentiveProgramPosition:
-      type: object
-      properties: {}
   securitySchemes:
     api-key:
       type: apiKey

@@ -867,51 +867,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    MintConfiguration:
-      allOf:
-      - $ref: '#/components/schemas/TokenClass'
-      - type: object
-        properties:
-          additionalFee:
-            required:
-            - flatFee
-            properties:
-              flatFee:
-                type: number
-                example: 100
-          postMintBurn:
-            required:
-            - burnPercentage
-            properties:
-              burnPercentage:
-                type: number
-                example: 0.1
-          postMintLock:
-            required:
-            - expirationModifier
-            - lockAuthority
-            - lockName
-            - lockPercentage
-            properties:
-              expirationModifier:
-                type: number
-                example: 86400000
-              lockAuthority:
-                type: string
-                example: client|123456789abcdef012345678
-              lockName:
-                type: string
-                example: post-mint-lock
-              lockPercentage:
-                type: number
-                example: 0.1
-          preMintBurn:
-            required:
-            - burnPercentage
-            properties:
-              burnPercentage:
-                type: number
-                example: 0.1
     TokenInstance:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
@@ -923,52 +878,26 @@ components:
             type: string
             example: '0'
             description: The instance of the token (always "0" for fungible tokens)
-    SignedRequest:
+    TokenClass:
+      type: object
       required:
-      - signature
-      - signerPublicKey
-      - uniqueKey
+      - collection
+      - category
+      - type
+      - additionalKey
       properties:
-        signature:
+        collection:
           type: string
-          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
-        signerPublicKey:
+          example: GALA
+        category:
           type: string
-          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
-        uniqueKey:
+          example: Unit
+        type:
           type: string
-          example: galaconnect-operation-0123456789
-    TokenClassWithSupply:
-      allOf:
-      - $ref: '#/components/schemas/TokenClass'
-      - type: object
-        required:
-        - supply
-        - knownMintAllowanceSupply
-        - knownMintSupply
-        - maxCapacity
-        - maxSupply
-        - totalBurned
-        - totalSupply
-        properties:
-          knownMintAllowanceSupply:
-            type: string
-            example: '1000000'
-          knownMintSupply:
-            type: string
-            example: '1000000'
-          maxCapacity:
-            type: string
-            example: '100000000'
-          maxSupply:
-            type: string
-            example: '100000000'
-          totalBurned:
-            type: string
-            example: '1000'
-          totalSupply:
-            type: string
-            example: '1000000'
+          example: none
+        additionalKey:
+          type: string
+          example: none
     NewSwap:
       type: object
       required:
@@ -987,6 +916,30 @@ components:
         uses:
           type: string
           example: '1'
+    SwapWanted:
+      type: object
+      required:
+      - quantity
+      - tokenInstance
+      properties:
+        quantity:
+          type: string
+          example: '10'
+          description: The quantity of token wanted.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'
+    SwapOffered:
+      type: object
+      required:
+      - quantity
+      - tokenInstance
+      properties:
+        quantity:
+          type: string
+          example: '10'
+          description: The quantity of token offered.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'
     Allowance:
       type: object
       required:
@@ -1055,30 +1008,6 @@ components:
           type: integer
           example: 1711982017548
           description: The date and time the allowance was created in milliseconds since the Unix epoch.
-    SwapOffered:
-      type: object
-      required:
-      - quantity
-      - tokenInstance
-      properties:
-        quantity:
-          type: string
-          example: '10'
-          description: The quantity of token offered.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
-    SwapWanted:
-      type: object
-      required:
-      - quantity
-      - tokenInstance
-      properties:
-        quantity:
-          type: string
-          example: '10'
-          description: The quantity of token wanted.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
     AllowanceType:
       type: integer
       description: 'The type of allowance. Some allowance types might not have any current use cases. The possible values are: `0` (Use), `1` (Lock), `2` (Spend), `3` (Transfer), `4` (Mint), `5` (Swap), `6` (Burn). If you specify this, you MUST also specify `instance`.'
@@ -1101,26 +1030,51 @@ components:
       - title: Burn
         const: 6
         description: An allowance to burn another wallet's tokens.
-    TokenClass:
-      type: object
-      required:
-      - collection
-      - category
-      - type
-      - additionalKey
-      properties:
-        collection:
-          type: string
-          example: GALA
-        category:
-          type: string
-          example: Unit
-        type:
-          type: string
-          example: none
-        additionalKey:
-          type: string
-          example: none
+    MintConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/TokenClass'
+      - type: object
+        properties:
+          additionalFee:
+            required:
+            - flatFee
+            properties:
+              flatFee:
+                type: number
+                example: 100
+          postMintBurn:
+            required:
+            - burnPercentage
+            properties:
+              burnPercentage:
+                type: number
+                example: 0.1
+          postMintLock:
+            required:
+            - expirationModifier
+            - lockAuthority
+            - lockName
+            - lockPercentage
+            properties:
+              expirationModifier:
+                type: number
+                example: 86400000
+              lockAuthority:
+                type: string
+                example: client|123456789abcdef012345678
+              lockName:
+                type: string
+                example: post-mint-lock
+              lockPercentage:
+                type: number
+                example: 0.1
+          preMintBurn:
+            required:
+            - burnPercentage
+            properties:
+              burnPercentage:
+                type: number
+                example: 0.1
     Swap:
       allOf:
       - $ref: '#/components/schemas/NewSwap'
@@ -1152,3 +1106,49 @@ components:
             type: string
             example: '0'
             description: The number of uses of the swap that have been spent.
+    SignedRequest:
+      required:
+      - signature
+      - signerPublicKey
+      - uniqueKey
+      properties:
+        signature:
+          type: string
+          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
+        signerPublicKey:
+          type: string
+          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
+        uniqueKey:
+          type: string
+          example: galaconnect-operation-0123456789
+    TokenClassWithSupply:
+      allOf:
+      - $ref: '#/components/schemas/TokenClass'
+      - type: object
+        required:
+        - supply
+        - knownMintAllowanceSupply
+        - knownMintSupply
+        - maxCapacity
+        - maxSupply
+        - totalBurned
+        - totalSupply
+        properties:
+          knownMintAllowanceSupply:
+            type: string
+            example: '1000000'
+          knownMintSupply:
+            type: string
+            example: '1000000'
+          maxCapacity:
+            type: string
+            example: '100000000'
+          maxSupply:
+            type: string
+            example: '100000000'
+          totalBurned:
+            type: string
+            example: '1000'
+          totalSupply:
+            type: string
+            example: '1000000'
