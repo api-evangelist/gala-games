@@ -44,7 +44,7 @@ x-type: company
 x-source: harvest:secondary-market
 specificationVersion: '0.23'
 created: '2026-08-16'
-modified: '2026-08-16'
+modified: '2026-10-06'
 tags:
 - Company
 - Blockchain
@@ -479,6 +479,8 @@ apis:
   - type: DataModel
     url: data-model/gala-games-data-model.yml
 common:
+- url: https://connect.gala.com/blog/
+  type: Blog
 - type: License
   name: Apache-2.0
   url: https://github.com/GalaChain/sdk/blob/main/LICENSE
