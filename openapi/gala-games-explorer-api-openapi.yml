@@ -408,15 +408,46 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TransactionsResponseDTO:
+    SearchResponseDTO:
       type: object
       properties:
-        transactions:
+        blocks:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/BlockDetailsDTO'
+        search:
+          type: object
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
       required:
-      - transactions
+      - blocks
+      - search
+      - paging
+    BlindBlocksResponseDTO:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDetailsDTO'
+      required:
+      - blocks
+    TokenMediaRequestDTO:
+      type: object
+      properties:
+        collection:
+          type: string
+        category:
+          type: string
+        type:
+          type: string
+        additionalKey:
+          type: string
+      required:
+      - collection
+      - category
+      - type
+      - additionalKey
     SearchRequestDTO:
       type: object
       properties:
@@ -433,26 +464,42 @@ components:
           type: string
       required:
       - search
-    TokenListDTO:
+    TransactionsResponseDTO:
       type: object
       properties:
-        tokens:
+        transactions:
           type: array
           items:
-            $ref: '#/components/schemas/TokenMediaRequestDTO'
+            type: object
       required:
-      - tokens
-    BlocksResponseDTO:
+      - transactions
+    TransactionsPagingResponseDTO:
       type: object
       properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
         paging:
           $ref: '#/components/schemas/PagingResponseDTO'
+        transactions:
+          type: array
+          items:
+            type: object
       required:
-      - blocks
+      - paging
+      - transactions
+    PagingResponseDTO:
+      type: object
+      properties:
+        limit:
+          type: number
+        offset:
+          type: number
+        size:
+          type: number
+        count:
+          type: string
+      required:
+      - limit
+      - size
+      - count
     BlockDetailsDTO:
       type: object
       properties:
@@ -469,6 +516,17 @@ components:
       - channel
       - number
       - parsedBlock
+    BlocksResponseDTO:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDetailsDTO'
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+      required:
+      - blocks
     ChannelHeightResponseDTO:
       type: object
       properties:
@@ -476,6 +534,15 @@ components:
           type: string
       required:
       - height
+    TokenListDTO:
+      type: object
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenMediaRequestDTO'
+      required:
+      - tokens
     TokenClassImageDTO:
       type: object
       properties:
@@ -495,70 +562,3 @@ components:
       - category
       - type
       - additionalKey
-    PagingResponseDTO:
-      type: object
-      properties:
-        limit:
-          type: number
-        offset:
-          type: number
-        size:
-          type: number
-        count:
-          type: string
-      required:
-      - limit
-      - size
-      - count
-    TokenMediaRequestDTO:
-      type: object
-      properties:
-        collection:
-          type: string
-        category:
-          type: string
-        type:
-          type: string
-        additionalKey:
-          type: string
-      required:
-      - collection
-      - category
-      - type
-      - additionalKey
-    TransactionsPagingResponseDTO:
-      type: object
-      properties:
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-        transactions:
-          type: array
-          items:
-            type: object
-      required:
-      - paging
-      - transactions
-    BlindBlocksResponseDTO:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
-      required:
-      - blocks
-    SearchResponseDTO:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
-        search:
-          type: object
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-      required:
-      - blocks
-      - search
-      - paging

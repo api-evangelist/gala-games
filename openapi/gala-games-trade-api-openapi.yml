@@ -802,110 +802,18 @@ paths:
       - Trade
 components:
   schemas:
-    ExecuteDTO:
+    CompositePoolBatchDTO:
       type: object
       properties:
-        type:
-          enum:
-          - swap
-          - collectFee
-          - addLiquidity
-          - removeLiquidity
-          - createPool
-          - collect
-          type: string
-        payload:
-          type: object
-        signature:
-          type: string
-      required:
-      - type
-      - payload
-      - signature
-    BaseResponseDto:
-      type: object
-      properties:
-        status:
-          type: number
-        message:
-          type: string
-        error:
-          type: object
-        data:
-          type: object
-      required:
-      - status
-      - message
-      - error
-      - data
-    CompositePoolQueryDTO:
-      type: object
-      properties:
-        token0:
-          type: string
-          description: 'First token (format: collection$category$type$additionalKey)'
-          example: GALA$Unit$none$none
-        token1:
-          type: string
-          description: 'Second token (format: collection$category$type$additionalKey)'
-          example: GUSDC$Unit$none$none
-        fee:
-          enum:
-          - 500
-          - 3000
-          - 10000
-          type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-      required:
-      - token0
-      - token1
-      - fee
-    Object:
-      type: object
-      properties: {}
-    BundleDTO:
-      type: object
-      properties:
-        type:
-          enum:
-          - swap
-          - collectFee
-          - addLiquidity
-          - removeLiquidity
-          - createPool
-          - collect
-          type: string
-        payload:
-          type: object
-        signature:
-          type: string
-        user:
-          type: string
-      required:
-      - type
-      - payload
-      - signature
-      - user
-    GetPriceMultipleDTO:
-      type: object
-      properties:
-        tokens:
-          description: 'Array of tokens to get prices for (format: collection$category$type$additionalKey)'
-          example:
-          - collection: GALA
-            category: Unit
-            type: none
-            additionalKey: none
-          - collection: GUSDC
-            category: Unit
-            type: none
-            additionalKey: none
+        pairs:
+          minItems: 1
+          maxItems: 50
+          description: Pools to read (1-50).
           type: array
           items:
-            $ref: '#/components/schemas/TokenDTO'
+            $ref: '#/components/schemas/CompositePoolQueryDTO'
       required:
-      - tokens
+      - pairs
     CompositePoolDirectDTO:
       type: object
       properties:
@@ -939,6 +847,45 @@ components:
       - token0
       - token1
       - fee
+    GetPriceMultipleDTO:
+      type: object
+      properties:
+        tokens:
+          description: 'Array of tokens to get prices for (format: collection$category$type$additionalKey)'
+          example:
+          - collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          - collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenDTO'
+      required:
+      - tokens
+    ExecuteDTO:
+      type: object
+      properties:
+        type:
+          enum:
+          - swap
+          - collectFee
+          - addLiquidity
+          - removeLiquidity
+          - createPool
+          - collect
+          type: string
+        payload:
+          type: object
+        signature:
+          type: string
+      required:
+      - type
+      - payload
+      - signature
     CollectDTO:
       type: object
       properties:
@@ -993,34 +940,6 @@ components:
       - tickLower
       - amount0Requested
       - amount1Requested
-    CompositePoolBatchDTO:
-      type: object
-      properties:
-        pairs:
-          minItems: 1
-          maxItems: 50
-          description: Pools to read (1-50).
-          type: array
-          items:
-            $ref: '#/components/schemas/CompositePoolQueryDTO'
-      required:
-      - pairs
-    TokenDTO:
-      type: object
-      properties:
-        collection:
-          type: string
-        category:
-          type: string
-        type:
-          type: string
-        additionalKey:
-          type: string
-      required:
-      - collection
-      - category
-      - type
-      - additionalKey
     SwapDTO:
       type: object
       properties:
@@ -1063,6 +982,173 @@ components:
       - sqrtPriceLimit
       - amountInMaximum
       - amountOutMinimum
+    BaseResponseDto:
+      type: object
+      properties:
+        status:
+          type: number
+        message:
+          type: string
+        error:
+          type: object
+        data:
+          type: object
+      required:
+      - status
+      - message
+      - error
+      - data
+    CompositePoolQueryDTO:
+      type: object
+      properties:
+        token0:
+          type: string
+          description: 'First token (format: collection$category$type$additionalKey)'
+          example: GALA$Unit$none$none
+        token1:
+          type: string
+          description: 'Second token (format: collection$category$type$additionalKey)'
+          example: GUSDC$Unit$none$none
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+      required:
+      - token0
+      - token1
+      - fee
+    BundleDTO:
+      type: object
+      properties:
+        type:
+          enum:
+          - swap
+          - collectFee
+          - addLiquidity
+          - removeLiquidity
+          - createPool
+          - collect
+          type: string
+        payload:
+          type: object
+        signature:
+          type: string
+        user:
+          type: string
+      required:
+      - type
+      - payload
+      - signature
+      - user
+    BurnDTO:
+      type: object
+      properties:
+        token0:
+          description: 'First token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        tickUpper:
+          type: number
+        tickLower:
+          type: number
+        tickRangeCheck:
+          type: boolean
+          default: true
+        amount:
+          type: string
+        amount0Min:
+          type: string
+        amount1Min:
+          type: string
+        positionId:
+          type: string
+          description: Position ID (for existing positions)
+      required:
+      - token0
+      - token1
+      - fee
+      - tickUpper
+      - tickLower
+      - amount
+      - amount0Min
+      - amount1Min
+    CreatePoolDTO:
+      type: object
+      properties:
+        token0:
+          description: 'First token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GALA
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        token1:
+          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
+          example:
+            collection: GUSDC
+            category: Unit
+            type: none
+            additionalKey: none
+          allOf:
+          - $ref: '#/components/schemas/TokenDTO'
+        fee:
+          enum:
+          - 500
+          - 3000
+          - 10000
+          type: number
+          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
+          example: 3000
+        initialSqrtPrice:
+          type: string
+      required:
+      - token0
+      - token1
+      - fee
+      - initialSqrtPrice
+    TokenDTO:
+      type: object
+      properties:
+        collection:
+          type: string
+        category:
+          type: string
+        type:
+          type: string
+        additionalKey:
+          type: string
+      required:
+      - collection
+      - category
+      - type
+      - additionalKey
+    Object:
+      type: object
+      properties: {}
     AddLiquidityDTO:
       type: object
       properties:
@@ -1115,92 +1201,6 @@ components:
       - amount0Min
       - amount1Min
       - amount0Desired
-    CreatePoolDTO:
-      type: object
-      properties:
-        token0:
-          description: 'First token in the pool (format: collection$category$type$additionalKey)'
-          example:
-            collection: GALA
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        token1:
-          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
-          example:
-            collection: GUSDC
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        fee:
-          enum:
-          - 500
-          - 3000
-          - 10000
-          type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-        initialSqrtPrice:
-          type: string
-      required:
-      - token0
-      - token1
-      - fee
-      - initialSqrtPrice
-    BurnDTO:
-      type: object
-      properties:
-        token0:
-          description: 'First token in the pool (format: collection$category$type$additionalKey)'
-          example:
-            collection: GALA
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        token1:
-          description: 'Second token in the pool (format: collection$category$type$additionalKey)'
-          example:
-            collection: GUSDC
-            category: Unit
-            type: none
-            additionalKey: none
-          allOf:
-          - $ref: '#/components/schemas/TokenDTO'
-        fee:
-          type: number
-          description: 'Fee tier: 500 (0.05%), 3000 (0.3%), or 10000 (1%)'
-          example: 3000
-        tickUpper:
-          type: number
-        tickLower:
-          type: number
-        tickRangeCheck:
-          type: boolean
-          default: true
-        amount:
-          type: string
-        amount0Min:
-          type: string
-        amount1Min:
-          type: string
-        positionId:
-          type: string
-          description: Position ID (for existing positions)
-      required:
-      - token0
-      - token1
-      - fee
-      - tickUpper
-      - tickLower
-      - amount
-      - amount0Min
-      - amount1Min
   securitySchemes:
     api-key:
       type: apiKey

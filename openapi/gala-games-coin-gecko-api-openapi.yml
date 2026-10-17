@@ -140,6 +140,13 @@ paths:
       - coin gecko
 components:
   schemas:
+    GetAssetResponseDto:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/AssetDto'
+      required:
+      - asset
     LatestBlockResponseDto:
       type: object
       properties:
@@ -147,37 +154,13 @@ components:
           $ref: '#/components/schemas/BlockDto'
       required:
       - block
-    GetEventsResponseDto:
+    GetPairResponseDto:
       type: object
       properties:
-        events:
-          type: array
-          items:
-            type: object
+        pair:
+          $ref: '#/components/schemas/PairDto'
       required:
-      - events
-    PoolDto:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        assetIds:
-          type: array
-          items:
-            type: string
-        pairIds:
-          type: array
-          items:
-            type: string
-        metadata:
-          type: object
-      required:
-      - id
-      - name
-      - assetIds
-      - pairIds
+      - pair
     BlockDto:
       type: object
       properties:
@@ -190,30 +173,6 @@ components:
       required:
       - blockNumber
       - blockTimestamp
-    AssetDto:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        symbol:
-          type: string
-        decimals:
-          type: number
-        totalSupply:
-          type: number
-        circulatingSupply:
-          type: number
-        coinGeckoId:
-          type: string
-        metadata:
-          type: object
-      required:
-      - id
-      - name
-      - symbol
-      - decimals
     PairDto:
       type: object
       properties:
@@ -244,20 +203,61 @@ components:
       - dexKey
       - asset0Id
       - asset1Id
-    GetAssetResponseDto:
+    AssetDto:
       type: object
       properties:
-        asset:
-          $ref: '#/components/schemas/AssetDto'
+        id:
+          type: string
+        name:
+          type: string
+        symbol:
+          type: string
+        decimals:
+          type: number
+        totalSupply:
+          type: number
+        circulatingSupply:
+          type: number
+        coinGeckoId:
+          type: string
+        metadata:
+          type: object
       required:
-      - asset
-    GetPairResponseDto:
+      - id
+      - name
+      - symbol
+      - decimals
+    PoolDto:
       type: object
       properties:
-        pair:
-          $ref: '#/components/schemas/PairDto'
+        id:
+          type: string
+        name:
+          type: string
+        assetIds:
+          type: array
+          items:
+            type: string
+        pairIds:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
       required:
-      - pair
+      - id
+      - name
+      - assetIds
+      - pairIds
+    GetEventsResponseDto:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+      required:
+      - events
   securitySchemes:
     api-key:
       type: apiKey
