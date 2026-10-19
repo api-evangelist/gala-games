@@ -462,14 +462,28 @@ apis:
     url: errors/gala-games-problem-types.yml
   - type: DataModel
     url: data-model/gala-games-data-model.yml
+- aid: gala-games:gala-games-docs-api
+  name: Gala Games Docs API
+  description: The Docs API from Gala Games — 2 operation(s) for docs.
+  humanURL: https://gateway-mainnet.galachain.com/docs
+  baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
+  tags:
+  - Docs
+  properties:
+  - type: OpenAPI
+    url: openapi/gala-games-docs-api-openapi.yml
+  - type: RateLimits
+    url: rate-limits/gala-games-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/gala-games-problem-types.yml
+  - type: DataModel
+    url: data-model/gala-games-data-model.yml
 - aid: gala-games:gala-games-whats-new-api
   name: Gala Games Whats New API
   description: The Whats New API from Gala Games — 1 operation(s) for whats new.
   humanURL: https://gateway-mainnet.galachain.com/docs
   baseURL: https://gateway-mainnet.galachain.com/api/asset/token-contract
   tags:
-  - WhatsNew
-  tags_raw:
   - Whats New
   properties:
   - type: OpenAPI

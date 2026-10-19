@@ -1,0 +1,42 @@
+openapi: 3.2.0
+info:
+  description: 'An entry point to the GalaChain network. Available contracts:
+
+
+    `asset/dexv3-contract` `asset/fee-contract` `asset/public-key-contract` `asset/token-contract` `championsarena/token-contract` `echoesofempire/token-contract` `eternalparadox/token-contract` `galafilm/token-contract` `lastexpedition/token-contract` `legacy/token-contract` `legendsreborn/token-contract` `mirandus/token-contract` `music/token-contract` `node/token-contract` `superior/token-contract` `thewalkingdeadempires/token-contract` `vox/token-contract`.'
+  title: GalaChain Gateway Docs API
+  version: 3.0.9
+tags:
+- name: Docs
+paths:
+  /docs:
+    get:
+      operationId: SwaggerUI
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Docs
+      summary: Swagger UI
+      x-summary-source: derived
+  /docs-json:
+    get:
+      operationId: GetOpenApi
+      parameters:
+      - in: query
+        name: channel
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: contract
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Docs
+      summary: Get open api
+      x-summary-source: derived

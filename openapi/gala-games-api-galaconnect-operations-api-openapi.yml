@@ -5,7 +5,41 @@ info:
   description: '# Getting Started
 
 
-    GalaConnect offers a public API for programmatic use cases.'
+    GalaConnect offers a public API for programmatic use cases. The base URI for all requests is `https://api-galaswap.gala.com`. ## Authentication
+
+
+    Using the GalaConnect API requires a Gala account, which can be created at games.gala.com. You must have your GalaChain wallet address, private key, and public key, in order to use the API. Any write operation (creating swaps, accepting swaps, terminating swaps) via the API needs the following in order to be accepted by GalaChain:
+
+
+    1. Your GalaChain wallet address as an `X-Wallet-Address` header. 2. Your GalaChain public key as a `signerPublicKey` property in the request body, in base64 encoding. 3. A signature for the request body signed with your private key, as a `signature` property in the request body. ### Creating a Wallet
+
+
+    After creating an account on games.gala.com, visit account settings and follow the instructions to create a GalaChain "transfer code", which also initializes your GalaChain wallet. Keep your transfer code safe and secure. You will need it in the next step. ### Getting your Private Key
+
+
+    Once you have a GalaChain wallet, visit account settings and download your GalaChain private key. Note that this link has a `&plaintext` query parameter to trigger it to download your private key in plaintext as an advanced user. This key is used to sign requests to the GalaConnect API. Your key will be downloaded in a text file which will also contain your GalaChain wallet address, which will look something like `client|123456789abcdef012345678`, and which you should provide in API requests as the `X-Wallet-Address` header. ### Getting your Public Key
+
+
+    To get your public key, you can make the following request to the GalaConnect API, substituting your GalaChain wallet address for `YOUR_WALLET_ADDRESS_HERE`:
+
+
+    ```bash
+
+    curl --request POST \
+
+    --url https://api-galaswap.gala.com/galachain/api/asset/public-key-contract/GetPublicKey \
+
+    --header ''Content-Type: application/json'' \
+
+    --data ''{"user": "YOUR_WALLET_ADDRESS_HERE"}''
+
+    ```
+
+
+    Your public key will be returned as a base64 encoded string in the response body. It will look something like `Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY`. For any request that requires a signature, you must include your public key in the request body as a `signerPublicKey` property. ### Request Signing
+
+
+    Any request to the GalaConnect API that executes a write operation (creating swaps, accepting swaps, terminating swaps) must be signed using your GalaChain private key with a secp256k1 signature. To calculate the signature for a request, first recursively order the properties of the request body alphabetically by name. Then, stringify the object to a minimal JSON string. Use your private key to calculate the signature on the keccak256 hash of the stringified object. The signature must be normalized such that it''s less than or equal to half of the secp256k1 curve''s order n. Provide the signature in the request body as a property named "signature".'
   x-logo:
     url: https://connect.gala.com/img/hero-image.png
     backgroundColor: rgb(18, 18, 18)
@@ -890,6 +924,55 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Swap:
+      allOf:
+      - $ref: '#/components/schemas/NewSwap'
+      - type: object
+        required:
+        - created
+        - expires
+        - offeredBy
+        - swapRequestId
+        - usesSpent
+        properties:
+          created:
+            type: integer
+            example: 1711982017548
+            description: The date and time the swap was created in milliseconds since the Unix epoch.
+          expires:
+            type: integer
+            example: 0
+            description: The date and time the swap expires. Normally this will be zero, indicating no expiration.
+          offeredBy:
+            type: string
+            example: client|123456789abcdef012345678
+            description: The wallet address of the user who created the swap.
+          swapRequestId:
+            type: string
+            example: GCTSR17063182605809b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2
+            description: The unique identifier of the swap.
+          usesSpent:
+            type: string
+            example: '0'
+            description: The number of uses of the swap that have been spent.
+    NewSwap:
+      type: object
+      required:
+      - offered
+      - wanted
+      - uses
+      properties:
+        offered:
+          type: array
+          items:
+            $ref: '#/components/schemas/SwapOffered'
+        wanted:
+          type: array
+          items:
+            $ref: '#/components/schemas/SwapWanted'
+        uses:
+          type: string
+          example: '1'
     SwappableToken:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
@@ -935,55 +1018,18 @@ components:
                 type: number
                 example: -6.421877021583615
                 description: The amount the price has changed in the last 24 hours. This property may be if this information is not available.
-    NewSwap:
+    SwapWanted:
       type: object
       required:
-      - offered
-      - wanted
-      - uses
+      - quantity
+      - tokenInstance
       properties:
-        offered:
-          type: array
-          items:
-            $ref: '#/components/schemas/SwapOffered'
-        wanted:
-          type: array
-          items:
-            $ref: '#/components/schemas/SwapWanted'
-        uses:
+        quantity:
           type: string
-          example: '1'
-    Swap:
-      allOf:
-      - $ref: '#/components/schemas/NewSwap'
-      - type: object
-        required:
-        - created
-        - expires
-        - offeredBy
-        - swapRequestId
-        - usesSpent
-        properties:
-          created:
-            type: integer
-            example: 1711982017548
-            description: The date and time the swap was created in milliseconds since the Unix epoch.
-          expires:
-            type: integer
-            example: 0
-            description: The date and time the swap expires. Normally this will be zero, indicating no expiration.
-          offeredBy:
-            type: string
-            example: client|123456789abcdef012345678
-            description: The wallet address of the user who created the swap.
-          swapRequestId:
-            type: string
-            example: GCTSR17063182605809b5fca57bfcfe2b9bf9ecf8593ced274ff28bed85fb23eb6fb6f33978a343df2
-            description: The unique identifier of the swap.
-          usesSpent:
-            type: string
-            example: '0'
-            description: The number of uses of the swap that have been spent.
+          example: '10'
+          description: The quantity of token wanted.
+        tokenInstance:
+          $ref: '#/components/schemas/TokenInstance'
     TokenInstance:
       allOf:
       - $ref: '#/components/schemas/TokenClass'
@@ -995,7 +1041,22 @@ components:
             type: string
             example: '0'
             description: The instance of the token (always "0" for fungible tokens)
-    SwapWanted:
+    SignedRequest:
+      required:
+      - signature
+      - signerPublicKey
+      - uniqueKey
+      properties:
+        signature:
+          type: string
+          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
+        signerPublicKey:
+          type: string
+          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
+        uniqueKey:
+          type: string
+          example: galaconnect-operation-0123456789
+    SwapOffered:
       type: object
       required:
       - quantity
@@ -1004,7 +1065,7 @@ components:
         quantity:
           type: string
           example: '10'
-          description: The quantity of token wanted.
+          description: The quantity of token offered.
         tokenInstance:
           $ref: '#/components/schemas/TokenInstance'
     TokenClass:
@@ -1027,30 +1088,3 @@ components:
         additionalKey:
           type: string
           example: none
-    SwapOffered:
-      type: object
-      required:
-      - quantity
-      - tokenInstance
-      properties:
-        quantity:
-          type: string
-          example: '10'
-          description: The quantity of token offered.
-        tokenInstance:
-          $ref: '#/components/schemas/TokenInstance'
-    SignedRequest:
-      required:
-      - signature
-      - signerPublicKey
-      - uniqueKey
-      properties:
-        signature:
-          type: string
-          example: MEUCIQCnXjZicvodRl0Hwyv6V1a3VU9WMsaVIxThVm0FTeuESwIgKDvv7z23QslMY6mEgSjzCK8A5LR7LV2WLCf+3CgPkPA=
-        signerPublicKey:
-          type: string
-          example: Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY
-        uniqueKey:
-          type: string
-          example: galaconnect-operation-0123456789

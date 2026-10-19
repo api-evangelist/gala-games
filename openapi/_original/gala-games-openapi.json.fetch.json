@@ -1,0 +1,12 @@
+{
+ "url": "https://gateway-mainnet.galachain.com/docs-json",
+ "final": "https://gateway-mainnet.galachain.com/docs-json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 2518,
+ "sha256": "158fb3d319de1d7482ab4298f666220dd002eff2e7d83d470a54a8257a504d7e",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

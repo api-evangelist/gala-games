@@ -8,7 +8,8 @@
     "_original/gala-games-galachain-asset-launchpad-contract-openapi.json",
     "_original/gala-games-galachain-asset-public-key-contract-openapi.json",
     "_original/gala-games-galachain-asset-token-contract-openapi.json",
-    "_original/gala-games-galaconnect-openapi.json"
+    "_original/gala-games-galaconnect-openapi.json",
+    "_original/gala-games-openapi.json"
   ],
   "outputs": [
     "gala-games-explorer-api-openapi.yml",
@@ -34,7 +35,8 @@
     "gala-games-methods-api-openapi.yml",
     "gala-games-api-galachain-operations-api-openapi.yml",
     "gala-games-api-galaconnect-operations-api-openapi.yml",
-    "gala-games-galaconnect-client-operations-api-openapi.yml"
+    "gala-games-galaconnect-client-operations-api-openapi.yml",
+    "gala-games-docs-api-openapi.yml"
   ],
   "archived": [
     "deleted 1 superseded output(s) from the previous generation"
@@ -44,7 +46,7 @@
   ],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (8 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sourced from openapi/_original/ (9 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "gala-games-block-explorer-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "gala-games-block-explorer-openapi.json: declared missing tag: Explorer",
     "gala-games-block-explorer-openapi.json: declared missing tag: Health",
@@ -70,9 +72,11 @@
     "gala-games-galachain-asset-token-contract-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "gala-games-galachain-asset-token-contract-openapi.json: declared missing tag: Methods",
     "gala-games-galaconnect-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "gala-games-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "gala-games-openapi.json: declared missing tag: Docs",
     "tag 'Methods' spans 5 source specs (gala-games-galachain-asset-dexv3-contract-openapi.json, gala-games-galachain-asset-fee-contract-openapi.json, gala-games-galachain-asset-launchpad-contract-openapi.json, gala-games-galachain-asset-public-key-contract-openapi.json, gala-games-galachain-asset-token-contract-openapi.json): per-path servers applied",
     "superseded outputs removed: gala-games-whats-new-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 24 total)"
+    "apis.yml register: written (+2 apis, 25 total)"
   ],
   "skipped": [
     "gala-games-api-galachain-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",

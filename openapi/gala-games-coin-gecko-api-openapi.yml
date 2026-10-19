@@ -140,20 +140,6 @@ paths:
       - coin gecko
 components:
   schemas:
-    GetAssetResponseDto:
-      type: object
-      properties:
-        asset:
-          $ref: '#/components/schemas/AssetDto'
-      required:
-      - asset
-    LatestBlockResponseDto:
-      type: object
-      properties:
-        block:
-          $ref: '#/components/schemas/BlockDto'
-      required:
-      - block
     GetPairResponseDto:
       type: object
       properties:
@@ -161,18 +147,51 @@ components:
           $ref: '#/components/schemas/PairDto'
       required:
       - pair
-    BlockDto:
+    LatestBlockResponseDto:
       type: object
       properties:
-        blockNumber:
-          type: number
-        blockTimestamp:
-          type: number
+        block:
+          $ref: '#/components/schemas/BlockDto'
+      required:
+      - block
+    PoolDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        assetIds:
+          type: array
+          items:
+            type: string
+        pairIds:
+          type: array
+          items:
+            type: string
         metadata:
           type: object
       required:
-      - blockNumber
-      - blockTimestamp
+      - id
+      - name
+      - assetIds
+      - pairIds
+    GetAssetResponseDto:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/AssetDto'
+      required:
+      - asset
+    GetEventsResponseDto:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+      required:
+      - events
     PairDto:
       type: object
       properties:
@@ -203,6 +222,18 @@ components:
       - dexKey
       - asset0Id
       - asset1Id
+    BlockDto:
+      type: object
+      properties:
+        blockNumber:
+          type: number
+        blockTimestamp:
+          type: number
+        metadata:
+          type: object
+      required:
+      - blockNumber
+      - blockTimestamp
     AssetDto:
       type: object
       properties:
@@ -227,37 +258,6 @@ components:
       - name
       - symbol
       - decimals
-    PoolDto:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        assetIds:
-          type: array
-          items:
-            type: string
-        pairIds:
-          type: array
-          items:
-            type: string
-        metadata:
-          type: object
-      required:
-      - id
-      - name
-      - assetIds
-      - pairIds
-    GetEventsResponseDto:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            type: object
-      required:
-      - events
   securitySchemes:
     api-key:
       type: apiKey

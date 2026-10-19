@@ -5,7 +5,41 @@ info:
   description: '# Getting Started
 
 
-    GalaConnect offers a public API for programmatic use cases.'
+    GalaConnect offers a public API for programmatic use cases. The base URI for all requests is `https://api-galaswap.gala.com`. ## Authentication
+
+
+    Using the GalaConnect API requires a Gala account, which can be created at games.gala.com. You must have your GalaChain wallet address, private key, and public key, in order to use the API. Any write operation (creating swaps, accepting swaps, terminating swaps) via the API needs the following in order to be accepted by GalaChain:
+
+
+    1. Your GalaChain wallet address as an `X-Wallet-Address` header. 2. Your GalaChain public key as a `signerPublicKey` property in the request body, in base64 encoding. 3. A signature for the request body signed with your private key, as a `signature` property in the request body. ### Creating a Wallet
+
+
+    After creating an account on games.gala.com, visit account settings and follow the instructions to create a GalaChain "transfer code", which also initializes your GalaChain wallet. Keep your transfer code safe and secure. You will need it in the next step. ### Getting your Private Key
+
+
+    Once you have a GalaChain wallet, visit account settings and download your GalaChain private key. Note that this link has a `&plaintext` query parameter to trigger it to download your private key in plaintext as an advanced user. This key is used to sign requests to the GalaConnect API. Your key will be downloaded in a text file which will also contain your GalaChain wallet address, which will look something like `client|123456789abcdef012345678`, and which you should provide in API requests as the `X-Wallet-Address` header. ### Getting your Public Key
+
+
+    To get your public key, you can make the following request to the GalaConnect API, substituting your GalaChain wallet address for `YOUR_WALLET_ADDRESS_HERE`:
+
+
+    ```bash
+
+    curl --request POST \
+
+    --url https://api-galaswap.gala.com/galachain/api/asset/public-key-contract/GetPublicKey \
+
+    --header ''Content-Type: application/json'' \
+
+    --data ''{"user": "YOUR_WALLET_ADDRESS_HERE"}''
+
+    ```
+
+
+    Your public key will be returned as a base64 encoded string in the response body. It will look something like `Anm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeY`. For any request that requires a signature, you must include your public key in the request body as a `signerPublicKey` property. ### Request Signing
+
+
+    Any request to the GalaConnect API that executes a write operation (creating swaps, accepting swaps, terminating swaps) must be signed using your GalaChain private key with a secp256k1 signature. To calculate the signature for a request, first recursively order the properties of the request body alphabetically by name. Then, stringify the object to a minimal JSON string. Use your private key to calculate the signature on the keccak256 hash of the stringified object. The signature must be normalized such that it''s less than or equal to half of the secp256k1 curve''s order n. Provide the signature in the request body as a property named "signature".'
   x-logo:
     url: https://connect.gala.com/img/hero-image.png
     backgroundColor: rgb(18, 18, 18)
@@ -192,37 +226,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    TokenClass:
-      type: object
-      required:
-      - collection
-      - category
-      - type
-      - additionalKey
-      properties:
-        collection:
-          type: string
-          example: GALA
-        category:
-          type: string
-          example: Unit
-        type:
-          type: string
-          example: none
-        additionalKey:
-          type: string
-          example: none
-    TokenInstance:
-      allOf:
-      - $ref: '#/components/schemas/TokenClass'
-      - type: object
-        required:
-        - instance
-        properties:
-          instance:
-            type: string
-            example: '0'
-            description: The instance of the token (always "0" for fungible tokens)
     NewProjectTokenDetails:
       required:
       - decimals
@@ -283,6 +286,17 @@ components:
           type: string
           example: https://example.com/image.png
           description: 'A URL to an image that represents your token. This should be an icon 256x256 pixels in size, and it will be shown for your token on GalaConnect. For reference, see the $GALA icon: https://static.gala.games/images/icons/units/gala.png'
+    TokenInstance:
+      allOf:
+      - $ref: '#/components/schemas/TokenClass'
+      - type: object
+        required:
+        - instance
+        properties:
+          instance:
+            type: string
+            example: '0'
+            description: The instance of the token (always "0" for fungible tokens)
     SignedRequest:
       required:
       - signature
@@ -298,3 +312,23 @@ components:
         uniqueKey:
           type: string
           example: galaconnect-operation-0123456789
+    TokenClass:
+      type: object
+      required:
+      - collection
+      - category
+      - type
+      - additionalKey
+      properties:
+        collection:
+          type: string
+          example: GALA
+        category:
+          type: string
+          example: Unit
+        type:
+          type: string
+          example: none
+        additionalKey:
+          type: string
+          example: none

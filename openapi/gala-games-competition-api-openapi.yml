@@ -193,13 +193,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EnrollDto:
-      type: object
-      properties:
-        walletAddress:
-          type: string
-      required:
-      - walletAddress
     OpenChestDto:
       type: object
       properties:
@@ -212,6 +205,13 @@ components:
       required:
       - walletAddress
       - tierNumber
+    EnrollDto:
+      type: object
+      properties:
+        walletAddress:
+          type: string
+      required:
+      - walletAddress
   securitySchemes:
     api-key:
       type: apiKey

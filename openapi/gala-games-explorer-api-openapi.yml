@@ -408,6 +408,77 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    TransactionsResponseDTO:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            type: object
+      required:
+      - transactions
+    BlockDetailsDTO:
+      type: object
+      properties:
+        block:
+          type: object
+        channel:
+          type: string
+        number:
+          type: string
+        parsedBlock:
+          type: object
+      required:
+      - block
+      - channel
+      - number
+      - parsedBlock
+    SearchRequestDTO:
+      type: object
+      properties:
+        limit:
+          type: object
+          default: 20
+        offset:
+          type: object
+          default: 0
+        deepSearch:
+          type: object
+          default: false
+        search:
+          type: string
+      required:
+      - search
+    TokenClassImageDTO:
+      type: object
+      properties:
+        image:
+          type: string
+        collection:
+          type: string
+        category:
+          type: string
+        type:
+          type: string
+        additionalKey:
+          type: string
+      required:
+      - image
+      - collection
+      - category
+      - type
+      - additionalKey
+    BlocksResponseDTO:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockDetailsDTO'
+        paging:
+          $ref: '#/components/schemas/PagingResponseDTO'
+      required:
+      - blocks
     SearchResponseDTO:
       type: object
       properties:
@@ -423,6 +494,15 @@ components:
       - blocks
       - search
       - paging
+    TokenListDTO:
+      type: object
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenMediaRequestDTO'
+      required:
+      - tokens
     BlindBlocksResponseDTO:
       type: object
       properties:
@@ -448,31 +528,6 @@ components:
       - category
       - type
       - additionalKey
-    SearchRequestDTO:
-      type: object
-      properties:
-        limit:
-          type: object
-          default: 20
-        offset:
-          type: object
-          default: 0
-        deepSearch:
-          type: object
-          default: false
-        search:
-          type: string
-      required:
-      - search
-    TransactionsResponseDTO:
-      type: object
-      properties:
-        transactions:
-          type: array
-          items:
-            type: object
-      required:
-      - transactions
     TransactionsPagingResponseDTO:
       type: object
       properties:
@@ -485,6 +540,13 @@ components:
       required:
       - paging
       - transactions
+    ChannelHeightResponseDTO:
+      type: object
+      properties:
+        height:
+          type: string
+      required:
+      - height
     PagingResponseDTO:
       type: object
       properties:
@@ -500,65 +562,3 @@ components:
       - limit
       - size
       - count
-    BlockDetailsDTO:
-      type: object
-      properties:
-        block:
-          type: object
-        channel:
-          type: string
-        number:
-          type: string
-        parsedBlock:
-          type: object
-      required:
-      - block
-      - channel
-      - number
-      - parsedBlock
-    BlocksResponseDTO:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockDetailsDTO'
-        paging:
-          $ref: '#/components/schemas/PagingResponseDTO'
-      required:
-      - blocks
-    ChannelHeightResponseDTO:
-      type: object
-      properties:
-        height:
-          type: string
-      required:
-      - height
-    TokenListDTO:
-      type: object
-      properties:
-        tokens:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenMediaRequestDTO'
-      required:
-      - tokens
-    TokenClassImageDTO:
-      type: object
-      properties:
-        image:
-          type: string
-        collection:
-          type: string
-        category:
-          type: string
-        type:
-          type: string
-        additionalKey:
-          type: string
-      required:
-      - image
-      - collection
-      - category
-      - type
-      - additionalKey
